@@ -30,10 +30,6 @@ apis:
     contact:
       - FN: Shutterstock
         url: https://www.shutterstock.com/developers/contact-us
-    overlays:
-      - type: APIs.io Search
-        url: >-
-          overlays/https://api.apis.guru/v2/specs/shutterstock.com/1.1.32/openapi.yaml-openapi-search.yml
     aid: shutterstock:shutterstock-api
 common:
   - type: GettingStarted
