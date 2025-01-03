@@ -366,3 +366,6 @@ maintainers:
     url: https://apievangelist.com
     email: info@apievangelist.com
 specificationVersion: '0.18'
+type: Contract
+position: Consuming
+access: 3rd-Party
