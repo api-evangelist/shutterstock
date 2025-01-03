@@ -2,8 +2,8 @@ aid: shutterstock
 url: >-
   https://raw.githubusercontent.com/api-search/images/main/_apis/shutterstock/apis.md
 apis:
-  - aid: shutterstock:shutterstock-api
-    name: Shutterstock API
+  - aid: shutterstock:shutterstock-ai-api
+    name: Shutterstock AI API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -12,32 +12,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - url: https://api-reference.shutterstock.com/
-        type: Documentation
-      - url: https://api.apis.guru/v2/specs/shutterstock.com/1.1.32/openapi.yaml
+      - url: openapi/shutterstock-ai-api-openapi.yml
         type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
-  - aid: shutterstock:shutterstock-ai-api
-    name: Shutterstock Ai  API
-    tags: []
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
-    baseURL: https://api.example.com
-    contact:
-      - FN: Shutterstock
-        url: https://www.shutterstock.com/developers/contact-us
-    humanURL: https://www.shutterstock.com/developers
-    properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-ai-api-openapi.yml
-    description: |-
-      The Shutterstock API powers leading tech
-      companies across video, advertising,
-      web design, and more.
   - aid: shutterstock:shutterstock-audio-api
-    name: Shutterstock Audio  API
+    name: Shutterstock Audio API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -46,14 +28,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-audio-api-openapi.yml
+      - url: openapi/shutterstock-audio-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-bulk-search-api
-    name: Shutterstock Bulk Search  API
+    name: Shutterstock Bulk Search API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -62,14 +44,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-bulk-search-api-openapi.yml
+      - url: openapi/shutterstock-bulk-search-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-catalog-api
-    name: Shutterstock Catalog  API
+    name: Shutterstock Catalog API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -78,14 +60,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-catalog-api-openapi.yml
+      - url: openapi/shutterstock-catalog-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-contributors-api
-    name: Shutterstock Contributors  API
+    name: Shutterstock Contributors API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -94,14 +76,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-contributors-api-openapi.yml
+      - url: openapi/shutterstock-contributors-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-cv-api
-    name: Shutterstock Cv  API
+    name: Shutterstock CV API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -110,14 +92,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-cv-api-openapi.yml
+      - url: openapi/shutterstock-cv-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-editorial-api
-    name: Shutterstock Editorial  API
+    name: Shutterstock Editorial API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -126,14 +108,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-editorial-api-openapi.yml
+      - url: openapi/shutterstock-editorial-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-images-api
-    name: Shutterstock Images  API
+    name: Shutterstock Images API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -142,14 +124,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-images-api-openapi.yml
+      - url: openapi/shutterstock-images-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-oauth-api
-    name: Shutterstock Oauth  API
+    name: Shutterstock OAuth API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -158,14 +140,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-oauth-api-openapi.yml
+      - url: openapi/shutterstock-oauth-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-sfx-api
-    name: Shutterstock Sfx  API
+    name: Shutterstock SFX API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -174,14 +156,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-sfx-api-openapi.yml
+      - url: openapi/shutterstock-sfx-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-test-api
-    name: Shutterstock Test  API
+    name: Shutterstock Test API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -190,14 +172,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-test-api-openapi.yml
+      - url: openapi/shutterstock-test-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-user-api
-    name: Shutterstock User  API
+    name: Shutterstock User API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -206,14 +188,14 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-user-api-openapi.yml
+      - url: openapi/shutterstock-user-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
       web design, and more.
   - aid: shutterstock:shutterstock-videos-api
-    name: Shutterstock Videos  API
+    name: Shutterstock Videos API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -222,8 +204,8 @@ apis:
         url: https://www.shutterstock.com/developers/contact-us
     humanURL: https://www.shutterstock.com/developers
     properties:
-      - type: OpenAPI
-        url: openapi/shutterstock-videos-api-openapi.yml
+      - url: openapi/shutterstock-videos-api-openapi.yml
+        type: OpenAPI
     description: |-
       The Shutterstock API powers leading tech
       companies across video, advertising,
