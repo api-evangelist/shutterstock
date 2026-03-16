@@ -349,7 +349,7 @@ common:
   - url: https://www.shutterstock.com/api/pricing
     type: Plans
 created: 2023/10/6
-modified: '2025-01-03'
+modified: '2026-03-16'
 description: >-
   Shutterstock is a leading global technology company that specializes in
   providing high-quality images, videos, and music to businesses, individuals,
@@ -362,9 +362,9 @@ description: >-
   offerings, Shutterstock also offers custom solutions and services to help
   clients achieve their unique creative goals.
 maintainers:
-  - FN: API Evangelist
+  - FN: Kin Lane
     url: https://apievangelist.com
-    email: info@apievangelist.com
+    email: kin@apievangelist.com
 specificationVersion: '0.18'
 type: Contract
 position: Consuming
