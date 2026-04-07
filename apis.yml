@@ -5,8 +5,7 @@ apis:
   - aid: shutterstock:shutterstock-ai-api
     name: Shutterstock AI API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -27,8 +26,7 @@ apis:
   - aid: shutterstock:shutterstock-audio-api
     name: Shutterstock Audio API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -48,8 +46,7 @@ apis:
   - aid: shutterstock:shutterstock-bulk-search-api
     name: Shutterstock Bulk Search API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -69,8 +66,7 @@ apis:
   - aid: shutterstock:shutterstock-catalog-api
     name: Shutterstock Catalog API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -92,8 +88,7 @@ apis:
   - aid: shutterstock:shutterstock-contributors-api
     name: Shutterstock Contributors API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -114,8 +109,7 @@ apis:
   - aid: shutterstock:shutterstock-cv-api
     name: Shutterstock CV API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -137,8 +131,7 @@ apis:
   - aid: shutterstock:shutterstock-editorial-api
     name: Shutterstock Editorial API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -159,8 +152,7 @@ apis:
   - aid: shutterstock:shutterstock-images-api
     name: Shutterstock Images API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -181,8 +173,7 @@ apis:
   - aid: shutterstock:shutterstock-oauth-api
     name: Shutterstock OAuth API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -202,8 +193,7 @@ apis:
   - aid: shutterstock:shutterstock-sfx-api
     name: Shutterstock SFX API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -224,8 +214,7 @@ apis:
   - aid: shutterstock:shutterstock-test-api
     name: Shutterstock Test API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -247,8 +236,7 @@ apis:
   - aid: shutterstock:shutterstock-user-api
     name: Shutterstock User API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -270,8 +258,7 @@ apis:
   - aid: shutterstock:shutterstock-videos-api
     name: Shutterstock Videos API
     tags: []
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     contact:
       - FN: Shutterstock
@@ -291,12 +278,11 @@ apis:
 name: Shutterstock
 tags:
   - Images
-  - Photos
   - Media
-  - Videos
+  - Photos
   - Stock Images
-image: 
-  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  - Videos
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 common:
   - url: https://www.shutterstock.com/developers/documentation/getting-started
     type: GettingStarted
