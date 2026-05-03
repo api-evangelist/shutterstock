@@ -1,0 +1,102 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "shutterstock": "https://api.shutterstock.com/vocab#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "cc": "https://creativecommons.org/ns#",
+
+    "Image": "schema:ImageObject",
+    "Video": "schema:VideoObject",
+    "Audio": "schema:AudioObject",
+    "Contributor": "schema:Person",
+    "Collection": "schema:Collection",
+
+    "id": "@id",
+    "description": "schema:description",
+    "name": "schema:name",
+    "url": "schema:url",
+    "keywords": "schema:keywords",
+    "categories": "schema:about",
+    "duration": "schema:duration",
+    "width": "schema:width",
+    "height": "schema:height",
+
+    "image_type": {
+      "@id": "shutterstock:imageType",
+      "@type": "@vocab"
+    },
+    "media_type": {
+      "@id": "shutterstock:mediaType",
+      "@type": "@vocab"
+    },
+    "is_editorial": {
+      "@id": "shutterstock:isEditorial",
+      "@type": "xsd:boolean"
+    },
+    "is_adult": {
+      "@id": "shutterstock:isAdult",
+      "@type": "xsd:boolean"
+    },
+    "is_illustration": {
+      "@id": "shutterstock:isIllustration",
+      "@type": "xsd:boolean"
+    },
+    "added_date": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:date"
+    },
+    "contributor": {
+      "@id": "schema:creator"
+    },
+    "assets": {
+      "@id": "shutterstock:assets"
+    },
+    "releases": {
+      "@id": "shutterstock:releases",
+      "@container": "@list"
+    },
+    "has_model_release": {
+      "@id": "shutterstock:hasModelRelease",
+      "@type": "xsd:boolean"
+    },
+    "has_property_release": {
+      "@id": "shutterstock:hasPropertyRelease",
+      "@type": "xsd:boolean"
+    },
+    "license": {
+      "@id": "cc:license",
+      "@type": "@id"
+    },
+    "aspect": {
+      "@id": "shutterstock:aspectRatio",
+      "@type": "xsd:decimal"
+    },
+    "subscription_id": {
+      "@id": "shutterstock:subscriptionId",
+      "@type": "xsd:string"
+    },
+    "format": {
+      "@id": "schema:encodingFormat"
+    },
+    "file_size": {
+      "@id": "schema:contentSize"
+    },
+    "total_count": {
+      "@id": "shutterstock:totalCount",
+      "@type": "xsd:integer"
+    },
+    "page": {
+      "@id": "shutterstock:page",
+      "@type": "xsd:integer"
+    },
+    "per_page": {
+      "@id": "shutterstock:perPage",
+      "@type": "xsd:integer"
+    },
+    "search_id": {
+      "@id": "shutterstock:searchId",
+      "@type": "xsd:string"
+    }
+  }
+}

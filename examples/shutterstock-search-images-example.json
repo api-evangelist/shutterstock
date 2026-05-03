@@ -1,0 +1,73 @@
+{
+  "title": "Search Images Example",
+  "description": "Example request and response for searching Shutterstock stock images",
+  "request": {
+    "method": "GET",
+    "url": "https://api.shutterstock.com/v2/images/search",
+    "headers": {
+      "Authorization": "Bearer YOUR_OAUTH_ACCESS_TOKEN",
+      "User-Agent": "MyApplication/1.0"
+    },
+    "queryParameters": {
+      "query": "sunset beach tropical",
+      "image_type": "photo",
+      "orientation": "horizontal",
+      "color": "f4a123",
+      "per_page": "10",
+      "page": "1",
+      "sort": "popular"
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": [
+        {
+          "id": "1234567890",
+          "description": "Beautiful golden sunset over tropical beach with palm trees",
+          "image_type": "photo",
+          "is_editorial": false,
+          "is_adult": false,
+          "is_illustration": false,
+          "media_type": "image",
+          "added_date": "2024-03-15",
+          "contributor": {
+            "id": "987654321"
+          },
+          "assets": {
+            "preview": {
+              "url": "https://thumb7.shutterstock.com/display_pic_with_logo/987654321/1234567890/stock-photo-beautiful-golden-sunset-1234567890.jpg",
+              "width": 450,
+              "height": 300,
+              "format": "jpg"
+            },
+            "large_thumb": {
+              "url": "https://thumb7.shutterstock.com/display_pic/987654321/1234567890/stock-photo-1234567890.jpg",
+              "width": 150,
+              "height": 100,
+              "format": "jpg"
+            },
+            "small": {
+              "url": null,
+              "width": 1000,
+              "height": 667,
+              "format": "jpg"
+            }
+          },
+          "categories": [
+            { "id": "12", "name": "Nature" },
+            { "id": "25", "name": "Travel" }
+          ],
+          "keywords": ["sunset", "beach", "tropical", "palm", "ocean", "golden", "horizon", "vacation"]
+        }
+      ],
+      "page": 1,
+      "per_page": 10,
+      "total_count": 1847293,
+      "search_id": "search-abc123-xyz789"
+    }
+  }
+}

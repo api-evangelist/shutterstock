@@ -1,0 +1,90 @@
+extends: spectral:oas
+rules:
+  shutterstock-operation-tags:
+    description: All operations must have at least one tag
+    message: "Operation must have at least one tag"
+    given: "$.paths[*][*]"
+    severity: error
+    then:
+      field: tags
+      function: truthy
+
+  shutterstock-operation-summary:
+    description: All operations must have a summary
+    message: "Operation must have a summary"
+    given: "$.paths[*][*]"
+    severity: error
+    then:
+      field: summary
+      function: truthy
+
+  shutterstock-v2-path-prefix:
+    description: All API paths must begin with /v2
+    message: "API paths must use /v2 prefix"
+    given: "$.paths"
+    severity: error
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/v2"
+
+  shutterstock-response-200:
+    description: All GET operations must have a 200 response
+    message: "GET operation must define a 200 response"
+    given: "$.paths[*].get.responses"
+    severity: error
+    then:
+      field: "200"
+      function: truthy
+
+  shutterstock-oauth-security:
+    description: The API must define OAuth 2.0 security scheme
+    message: "API must include OAuth 2.0 security scheme definition"
+    given: "$.components.securitySchemes"
+    severity: error
+    then:
+      function: defined
+
+  shutterstock-search-query-param:
+    description: Search endpoints must have a query parameter
+    message: "Search endpoints should include a search query parameter"
+    given: "$.paths[?(@property.includes('search'))].get.parameters[?(@.name == 'query')]"
+    severity: warn
+    then:
+      field: required
+      function: defined
+
+  shutterstock-license-operation:
+    description: License endpoints must use POST method
+    message: "Licensing operations should use POST"
+    given: "$.paths[?(@property.includes('licenses'))].post"
+    severity: warn
+    then:
+      field: operationId
+      function: truthy
+
+  shutterstock-collection-naming:
+    description: Collection endpoints should follow consistent naming
+    message: "Collection operations should be documented consistently"
+    given: "$.paths[?(@property.includes('collections'))][*]"
+    severity: warn
+    then:
+      field: summary
+      function: truthy
+
+  shutterstock-operation-id:
+    description: All operations must have an operationId
+    message: "Operation must have an operationId"
+    given: "$.paths[*][*]"
+    severity: error
+    then:
+      field: operationId
+      function: truthy
+
+  shutterstock-page-parameter:
+    description: List endpoints should support pagination
+    message: "List endpoints should document page or per_page parameters"
+    given: "$.paths[*].get.parameters"
+    severity: info
+    then:
+      function: defined

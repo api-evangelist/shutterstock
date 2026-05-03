@@ -1,0 +1,203 @@
+title: Shutterstock Vocabulary
+description: >-
+  Domain vocabulary for the Shutterstock media API platform. Covers media
+  asset types, licensing models, content classifications, search concepts,
+  collection management, contributor terminology, and computer vision features.
+version: '1.0'
+source: https://api.shutterstock.com
+created: '2026-05-02'
+modified: '2026-05-02'
+
+terms:
+  - term: Royalty-Free License
+    definition: >-
+      A licensing model where a one-time fee grants perpetual rights to use
+      the asset without paying additional royalties per use. Shutterstock
+      standard and enhanced licenses are royalty-free.
+    tags:
+      - Licensing
+      - Core
+
+  - term: Standard License
+    definition: >-
+      Shutterstock's base licensing tier allowing use in digital media, websites,
+      social media, and print up to 500,000 copies. Included with subscription plans.
+    tags:
+      - Licensing
+
+  - term: Enhanced License
+    definition: >-
+      Shutterstock's premium licensing tier allowing unlimited print runs,
+      resale items, and product packaging. Purchased separately per asset.
+    tags:
+      - Licensing
+
+  - term: Editorial License
+    definition: >-
+      A license for editorial use only (news, documentary, education). Editorial
+      assets cannot be used for commercial advertising or promotional purposes.
+    tags:
+      - Licensing
+      - Editorial
+
+  - term: Stock Photo
+    definition: >-
+      A professionally photographed image available for licensing through
+      Shutterstock. Photos are identified by image_type: photo in the API.
+    tags:
+      - Asset Types
+
+  - term: Illustration
+    definition: >-
+      A hand-drawn or digitally created artwork available for licensing.
+      Identified by image_type: illustration in the API.
+    tags:
+      - Asset Types
+
+  - term: Vector
+    definition: >-
+      A scalable, mathematically defined artwork in EPS format. Available at
+      any resolution without quality loss. Identified by image_type: vector.
+    tags:
+      - Asset Types
+
+  - term: Editorial Content
+    definition: >-
+      Images and videos depicting real people, events, and places intended for
+      news and documentary use. Cannot be used for commercial advertising.
+      Accessed via /v2/editorial endpoints.
+    tags:
+      - Asset Types
+      - Editorial
+
+  - term: Contributor
+    definition: >-
+      A photographer, videographer, or artist who creates and submits content
+      to Shutterstock for licensing. Contributors earn royalties on each license.
+    tags:
+      - Contributors
+
+  - term: Collection
+    definition: >-
+      A user-curated grouping of assets saved in a Shutterstock account.
+      Collections can contain images, videos, or audio tracks and are managed
+      via the collections endpoints.
+    tags:
+      - Collections
+
+  - term: Featured Collection
+    definition: >-
+      A curated collection of images assembled by Shutterstock editors
+      showcasing content around a specific theme or topic. Read-only via API.
+    tags:
+      - Collections
+
+  - term: Subscription
+    definition: >-
+      A recurring plan that provides a monthly allotment of standard image
+      licenses. The subscription_id is required when licensing images included
+      in a subscription plan.
+    tags:
+      - Licensing
+      - Billing
+
+  - term: Allotment
+    definition: >-
+      The number of asset downloads remaining in a subscription period.
+      Tracked via the allotment_charge field returned in licensing responses.
+    tags:
+      - Billing
+
+  - term: Search ID
+    definition: >-
+      A unique identifier for a search session returned as search_id in search
+      results. Used for analytics and tracking user search behavior.
+    tags:
+      - Search
+
+  - term: Computer Vision
+    definition: >-
+      AI-powered features for analyzing images and finding visually similar
+      content. CV endpoints support keyword extraction from images and reverse
+      image search for similar images and videos.
+    tags:
+      - Technology
+      - Computer Vision
+
+  - term: OAuth 2.0
+    definition: >-
+      The primary authentication protocol for Shutterstock API access.
+      Required for licensing operations and accessing user-specific data like
+      collections and purchase history.
+    tags:
+      - Authentication
+
+  - term: Basic Authentication
+    definition: >-
+      An authentication method using the API consumer key and secret encoded
+      as Base64. Available for search and browse endpoints that don't require
+      user-specific authorization.
+    tags:
+      - Authentication
+
+  - term: Image Type
+    definition: >-
+      Classification of the image format type in the Shutterstock library.
+    values:
+      - photo: Photographic image
+      - illustration: Digital or traditional illustration
+      - vector: Scalable vector graphic (EPS)
+    tags:
+      - Classification
+
+  - term: Livefeed
+    definition: >-
+      A curated stream of editorial content organized around a specific event
+      or topic (e.g., a sporting event, political ceremony). Editorial livefeeds
+      are updated in real-time as new content is submitted.
+    tags:
+      - Editorial
+
+  - term: Similar Images
+    definition: >-
+      Visually similar stock photos recommended by Shutterstock's computer
+      vision algorithms. Accessible via /v2/images/{id}/similar or the
+      /v2/cv/similar/images endpoint with an uploaded reference image.
+    tags:
+      - Search
+      - Computer Vision
+
+categories:
+  - name: Asset Types
+    terms:
+      - Stock Photo
+      - Illustration
+      - Vector
+      - Editorial Content
+  - name: Licensing
+    terms:
+      - Royalty-Free License
+      - Standard License
+      - Enhanced License
+      - Editorial License
+      - Subscription
+      - Allotment
+  - name: Collections
+    terms:
+      - Collection
+      - Featured Collection
+  - name: Search
+    terms:
+      - Search ID
+      - Similar Images
+  - name: Technology
+    terms:
+      - Computer Vision
+  - name: Authentication
+    terms:
+      - OAuth 2.0
+      - Basic Authentication
+  - name: Contributors
+    terms:
+      - Contributor
+      - Livefeed

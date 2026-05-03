@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.shutterstock.com/schemas/video",
+  "title": "Shutterstock Video",
+  "description": "A stock video clip from the Shutterstock library, including metadata, available formats, duration, and contributor information.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Shutterstock video identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the video content"
+    },
+    "media_type": {
+      "type": "string",
+      "enum": ["video"],
+      "description": "Media type identifier"
+    },
+    "is_editorial": {
+      "type": "boolean",
+      "description": "Whether the video is editorial-use only"
+    },
+    "is_adult": {
+      "type": "boolean",
+      "description": "Whether the video contains adult content"
+    },
+    "has_model_release": {
+      "type": "boolean",
+      "description": "Whether the video has a model release"
+    },
+    "has_property_release": {
+      "type": "boolean",
+      "description": "Whether the video has a property release"
+    },
+    "contributor": {
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" }
+      },
+      "description": "The contributor who uploaded the video"
+    },
+    "assets": {
+      "$ref": "#/$defs/VideoAssets"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" }
+        }
+      },
+      "description": "Content categories for the video"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords describing the video content"
+    },
+    "aspect": {
+      "type": "number",
+      "description": "Aspect ratio as a decimal (width/height)"
+    },
+    "aspect_ratios": {
+      "type": "object",
+      "description": "Named aspect ratio variants (16_9, 4_3, etc.)"
+    },
+    "added_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the video was added to Shutterstock"
+    },
+    "duration": {
+      "type": "number",
+      "description": "Video duration in seconds"
+    }
+  },
+  "required": ["id"],
+  "$defs": {
+    "VideoAssets": {
+      "type": "object",
+      "description": "Available video format and quality variants",
+      "properties": {
+        "thumb_webm": {
+          "$ref": "#/$defs/VideoAsset"
+        },
+        "thumb_mp4": {
+          "$ref": "#/$defs/VideoAsset"
+        },
+        "preview_webm": {
+          "$ref": "#/$defs/VideoAsset"
+        },
+        "preview_mp4": {
+          "$ref": "#/$defs/VideoAsset"
+        },
+        "sd": {
+          "$ref": "#/$defs/VideoAsset"
+        },
+        "hd": {
+          "$ref": "#/$defs/VideoAsset"
+        },
+        "web": {
+          "$ref": "#/$defs/VideoAsset"
+        },
+        "4k": {
+          "$ref": "#/$defs/VideoAsset"
+        }
+      }
+    },
+    "VideoAsset": {
+      "type": "object",
+      "description": "Details about a specific video format/quality",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "width": {
+          "type": "integer"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "fps": {
+          "type": "number",
+          "description": "Frames per second"
+        },
+        "format": {
+          "type": "string",
+          "description": "Video format (mp4, webm)"
+        },
+        "file_size": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

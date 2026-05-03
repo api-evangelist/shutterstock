@@ -1,0 +1,166 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://api.shutterstock.com/schemas/image",
+  "title": "Shutterstock Image",
+  "description": "A stock image asset from the Shutterstock library, including metadata, asset formats, licensing information, and contributor details.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique Shutterstock image identifier"
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the image content"
+    },
+    "image_type": {
+      "type": "string",
+      "enum": ["photo", "illustration", "vector"],
+      "description": "Type of image asset"
+    },
+    "is_editorial": {
+      "type": "boolean",
+      "description": "Whether the image is editorial-use only (not for commercial use)"
+    },
+    "is_adult": {
+      "type": "boolean",
+      "description": "Whether the image contains adult content"
+    },
+    "is_illustration": {
+      "type": "boolean",
+      "description": "Whether the image is an illustration"
+    },
+    "contributor": {
+      "$ref": "#/$defs/Contributor"
+    },
+    "assets": {
+      "$ref": "#/$defs/ImageAssets"
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/Category"
+      },
+      "description": "Shutterstock categories this image belongs to"
+    },
+    "keywords": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Keywords describing the image content"
+    },
+    "media_type": {
+      "type": "string",
+      "enum": ["image"],
+      "description": "Media type identifier"
+    },
+    "added_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date the image was added to Shutterstock"
+    },
+    "releases": {
+      "type": "array",
+      "items": {
+        "type": "object"
+      },
+      "description": "Model and property releases associated with the image"
+    }
+  },
+  "required": ["id"],
+  "$defs": {
+    "Contributor": {
+      "type": "object",
+      "description": "The contributor who uploaded the image",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Contributor ID"
+        }
+      }
+    },
+    "ImageAssets": {
+      "type": "object",
+      "description": "Available resolution and format variants of the image",
+      "properties": {
+        "preview": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "small_thumb": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "large_thumb": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "huge_thumb": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "preview_1000": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "preview_1500": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "small": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "medium": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "huge": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "supersize": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "vector_eps": {
+          "$ref": "#/$defs/AssetDetails"
+        },
+        "huge_tiff": {
+          "$ref": "#/$defs/AssetDetails"
+        }
+      }
+    },
+    "AssetDetails": {
+      "type": "object",
+      "description": "Details about a specific image size/format",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to access this asset size"
+        },
+        "width": {
+          "type": "integer",
+          "description": "Width in pixels"
+        },
+        "height": {
+          "type": "integer",
+          "description": "Height in pixels"
+        },
+        "format": {
+          "type": "string",
+          "description": "File format (jpg, eps, tiff)"
+        },
+        "file_size": {
+          "type": "integer",
+          "description": "File size in bytes"
+        }
+      }
+    },
+    "Category": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Category identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Category display name"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "title": "Shutterstock Image Structure",
+  "description": "JSON structure documentation for Shutterstock stock image objects returned from the API",
+  "version": "1.0.30",
+  "source": "https://api.shutterstock.com",
+  "fields": [
+    {
+      "name": "id",
+      "type": "string",
+      "required": true,
+      "description": "Unique Shutterstock image identifier"
+    },
+    {
+      "name": "description",
+      "type": "string",
+      "description": "Text description of the image content"
+    },
+    {
+      "name": "image_type",
+      "type": "string",
+      "enum": ["photo", "illustration", "vector"],
+      "description": "Category of image asset type"
+    },
+    {
+      "name": "is_editorial",
+      "type": "boolean",
+      "description": "True if the image requires an editorial license (news/documentary use only)"
+    },
+    {
+      "name": "is_adult",
+      "type": "boolean",
+      "description": "True if the image contains adult content"
+    },
+    {
+      "name": "is_illustration",
+      "type": "boolean",
+      "description": "True if the image is an illustration or vector art"
+    },
+    {
+      "name": "media_type",
+      "type": "string",
+      "enum": ["image"],
+      "description": "Type of media (always 'image' for image results)"
+    },
+    {
+      "name": "added_date",
+      "type": "string",
+      "format": "date",
+      "description": "Date the image was first added to Shutterstock (YYYY-MM-DD)"
+    },
+    {
+      "name": "contributor",
+      "type": "object",
+      "description": "The photographer or artist who created and uploaded the image",
+      "fields": [
+        { "name": "id", "type": "string", "description": "Contributor's Shutterstock ID" }
+      ]
+    },
+    {
+      "name": "assets",
+      "type": "object",
+      "description": "Available resolution and format variants for download",
+      "fields": [
+        { "name": "preview", "type": "object", "description": "Standard watermarked preview (300px)" },
+        { "name": "small_thumb", "type": "object", "description": "Small thumbnail (67px)" },
+        { "name": "large_thumb", "type": "object", "description": "Large thumbnail (150px)" },
+        { "name": "huge_thumb", "type": "object", "description": "Huge thumbnail (260px)" },
+        { "name": "preview_1000", "type": "object", "description": "1000px preview" },
+        { "name": "preview_1500", "type": "object", "description": "1500px preview" },
+        { "name": "small", "type": "object", "description": "Small licensed download" },
+        { "name": "medium", "type": "object", "description": "Medium licensed download" },
+        { "name": "huge", "type": "object", "description": "Huge licensed download" },
+        { "name": "supersize", "type": "object", "description": "Maximum resolution licensed download" },
+        { "name": "vector_eps", "type": "object", "description": "Vector EPS format (vectors only)" },
+        { "name": "huge_tiff", "type": "object", "description": "Uncompressed TIFF format" }
+      ]
+    },
+    {
+      "name": "categories",
+      "type": "array",
+      "description": "Shutterstock content categories assigned to this image",
+      "fields": [
+        { "name": "id", "type": "string", "description": "Category identifier" },
+        { "name": "name", "type": "string", "description": "Category display name" }
+      ]
+    },
+    {
+      "name": "keywords",
+      "type": "array",
+      "items": "string",
+      "description": "Search keywords describing the image content and context"
+    },
+    {
+      "name": "releases",
+      "type": "array",
+      "description": "Model and property release documents for this image"
+    }
+  ],
+  "searchResponse": {
+    "description": "Structure of search results from /v2/images/search",
+    "fields": [
+      { "name": "data", "type": "array", "description": "Array of Image objects" },
+      { "name": "page", "type": "integer", "description": "Current result page" },
+      { "name": "per_page", "type": "integer", "description": "Results per page" },
+      { "name": "total_count", "type": "integer", "description": "Total matching results" },
+      { "name": "search_id", "type": "string", "description": "Unique search session ID for tracking" }
+    ]
+  }
+}

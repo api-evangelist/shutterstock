@@ -1,0 +1,42 @@
+{
+  "title": "License Image Example",
+  "description": "Example request and response for licensing a Shutterstock stock image",
+  "request": {
+    "method": "POST",
+    "url": "https://api.shutterstock.com/v2/images/licenses",
+    "headers": {
+      "Authorization": "Bearer YOUR_OAUTH_ACCESS_TOKEN",
+      "Content-Type": "application/json",
+      "User-Agent": "MyApplication/1.0"
+    },
+    "body": {
+      "images": [
+        {
+          "image_id": "1234567890",
+          "subscription_id": "sub-abc123",
+          "format": "jpg",
+          "size": "huge"
+        }
+      ]
+    }
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "body": {
+      "data": [
+        {
+          "image_id": "1234567890",
+          "license": "standard",
+          "download": {
+            "url": "https://download.shutterstock.com/v2/images/download?token=DOWNLOAD_TOKEN_HERE"
+          },
+          "allotment_charge": 1,
+          "download_host": "download.shutterstock.com"
+        }
+      ]
+    }
+  }
+}
