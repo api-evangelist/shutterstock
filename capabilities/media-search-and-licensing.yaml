@@ -1,577 +1,890 @@
-naftiko: "1.0.0-alpha1"
-
+naftiko: 1.0.0-alpha2
 info:
-  label: "Shutterstock Media Search And Licensing"
-  description: >-
-    Workflow capability for discovering, evaluating, and licensing stock media
-    from Shutterstock's library of 350M+ assets. Combines image search, video
-    search, audio search, editorial content, computer vision similarity matching,
-    collection management, and licensing operations into a unified creative asset
-    workflow for content teams, designers, marketers, and developers.
+  label: Shutterstock Media Search And Licensing
+  description: Workflow capability for discovering, evaluating, and licensing stock media from Shutterstock's library of 350M+
+    assets. Combines image search, video search, audio search, editorial content, computer vision similarity matching, collection
+    management, and licensing operations into a unified creative asset workflow for content teams, designers, marketers, and
+    developers.
   tags:
-    - Images
-    - Videos
-    - Audio
-    - Stock Media
-    - Licensing
-    - Creative Content
-    - Computer Vision
-    - Editorial
-    - Collections
-  created: "2026-05-02"
-  modified: "2026-05-02"
-
+  - Images
+  - Videos
+  - Audio
+  - Stock Media
+  - Licensing
+  - Creative Content
+  - Computer Vision
+  - Editorial
+  - Collections
+  created: '2026-05-02'
+  modified: '2026-05-06'
 binds:
-  - namespace: env
-    keys:
-      SHUTTERSTOCK_ACCESS_TOKEN: SHUTTERSTOCK_ACCESS_TOKEN
-
+- namespace: env
+  keys:
+    SHUTTERSTOCK_ACCESS_TOKEN: SHUTTERSTOCK_ACCESS_TOKEN
 capability:
   consumes:
-    - import: shutterstock
-      location: ./shared/shutterstock.yaml
-
+  - type: http
+    namespace: shutterstock
+    baseUri: https://api.shutterstock.com
+    description: Shutterstock stock media search, licensing, and management API
+    authentication:
+      type: bearer
+      token: '{{SHUTTERSTOCK_ACCESS_TOKEN}}'
+    resources:
+    - name: images
+      path: /v2/images
+      description: Stock image search, details, licensing, and collections
+      operations:
+      - name: search-images
+        method: GET
+        description: Search for stock images by keyword, color, category, and filters
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          required: false
+          description: Search query text
+        - name: image_type
+          in: query
+          type: string
+          required: false
+          description: Filter by type (photo, illustration, vector)
+        - name: orientation
+          in: query
+          type: string
+          required: false
+          description: Image orientation (horizontal, vertical, square)
+        - name: color
+          in: query
+          type: string
+          required: false
+          description: Dominant color in hex
+        - name: category
+          in: query
+          type: string
+          required: false
+          description: Category name or ID
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Results per page (max 500)
+        - name: page
+          in: query
+          type: integer
+          required: false
+          description: Page number
+        - name: sort
+          in: query
+          type: string
+          required: false
+          description: Sort order (popular, newest, relevance)
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-image
+        method: GET
+        description: Get details about a specific image by ID
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Shutterstock image ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-similar-images
+        method: GET
+        description: List images similar to a specified image
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Image ID to find similar images for
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: license-images
+        method: POST
+        description: License one or more images from Shutterstock
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            images: '{{tools.images}}'
+      - name: list-image-licenses
+        method: GET
+        description: List previously licensed images for the account
+        inputParameters:
+        - name: image_id
+          in: query
+          type: string
+          required: false
+          description: Filter by specific image ID
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-image-search-suggestions
+        method: GET
+        description: Get keyword suggestions for image search
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          required: true
+          description: Partial search query for suggestions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: list-image-categories
+        method: GET
+        description: List all available image categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: videos
+      path: /v2/videos
+      description: Stock video search, details, licensing, and collections
+      operations:
+      - name: search-videos
+        method: GET
+        description: Search for stock videos by keyword and filters
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          required: false
+          description: Search query text
+        - name: resolution
+          in: query
+          type: string
+          required: false
+          description: Video resolution filter (4k, high_definition, standard_definition)
+        - name: duration_from
+          in: query
+          type: integer
+          required: false
+          description: Minimum clip duration in seconds
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        - name: sort
+          in: query
+          type: string
+          required: false
+          description: Sort order
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-video
+        method: GET
+        description: Get details about a specific video
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          required: true
+          description: Shutterstock video ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: license-videos
+        method: POST
+        description: License one or more videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            videos: '{{tools.videos}}'
+    - name: audio
+      path: /v2/audio
+      description: Music and sound effects search, licensing, and collections
+      operations:
+      - name: search-audio
+        method: GET
+        description: Search for music tracks and audio content
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          required: false
+          description: Search query text
+        - name: genre
+          in: query
+          type: array
+          required: false
+          description: Music genre filter
+        - name: moods
+          in: query
+          type: array
+          required: false
+          description: Mood filter
+        - name: duration_from
+          in: query
+          type: integer
+          required: false
+          description: Minimum duration in seconds
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: license-audio
+        method: POST
+        description: License music tracks
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            audio: '{{tools.audio}}'
+    - name: editorial
+      path: /v2/editorial
+      description: Editorial news and event imagery search and licensing
+      operations:
+      - name: search-editorial-images
+        method: GET
+        description: Search editorial images for news and documentary use
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          required: true
+          description: Search query text
+        - name: country
+          in: query
+          type: string
+          required: true
+          description: Country code for licensing
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: computer-vision
+      path: /v2/cv
+      description: AI-powered image analysis and visual similarity search
+      operations:
+      - name: find-similar-images
+        method: GET
+        description: Find visually similar images to an uploaded reference
+        inputParameters:
+        - name: asset_id
+          in: query
+          type: string
+          required: true
+          description: Asset ID of uploaded reference image
+        - name: per_page
+          in: query
+          type: integer
+          required: false
+          description: Results per page
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-keywords
+        method: GET
+        description: Get AI-suggested keywords for an uploaded image
+        inputParameters:
+        - name: asset_id
+          in: query
+          type: string
+          required: true
+          description: Asset ID of uploaded image
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: collections
+      path: /v2/images/collections
+      description: User image collection management
+      operations:
+      - name: list-image-collections
+        method: GET
+        description: List all image collections for the user
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: create-image-collection
+        method: POST
+        description: Create a new image collection
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        body:
+          type: json
+          data:
+            name: '{{tools.name}}'
+    - name: users
+      path: /v2/user
+      description: User account and subscription information
+      operations:
+      - name: get-user
+        method: GET
+        description: Get details about the authenticated user account
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: get-subscriptions
+        method: GET
+        description: List user's active subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
   exposes:
-    - type: rest
-      port: 8080
-      namespace: shutterstock-media-licensing-api
-      description: "Unified REST API for Shutterstock media discovery and licensing."
-      resources:
-        - path: /v1/images
-          name: images
-          description: Stock image search and discovery
-          operations:
-            - method: GET
-              name: search-images
-              description: Search Shutterstock stock photos, illustrations, and vectors
-              call: "shutterstock.search-images"
-              with:
-                query: "rest.query"
-                image_type: "rest.image_type"
-                orientation: "rest.orientation"
-                color: "rest.color"
-                category: "rest.category"
-                per_page: "rest.per_page"
-                page: "rest.page"
-                sort: "rest.sort"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/images/{id}
-          name: image-detail
-          description: Individual image details
-          operations:
-            - method: GET
-              name: get-image
-              description: Get detailed metadata for a specific stock image
-              call: "shutterstock.get-image"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/images/{id}/similar
-          name: similar-images
-          description: Visually similar image recommendations
-          operations:
-            - method: GET
-              name: get-similar-images
-              description: Find stock images visually similar to a reference image
-              call: "shutterstock.get-similar-images"
-              with:
-                id: "rest.id"
-                per_page: "rest.per_page"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/images/suggestions
-          name: image-suggestions
-          description: Search keyword suggestions for images
-          operations:
-            - method: GET
-              name: get-suggestions
-              description: Get keyword suggestions for image searches
-              call: "shutterstock.get-image-search-suggestions"
-              with:
-                query: "rest.query"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/images/categories
-          name: image-categories
-          description: Available image content categories
-          operations:
-            - method: GET
-              name: list-categories
-              description: List all available Shutterstock image categories
-              call: "shutterstock.list-image-categories"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/images/licenses
-          name: image-licenses
-          description: Image licensing operations
-          operations:
-            - method: POST
-              name: license-images
-              description: License one or more stock images for download
-              call: "shutterstock.license-images"
-              with:
-                images: "rest.images"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: GET
-              name: list-image-licenses
-              description: List previously licensed images
-              call: "shutterstock.list-image-licenses"
-              with:
-                image_id: "rest.image_id"
-                per_page: "rest.per_page"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/videos
-          name: videos
-          description: Stock video search and discovery
-          operations:
-            - method: GET
-              name: search-videos
-              description: Search Shutterstock stock video clips
-              call: "shutterstock.search-videos"
-              with:
-                query: "rest.query"
-                resolution: "rest.resolution"
-                duration_from: "rest.duration_from"
-                per_page: "rest.per_page"
-                sort: "rest.sort"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/videos/{id}
-          name: video-detail
-          description: Individual video details
-          operations:
-            - method: GET
-              name: get-video
-              description: Get detailed metadata for a specific stock video
-              call: "shutterstock.get-video"
-              with:
-                id: "rest.id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/videos/licenses
-          name: video-licenses
-          description: Video licensing operations
-          operations:
-            - method: POST
-              name: license-videos
-              description: License one or more stock videos for download
-              call: "shutterstock.license-videos"
-              with:
-                videos: "rest.videos"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/audio
-          name: audio
-          description: Music and audio track search
-          operations:
-            - method: GET
-              name: search-audio
-              description: Search Shutterstock music tracks and audio content
-              call: "shutterstock.search-audio"
-              with:
-                query: "rest.query"
-                genre: "rest.genre"
-                moods: "rest.moods"
-                duration_from: "rest.duration_from"
-                per_page: "rest.per_page"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/audio/licenses
-          name: audio-licenses
-          description: Audio licensing operations
-          operations:
-            - method: POST
-              name: license-audio
-              description: License one or more music tracks
-              call: "shutterstock.license-audio"
-              with:
-                audio: "rest.audio"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/editorial/images
-          name: editorial-images
-          description: Editorial news and event photography
-          operations:
-            - method: GET
-              name: search-editorial
-              description: Search editorial images for news and documentary use
-              call: "shutterstock.search-editorial-images"
-              with:
-                query: "rest.query"
-                country: "rest.country"
-                per_page: "rest.per_page"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/cv/similar
-          name: visual-similarity
-          description: Computer vision visual similarity search
-          operations:
-            - method: GET
-              name: find-similar-images
-              description: Find images visually similar to an uploaded reference image
-              call: "shutterstock.find-similar-images"
-              with:
-                asset_id: "rest.asset_id"
-                per_page: "rest.per_page"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/cv/keywords
-          name: ai-keywords
-          description: AI-generated keyword suggestions from uploaded images
-          operations:
-            - method: GET
-              name: get-keywords
-              description: Get AI-suggested keywords for an uploaded image
-              call: "shutterstock.get-keywords"
-              with:
-                asset_id: "rest.asset_id"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/collections
-          name: collections
-          description: User media collection management
-          operations:
-            - method: GET
-              name: list-collections
-              description: List user image collections
-              call: "shutterstock.list-image-collections"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-            - method: POST
-              name: create-collection
-              description: Create a new image collection
-              call: "shutterstock.create-image-collection"
-              with:
-                name: "rest.name"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/user
-          name: user-account
-          description: User account details
-          operations:
-            - method: GET
-              name: get-user
-              description: Get authenticated user account details
-              call: "shutterstock.get-user"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-        - path: /v1/user/subscriptions
-          name: user-subscriptions
-          description: User subscription information
-          operations:
-            - method: GET
-              name: get-subscriptions
-              description: List active user subscriptions and allotments
-              call: "shutterstock.get-subscriptions"
-              outputParameters:
-                - type: object
-                  mapping: "$."
-
-    - type: mcp
-      port: 9090
-      namespace: shutterstock-media-licensing-mcp
-      transport: http
-      description: "MCP server for AI-assisted stock media discovery, evaluation, and licensing."
-      tools:
-        - name: search-images
-          description: >-
-            Search Shutterstock's library of 350M+ stock photos, illustrations,
-            and vectors by keyword, color, orientation, category, and more.
-            Returns image metadata including preview URLs and asset details.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "shutterstock.search-images"
-          with:
-            query: "tools.query"
-            image_type: "tools.image_type"
-            orientation: "tools.orientation"
-            color: "tools.color"
-            category: "tools.category"
-            per_page: "tools.per_page"
-            page: "tools.page"
-            sort: "tools.sort"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-image
-          description: Get detailed metadata for a specific Shutterstock image by ID.
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "shutterstock.get-image"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-similar-images
-          description: >-
-            Find Shutterstock stock images that are visually similar to a
-            specified image ID. Useful for finding alternative options or
-            creating visual consistency.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "shutterstock.get-similar-images"
-          with:
-            id: "tools.id"
-            per_page: "tools.per_page"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-image-suggestions
-          description: >-
-            Get search keyword suggestions for image discovery based on a
-            partial query string.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "shutterstock.get-image-search-suggestions"
-          with:
-            query: "tools.query"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-image-categories
-          description: List all available Shutterstock image content categories for filtering.
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "shutterstock.list-image-categories"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: license-images
-          description: >-
-            License one or more Shutterstock stock images for download using
-            a subscription allotment or on-demand purchase. Returns download URLs.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "shutterstock.license-images"
-          with:
-            images: "tools.images"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-image-licenses
-          description: List previously licensed images in the user's account history.
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "shutterstock.list-image-licenses"
-          with:
-            image_id: "tools.image_id"
-            per_page: "tools.per_page"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: search-videos
-          description: >-
-            Search Shutterstock's library of stock video clips by keyword,
-            resolution, duration, and category.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "shutterstock.search-videos"
-          with:
-            query: "tools.query"
-            resolution: "tools.resolution"
-            duration_from: "tools.duration_from"
-            per_page: "tools.per_page"
-            sort: "tools.sort"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-video
-          description: Get detailed metadata for a specific Shutterstock video clip by ID.
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "shutterstock.get-video"
-          with:
-            id: "tools.id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: license-videos
-          description: License one or more Shutterstock video clips for download.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "shutterstock.license-videos"
-          with:
-            videos: "tools.videos"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: search-audio
-          description: >-
-            Search Shutterstock's library of royalty-free music tracks and
-            audio content by keyword, genre, mood, and duration.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "shutterstock.search-audio"
-          with:
-            query: "tools.query"
-            genre: "tools.genre"
-            moods: "tools.moods"
-            duration_from: "tools.duration_from"
-            per_page: "tools.per_page"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: license-audio
-          description: License one or more Shutterstock music tracks for download.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "shutterstock.license-audio"
-          with:
-            audio: "tools.audio"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: search-editorial-images
-          description: >-
-            Search Shutterstock's editorial image library for news, sports,
-            entertainment, and documentary photography. Requires country code.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "shutterstock.search-editorial-images"
-          with:
-            query: "tools.query"
-            country: "tools.country"
-            per_page: "tools.per_page"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: find-similar-images-by-upload
-          description: >-
-            Use computer vision to find Shutterstock images visually similar
-            to an uploaded reference image. Requires an asset_id from the
-            CV image upload endpoint.
-          hints:
-            readOnly: true
-            openWorld: true
-          call: "shutterstock.find-similar-images"
-          with:
-            asset_id: "tools.asset_id"
-            per_page: "tools.per_page"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-ai-keywords
-          description: >-
-            Use Shutterstock's AI to extract relevant keywords from an uploaded
-            image, useful for finding related stock content.
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "shutterstock.get-keywords"
-          with:
-            asset_id: "tools.asset_id"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: list-collections
-          description: List the authenticated user's image collections.
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "shutterstock.list-image-collections"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: create-collection
-          description: Create a new image collection to organize saved assets.
-          hints:
-            readOnly: false
-            destructive: false
-            idempotent: false
-          call: "shutterstock.create-image-collection"
-          with:
-            name: "tools.name"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-user
-          description: Get details about the authenticated Shutterstock user account.
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "shutterstock.get-user"
-          outputParameters:
-            - type: object
-              mapping: "$."
-
-        - name: get-subscriptions
-          description: List active Shutterstock subscriptions and remaining download allotments.
-          hints:
-            readOnly: true
-            openWorld: false
-          call: "shutterstock.get-subscriptions"
-          outputParameters:
-            - type: object
-              mapping: "$."
+  - type: rest
+    port: 8080
+    namespace: shutterstock-media-licensing-api
+    description: Unified REST API for Shutterstock media discovery and licensing.
+    resources:
+    - path: /v1/images
+      name: images
+      description: Stock image search and discovery
+      operations:
+      - method: GET
+        name: search-images
+        description: Search Shutterstock stock photos, illustrations, and vectors
+        call: shutterstock.search-images
+        with:
+          query: rest.query
+          image_type: rest.image_type
+          orientation: rest.orientation
+          color: rest.color
+          category: rest.category
+          per_page: rest.per_page
+          page: rest.page
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images/{id}
+      name: image-detail
+      description: Individual image details
+      operations:
+      - method: GET
+        name: get-image
+        description: Get detailed metadata for a specific stock image
+        call: shutterstock.get-image
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images/{id}/similar
+      name: similar-images
+      description: Visually similar image recommendations
+      operations:
+      - method: GET
+        name: get-similar-images
+        description: Find stock images visually similar to a reference image
+        call: shutterstock.get-similar-images
+        with:
+          id: rest.id
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images/suggestions
+      name: image-suggestions
+      description: Search keyword suggestions for images
+      operations:
+      - method: GET
+        name: get-suggestions
+        description: Get keyword suggestions for image searches
+        call: shutterstock.get-image-search-suggestions
+        with:
+          query: rest.query
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images/categories
+      name: image-categories
+      description: Available image content categories
+      operations:
+      - method: GET
+        name: list-categories
+        description: List all available Shutterstock image categories
+        call: shutterstock.list-image-categories
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/images/licenses
+      name: image-licenses
+      description: Image licensing operations
+      operations:
+      - method: POST
+        name: license-images
+        description: License one or more stock images for download
+        call: shutterstock.license-images
+        with:
+          images: rest.images
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: list-image-licenses
+        description: List previously licensed images
+        call: shutterstock.list-image-licenses
+        with:
+          image_id: rest.image_id
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/videos
+      name: videos
+      description: Stock video search and discovery
+      operations:
+      - method: GET
+        name: search-videos
+        description: Search Shutterstock stock video clips
+        call: shutterstock.search-videos
+        with:
+          query: rest.query
+          resolution: rest.resolution
+          duration_from: rest.duration_from
+          per_page: rest.per_page
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/videos/{id}
+      name: video-detail
+      description: Individual video details
+      operations:
+      - method: GET
+        name: get-video
+        description: Get detailed metadata for a specific stock video
+        call: shutterstock.get-video
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/videos/licenses
+      name: video-licenses
+      description: Video licensing operations
+      operations:
+      - method: POST
+        name: license-videos
+        description: License one or more stock videos for download
+        call: shutterstock.license-videos
+        with:
+          videos: rest.videos
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/audio
+      name: audio
+      description: Music and audio track search
+      operations:
+      - method: GET
+        name: search-audio
+        description: Search Shutterstock music tracks and audio content
+        call: shutterstock.search-audio
+        with:
+          query: rest.query
+          genre: rest.genre
+          moods: rest.moods
+          duration_from: rest.duration_from
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/audio/licenses
+      name: audio-licenses
+      description: Audio licensing operations
+      operations:
+      - method: POST
+        name: license-audio
+        description: License one or more music tracks
+        call: shutterstock.license-audio
+        with:
+          audio: rest.audio
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/editorial/images
+      name: editorial-images
+      description: Editorial news and event photography
+      operations:
+      - method: GET
+        name: search-editorial
+        description: Search editorial images for news and documentary use
+        call: shutterstock.search-editorial-images
+        with:
+          query: rest.query
+          country: rest.country
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cv/similar
+      name: visual-similarity
+      description: Computer vision visual similarity search
+      operations:
+      - method: GET
+        name: find-similar-images
+        description: Find images visually similar to an uploaded reference image
+        call: shutterstock.find-similar-images
+        with:
+          asset_id: rest.asset_id
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/cv/keywords
+      name: ai-keywords
+      description: AI-generated keyword suggestions from uploaded images
+      operations:
+      - method: GET
+        name: get-keywords
+        description: Get AI-suggested keywords for an uploaded image
+        call: shutterstock.get-keywords
+        with:
+          asset_id: rest.asset_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/collections
+      name: collections
+      description: User media collection management
+      operations:
+      - method: GET
+        name: list-collections
+        description: List user image collections
+        call: shutterstock.list-image-collections
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: create-collection
+        description: Create a new image collection
+        call: shutterstock.create-image-collection
+        with:
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/user
+      name: user-account
+      description: User account details
+      operations:
+      - method: GET
+        name: get-user
+        description: Get authenticated user account details
+        call: shutterstock.get-user
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/user/subscriptions
+      name: user-subscriptions
+      description: User subscription information
+      operations:
+      - method: GET
+        name: get-subscriptions
+        description: List active user subscriptions and allotments
+        call: shutterstock.get-subscriptions
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: shutterstock-media-licensing-mcp
+    transport: http
+    description: MCP server for AI-assisted stock media discovery, evaluation, and licensing.
+    tools:
+    - name: search-images
+      description: Search Shutterstock's library of 350M+ stock photos, illustrations, and vectors by keyword, color, orientation,
+        category, and more. Returns image metadata including preview URLs and asset details.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: shutterstock.search-images
+      with:
+        query: tools.query
+        image_type: tools.image_type
+        orientation: tools.orientation
+        color: tools.color
+        category: tools.category
+        per_page: tools.per_page
+        page: tools.page
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-image
+      description: Get detailed metadata for a specific Shutterstock image by ID.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: shutterstock.get-image
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-similar-images
+      description: Find Shutterstock stock images that are visually similar to a specified image ID. Useful for finding alternative
+        options or creating visual consistency.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: shutterstock.get-similar-images
+      with:
+        id: tools.id
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-image-suggestions
+      description: Get search keyword suggestions for image discovery based on a partial query string.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: shutterstock.get-image-search-suggestions
+      with:
+        query: tools.query
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-image-categories
+      description: List all available Shutterstock image content categories for filtering.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: shutterstock.list-image-categories
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: license-images
+      description: License one or more Shutterstock stock images for download using a subscription allotment or on-demand
+        purchase. Returns download URLs.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock.license-images
+      with:
+        images: tools.images
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-image-licenses
+      description: List previously licensed images in the user's account history.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: shutterstock.list-image-licenses
+      with:
+        image_id: tools.image_id
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-videos
+      description: Search Shutterstock's library of stock video clips by keyword, resolution, duration, and category.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: shutterstock.search-videos
+      with:
+        query: tools.query
+        resolution: tools.resolution
+        duration_from: tools.duration_from
+        per_page: tools.per_page
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-video
+      description: Get detailed metadata for a specific Shutterstock video clip by ID.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: shutterstock.get-video
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: license-videos
+      description: License one or more Shutterstock video clips for download.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock.license-videos
+      with:
+        videos: tools.videos
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-audio
+      description: Search Shutterstock's library of royalty-free music tracks and audio content by keyword, genre, mood, and
+        duration.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: shutterstock.search-audio
+      with:
+        query: tools.query
+        genre: tools.genre
+        moods: tools.moods
+        duration_from: tools.duration_from
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: license-audio
+      description: License one or more Shutterstock music tracks for download.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock.license-audio
+      with:
+        audio: tools.audio
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-editorial-images
+      description: Search Shutterstock's editorial image library for news, sports, entertainment, and documentary photography.
+        Requires country code.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: shutterstock.search-editorial-images
+      with:
+        query: tools.query
+        country: tools.country
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: find-similar-images-by-upload
+      description: Use computer vision to find Shutterstock images visually similar to an uploaded reference image. Requires
+        an asset_id from the CV image upload endpoint.
+      hints:
+        readOnly: true
+        openWorld: true
+      call: shutterstock.find-similar-images
+      with:
+        asset_id: tools.asset_id
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-ai-keywords
+      description: Use Shutterstock's AI to extract relevant keywords from an uploaded image, useful for finding related stock
+        content.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: shutterstock.get-keywords
+      with:
+        asset_id: tools.asset_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-collections
+      description: List the authenticated user's image collections.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: shutterstock.list-image-collections
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-collection
+      description: Create a new image collection to organize saved assets.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock.create-image-collection
+      with:
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-user
+      description: Get details about the authenticated Shutterstock user account.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: shutterstock.get-user
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-subscriptions
+      description: List active Shutterstock subscriptions and remaining download allotments.
+      hints:
+        readOnly: true
+        openWorld: false
+      call: shutterstock.get-subscriptions
+      outputParameters:
+      - type: object
+        mapping: $.
