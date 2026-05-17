@@ -50,7 +50,7 @@ apis:
     properties:
       - type: Documentation
         url: https://www.shutterstock.com/developers/documentation
-      - type: ApiReference
+      - type: APIReference
         url: https://api-reference.shutterstock.com/
       - type: GettingStarted
         url: https://www.shutterstock.com/developers/documentation/getting-started
