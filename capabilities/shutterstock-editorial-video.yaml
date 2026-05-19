@@ -1,0 +1,264 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Shutterstock API Reference — editorial_video
+  description: 'Shutterstock API Reference — editorial_video. 4 operations. Lead operation: List editorial video categories.
+    Self-contained Naftiko capability covering one Shutterstock business surface.'
+  tags:
+  - Shutterstock
+  - editorial_video
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHUTTERSTOCK_API_KEY: SHUTTERSTOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shutterstock-editorial-video
+    baseUri: https://api.shutterstock.com
+    description: Shutterstock API Reference — editorial_video business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-editorial-videos-categories
+      path: /v2/editorial/videos/categories
+      operations:
+      - name: geteditorialcategories
+        method: GET
+        description: List editorial video categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-editorial-videos-licenses
+      path: /v2/editorial/videos/licenses
+      operations:
+      - name: licenseeditorialvideo
+        method: POST
+        description: License editorial video content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-editorial-videos-search
+      path: /v2/editorial/videos/search
+      operations:
+      - name: editorialvideossearch
+        method: GET
+        description: Search editorial video content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          description: One or more search terms separated by spaces
+        - name: sort
+          in: query
+          type: string
+          description: Sort by
+        - name: category
+          in: query
+          type: string
+          description: Show editorial video content within a certain editorial category; specify by category name
+        - name: country
+          in: query
+          type: string
+          description: Show only editorial video content that is available for distribution in a certain country
+          required: true
+        - name: supplier_code
+          in: query
+          type: array
+          description: Show only editorial video content from certain suppliers
+        - name: date_start
+          in: query
+          type: string
+          description: Show only editorial video content generated on or after a specific date
+        - name: date_end
+          in: query
+          type: string
+          description: Show only editorial video content generated on or before a specific date
+        - name: resolution
+          in: query
+          type: string
+          description: Show only editorial video content with specific resolution
+        - name: fps
+          in: query
+          type: number
+          description: Show only editorial video content generated with specific frames per second
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor of the page with which to start fetching results; this cursor is returned from previous
+            requests
+    - name: v2-editorial-videos-id
+      path: /v2/editorial/videos/{id}
+      operations:
+      - name: editorialvideosdetails
+        method: GET
+        description: Get editorial video content details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Editorial ID
+          required: true
+        - name: country
+          in: query
+          type: string
+          description: Returns only if the content is available for distribution in a certain country
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SHUTTERSTOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shutterstock-editorial-video-rest
+    port: 8080
+    description: REST adapter for Shutterstock API Reference — editorial_video. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/editorial/videos/categories
+      name: v2-editorial-videos-categories
+      description: REST surface for v2-editorial-videos-categories.
+      operations:
+      - method: GET
+        name: geteditorialcategories
+        description: List editorial video categories
+        call: shutterstock-editorial-video.geteditorialcategories
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/videos/licenses
+      name: v2-editorial-videos-licenses
+      description: REST surface for v2-editorial-videos-licenses.
+      operations:
+      - method: POST
+        name: licenseeditorialvideo
+        description: License editorial video content
+        call: shutterstock-editorial-video.licenseeditorialvideo
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/videos/search
+      name: v2-editorial-videos-search
+      description: REST surface for v2-editorial-videos-search.
+      operations:
+      - method: GET
+        name: editorialvideossearch
+        description: Search editorial video content
+        call: shutterstock-editorial-video.editorialvideossearch
+        with:
+          query: rest.query
+          sort: rest.sort
+          category: rest.category
+          country: rest.country
+          supplier_code: rest.supplier_code
+          date_start: rest.date_start
+          date_end: rest.date_end
+          resolution: rest.resolution
+          fps: rest.fps
+          per_page: rest.per_page
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/videos/{id}
+      name: v2-editorial-videos-id
+      description: REST surface for v2-editorial-videos-id.
+      operations:
+      - method: GET
+        name: editorialvideosdetails
+        description: Get editorial video content details
+        call: shutterstock-editorial-video.editorialvideosdetails
+        with:
+          id: rest.id
+          country: rest.country
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shutterstock-editorial-video-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Shutterstock API Reference — editorial_video. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-editorial-video-categories
+      description: List editorial video categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-video.geteditorialcategories
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: license-editorial-video-content
+      description: License editorial video content
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-editorial-video.licenseeditorialvideo
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-editorial-video-content
+      description: Search editorial video content
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-video.editorialvideossearch
+      with:
+        query: tools.query
+        sort: tools.sort
+        category: tools.category
+        country: tools.country
+        supplier_code: tools.supplier_code
+        date_start: tools.date_start
+        date_end: tools.date_end
+        resolution: tools.resolution
+        fps: tools.fps
+        per_page: tools.per_page
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-editorial-video-content-details
+      description: Get editorial video content details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-video.editorialvideosdetails
+      with:
+        id: tools.id
+        country: tools.country
+      outputParameters:
+      - type: object
+        mapping: $.

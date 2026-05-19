@@ -1,0 +1,286 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Shutterstock API Reference — contributors
+  description: 'Shutterstock API Reference — contributors. 5 operations. Lead operation: Get details about multiple contributors.
+    Self-contained Naftiko capability covering one Shutterstock business surface.'
+  tags:
+  - Shutterstock
+  - contributors
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHUTTERSTOCK_API_KEY: SHUTTERSTOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shutterstock-contributors
+    baseUri: https://api.shutterstock.com
+    description: Shutterstock API Reference — contributors business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-contributors
+      path: /v2/contributors
+      operations:
+      - name: getcontributorlist
+        method: GET
+        description: Get details about multiple contributors
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: query
+          type: array
+          description: One or more contributor IDs
+          required: true
+    - name: v2-contributors-contributor_id
+      path: /v2/contributors/{contributor_id}
+      operations:
+      - name: getcontributor
+        method: GET
+        description: Get details about a single contributor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contributor_id
+          in: path
+          type: string
+          description: Contributor ID
+          required: true
+    - name: v2-contributors-contributor_id-collections
+      path: /v2/contributors/{contributor_id}/collections
+      operations:
+      - name: getcontributorcollectionslist
+        method: GET
+        description: List contributors' collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contributor_id
+          in: path
+          type: string
+          description: Contributor ID
+          required: true
+        - name: sort
+          in: query
+          type: string
+          description: Sort order
+    - name: v2-contributors-contributor_id-collections-id
+      path: /v2/contributors/{contributor_id}/collections/{id}
+      operations:
+      - name: getcontributorcollections
+        method: GET
+        description: Get details about contributors' collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contributor_id
+          in: path
+          type: string
+          description: Contributor ID
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: Collection ID that belongs to the contributor
+          required: true
+    - name: v2-contributors-contributor_id-collections-id-items
+      path: /v2/contributors/{contributor_id}/collections/{id}/items
+      operations:
+      - name: getcontributorcollectionitems
+        method: GET
+        description: Get the items in contributors' collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: contributor_id
+          in: path
+          type: string
+          description: Contributor ID
+          required: true
+        - name: id
+          in: path
+          type: string
+          description: Collection ID that belongs to the contributor
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: sort
+          in: query
+          type: string
+          description: Sort order
+    authentication:
+      type: bearer
+      token: '{{env.SHUTTERSTOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shutterstock-contributors-rest
+    port: 8080
+    description: REST adapter for Shutterstock API Reference — contributors. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/contributors
+      name: v2-contributors
+      description: REST surface for v2-contributors.
+      operations:
+      - method: GET
+        name: getcontributorlist
+        description: Get details about multiple contributors
+        call: shutterstock-contributors.getcontributorlist
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/contributors/{contributor-id}
+      name: v2-contributors-contributor-id
+      description: REST surface for v2-contributors-contributor_id.
+      operations:
+      - method: GET
+        name: getcontributor
+        description: Get details about a single contributor
+        call: shutterstock-contributors.getcontributor
+        with:
+          contributor_id: rest.contributor_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/contributors/{contributor-id}/collections
+      name: v2-contributors-contributor-id-collections
+      description: REST surface for v2-contributors-contributor_id-collections.
+      operations:
+      - method: GET
+        name: getcontributorcollectionslist
+        description: List contributors' collections
+        call: shutterstock-contributors.getcontributorcollectionslist
+        with:
+          contributor_id: rest.contributor_id
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/contributors/{contributor-id}/collections/{id}
+      name: v2-contributors-contributor-id-collections-id
+      description: REST surface for v2-contributors-contributor_id-collections-id.
+      operations:
+      - method: GET
+        name: getcontributorcollections
+        description: Get details about contributors' collections
+        call: shutterstock-contributors.getcontributorcollections
+        with:
+          contributor_id: rest.contributor_id
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/contributors/{contributor-id}/collections/{id}/items
+      name: v2-contributors-contributor-id-collections-id-items
+      description: REST surface for v2-contributors-contributor_id-collections-id-items.
+      operations:
+      - method: GET
+        name: getcontributorcollectionitems
+        description: Get the items in contributors' collections
+        call: shutterstock-contributors.getcontributorcollectionitems
+        with:
+          contributor_id: rest.contributor_id
+          id: rest.id
+          page: rest.page
+          per_page: rest.per_page
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shutterstock-contributors-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Shutterstock API Reference — contributors. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: get-details-about-multiple-contributors
+      description: Get details about multiple contributors
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-contributors.getcontributorlist
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-details-about-single-contributor
+      description: Get details about a single contributor
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-contributors.getcontributor
+      with:
+        contributor_id: tools.contributor_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-contributors-collections
+      description: List contributors' collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-contributors.getcontributorcollectionslist
+      with:
+        contributor_id: tools.contributor_id
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-details-about-contributors-collections
+      description: Get details about contributors' collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-contributors.getcontributorcollections
+      with:
+        contributor_id: tools.contributor_id
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-items-contributors-collections
+      description: Get the items in contributors' collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-contributors.getcontributorcollectionitems
+      with:
+        contributor_id: tools.contributor_id
+        id: tools.id
+        page: tools.page
+        per_page: tools.per_page
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.

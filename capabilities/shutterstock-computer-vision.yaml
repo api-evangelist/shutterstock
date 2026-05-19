@@ -1,0 +1,320 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Shutterstock API Reference — computer_vision
+  description: 'Shutterstock API Reference — computer_vision. 5 operations. Lead operation: Upload images. Self-contained
+    Naftiko capability covering one Shutterstock business surface.'
+  tags:
+  - Shutterstock
+  - computer_vision
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHUTTERSTOCK_API_KEY: SHUTTERSTOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shutterstock-computer-vision
+    baseUri: https://api.shutterstock.com
+    description: Shutterstock API Reference — computer_vision business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-cv-images
+      path: /v2/cv/images
+      operations:
+      - name: uploadimage
+        method: POST
+        description: Upload images
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-cv-keywords
+      path: /v2/cv/keywords
+      operations:
+      - name: getkeywords
+        method: GET
+        description: List suggested keywords
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: asset_id
+          in: query
+          type: string
+          description: The asset ID or upload ID to suggest keywords for
+          required: true
+    - name: v2-cv-similar-images
+      path: /v2/cv/similar/images
+      operations:
+      - name: getsimilarimages
+        method: GET
+        description: List similar images
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: asset_id
+          in: query
+          type: string
+          description: The asset ID or upload ID to find similar images for
+          required: true
+        - name: license
+          in: query
+          type: array
+          description: Show only images with the specified license
+        - name: safe
+          in: query
+          type: boolean
+          description: Enable or disable safe search
+        - name: language
+          in: query
+          type: string
+          description: Language for the keywords and categories in the response
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: view
+          in: query
+          type: string
+          description: Amount of detail to render in the response
+    - name: v2-cv-similar-videos
+      path: /v2/cv/similar/videos
+      operations:
+      - name: getsimilarvideos
+        method: GET
+        description: List similar videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: asset_id
+          in: query
+          type: string
+          description: The asset ID or upload ID to find similar videos for
+          required: true
+        - name: license
+          in: query
+          type: array
+          description: Show only videos with the specified license
+        - name: safe
+          in: query
+          type: boolean
+          description: Enable or disable safe search
+        - name: language
+          in: query
+          type: string
+          description: Language for the keywords and categories in the response
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: view
+          in: query
+          type: string
+          description: Amount of detail to render in the response
+    - name: v2-images
+      path: /v2/images
+      operations:
+      - name: uploadephemeralimage
+        method: POST
+        description: Upload ephemeral images
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SHUTTERSTOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shutterstock-computer-vision-rest
+    port: 8080
+    description: REST adapter for Shutterstock API Reference — computer_vision. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/cv/images
+      name: v2-cv-images
+      description: REST surface for v2-cv-images.
+      operations:
+      - method: POST
+        name: uploadimage
+        description: Upload images
+        call: shutterstock-computer-vision.uploadimage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/cv/keywords
+      name: v2-cv-keywords
+      description: REST surface for v2-cv-keywords.
+      operations:
+      - method: GET
+        name: getkeywords
+        description: List suggested keywords
+        call: shutterstock-computer-vision.getkeywords
+        with:
+          asset_id: rest.asset_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/cv/similar/images
+      name: v2-cv-similar-images
+      description: REST surface for v2-cv-similar-images.
+      operations:
+      - method: GET
+        name: getsimilarimages
+        description: List similar images
+        call: shutterstock-computer-vision.getsimilarimages
+        with:
+          asset_id: rest.asset_id
+          license: rest.license
+          safe: rest.safe
+          language: rest.language
+          page: rest.page
+          per_page: rest.per_page
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/cv/similar/videos
+      name: v2-cv-similar-videos
+      description: REST surface for v2-cv-similar-videos.
+      operations:
+      - method: GET
+        name: getsimilarvideos
+        description: List similar videos
+        call: shutterstock-computer-vision.getsimilarvideos
+        with:
+          asset_id: rest.asset_id
+          license: rest.license
+          safe: rest.safe
+          language: rest.language
+          page: rest.page
+          per_page: rest.per_page
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/images
+      name: v2-images
+      description: REST surface for v2-images.
+      operations:
+      - method: POST
+        name: uploadephemeralimage
+        description: Upload ephemeral images
+        call: shutterstock-computer-vision.uploadephemeralimage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shutterstock-computer-vision-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Shutterstock API Reference — computer_vision. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: upload-images
+      description: Upload images
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-computer-vision.uploadimage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-suggested-keywords
+      description: List suggested keywords
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-computer-vision.getkeywords
+      with:
+        asset_id: tools.asset_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-similar-images
+      description: List similar images
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-computer-vision.getsimilarimages
+      with:
+        asset_id: tools.asset_id
+        license: tools.license
+        safe: tools.safe
+        language: tools.language
+        page: tools.page
+        per_page: tools.per_page
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-similar-videos
+      description: List similar videos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-computer-vision.getsimilarvideos
+      with:
+        asset_id: tools.asset_id
+        license: tools.license
+        safe: tools.safe
+        language: tools.language
+        page: tools.page
+        per_page: tools.per_page
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: upload-ephemeral-images
+      description: Upload ephemeral images
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-computer-vision.uploadephemeralimage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

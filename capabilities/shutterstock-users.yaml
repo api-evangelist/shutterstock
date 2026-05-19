@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Shutterstock API Reference — users
+  description: 'Shutterstock API Reference — users. 3 operations. Lead operation: Get user details. Self-contained Naftiko
+    capability covering one Shutterstock business surface.'
+  tags:
+  - Shutterstock
+  - users
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHUTTERSTOCK_API_KEY: SHUTTERSTOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shutterstock-users
+    baseUri: https://api.shutterstock.com
+    description: Shutterstock API Reference — users business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-user
+      path: /v2/user
+      operations:
+      - name: getuser
+        method: GET
+        description: Get user details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-user-access_token
+      path: /v2/user/access_token
+      operations:
+      - name: getaccesstoken
+        method: GET
+        description: Get access token details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-user-subscriptions
+      path: /v2/user/subscriptions
+      operations:
+      - name: getusersubsciptionlist
+        method: GET
+        description: List user subscriptions
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.SHUTTERSTOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shutterstock-users-rest
+    port: 8080
+    description: REST adapter for Shutterstock API Reference — users. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v2/user
+      name: v2-user
+      description: REST surface for v2-user.
+      operations:
+      - method: GET
+        name: getuser
+        description: Get user details
+        call: shutterstock-users.getuser
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/user/access-token
+      name: v2-user-access-token
+      description: REST surface for v2-user-access_token.
+      operations:
+      - method: GET
+        name: getaccesstoken
+        description: Get access token details
+        call: shutterstock-users.getaccesstoken
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/user/subscriptions
+      name: v2-user-subscriptions
+      description: REST surface for v2-user-subscriptions.
+      operations:
+      - method: GET
+        name: getusersubsciptionlist
+        description: List user subscriptions
+        call: shutterstock-users.getusersubsciptionlist
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shutterstock-users-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Shutterstock API Reference — users. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: get-user-details
+      description: Get user details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-users.getuser
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-access-token-details
+      description: Get access token details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-users.getaccesstoken
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-user-subscriptions
+      description: List user subscriptions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-users.getusersubsciptionlist
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,950 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Shutterstock API Reference — editorial_images
+  description: 'Shutterstock API Reference — editorial_images. 16 operations. Lead operation: (Deprecated) List editorial
+    categories. Self-contained Naftiko capability covering one Shutterstock business surface.'
+  tags:
+  - Shutterstock
+  - editorial_images
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHUTTERSTOCK_API_KEY: SHUTTERSTOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shutterstock-editorial-images
+    baseUri: https://api.shutterstock.com
+    description: Shutterstock API Reference — editorial_images business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-editorial-categories
+      path: /v2/editorial/categories
+      operations:
+      - name: geteditorialcategories
+        method: GET
+        description: (Deprecated) List editorial categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-editorial-images-categories
+      path: /v2/editorial/images/categories
+      operations:
+      - name: geteditorialimagecategories
+        method: GET
+        description: List editorial categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-editorial-images-licenses
+      path: /v2/editorial/images/licenses
+      operations:
+      - name: geteditorialimagelicenselist
+        method: GET
+        description: List editorial image licenses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: image_id
+          in: query
+          type: string
+          description: Show licenses for the specified editorial image ID
+        - name: license
+          in: query
+          type: string
+          description: Show editorial images that are available with the specified license name
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: sort
+          in: query
+          type: string
+          description: Sort order
+        - name: username
+          in: query
+          type: string
+          description: Filter licenses by username of licensee
+        - name: start_date
+          in: query
+          type: string
+          description: Show licenses created on or after the specified date
+        - name: end_date
+          in: query
+          type: string
+          description: Show licenses created before the specified date
+      - name: licenseeditorialimages
+        method: POST
+        description: License editorial content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-editorial-images-livefeeds
+      path: /v2/editorial/images/livefeeds
+      operations:
+      - name: geteditoriallivefeedimageslist
+        method: GET
+        description: Get editorial livefeed list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: country
+          in: query
+          type: string
+          description: Returns only livefeeds that are available for distribution in a certain country
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+    - name: v2-editorial-images-livefeeds-id
+      path: /v2/editorial/images/livefeeds/{id}
+      operations:
+      - name: geteditorialimagelivefeed
+        method: GET
+        description: Get editorial livefeed
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Editorial livefeed ID; must be an URI encoded string
+          required: true
+        - name: country
+          in: query
+          type: string
+          description: Returns only if the livefeed is available for distribution in a certain country
+          required: true
+    - name: v2-editorial-images-livefeeds-id-items
+      path: /v2/editorial/images/livefeeds/{id}/items
+      operations:
+      - name: geteditoriallivefeedimageitems
+        method: GET
+        description: Get editorial livefeed items
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Editorial livefeed ID; must be an URI encoded string
+          required: true
+        - name: country
+          in: query
+          type: string
+          description: Returns only if the livefeed items are available for distribution in a certain country
+          required: true
+    - name: v2-editorial-images-search
+      path: /v2/editorial/images/search
+      operations:
+      - name: searcheditorialimages
+        method: GET
+        description: Search editorial images
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          description: One or more search terms separated by spaces
+        - name: sort
+          in: query
+          type: string
+          description: Sort by
+        - name: category
+          in: query
+          type: string
+          description: Show editorial content within a certain editorial category; specify by category name
+        - name: country
+          in: query
+          type: string
+          description: Show only editorial content that is available for distribution in a certain country
+          required: true
+        - name: supplier_code
+          in: query
+          type: array
+          description: Show only editorial content from certain suppliers
+        - name: date_start
+          in: query
+          type: string
+          description: Show only editorial content generated on or after a specific date
+        - name: date_end
+          in: query
+          type: string
+          description: Show only editorial content generated on or before a specific date
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor of the page with which to start fetching results; this cursor is returned from previous
+            requests
+    - name: v2-editorial-images-id
+      path: /v2/editorial/images/{id}
+      operations:
+      - name: geteditorialimagedetails
+        method: GET
+        description: Get editorial content details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Editorial ID
+          required: true
+        - name: country
+          in: query
+          type: string
+          description: Returns only if the content is available for distribution in a certain country
+          required: true
+    - name: v2-editorial-licenses
+      path: /v2/editorial/licenses
+      operations:
+      - name: licenseeditorialimage
+        method: POST
+        description: (Deprecated) License editorial content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-editorial-livefeeds
+      path: /v2/editorial/livefeeds
+      operations:
+      - name: geteditoriallivefeedlist
+        method: GET
+        description: (Deprecated) Get editorial livefeed list
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: country
+          in: query
+          type: string
+          description: Returns only livefeeds that are available for distribution in a certain country
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+    - name: v2-editorial-livefeeds-id
+      path: /v2/editorial/livefeeds/{id}
+      operations:
+      - name: geteditoriallivefeed
+        method: GET
+        description: (Deprecated) Get editorial livefeed
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Editorial livefeed ID; must be an URI encoded string
+          required: true
+        - name: country
+          in: query
+          type: string
+          description: Returns only if the livefeed is available for distribution in a certain country
+          required: true
+    - name: v2-editorial-livefeeds-id-items
+      path: /v2/editorial/livefeeds/{id}/items
+      operations:
+      - name: geteditoriallivefeeditems
+        method: GET
+        description: (Deprecated) Get editorial livefeed items
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Editorial livefeed ID; must be an URI encoded string
+          required: true
+        - name: country
+          in: query
+          type: string
+          description: Returns only if the livefeed items are available for distribution in a certain country
+          required: true
+    - name: v2-editorial-search
+      path: /v2/editorial/search
+      operations:
+      - name: searcheditorial
+        method: GET
+        description: (Deprecated) Search editorial content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          description: One or more search terms separated by spaces
+        - name: sort
+          in: query
+          type: string
+          description: Sort by
+        - name: category
+          in: query
+          type: string
+          description: Show editorial content within a certain editorial category; specify by category name
+        - name: country
+          in: query
+          type: string
+          description: Show only editorial content that is available for distribution in a certain country
+          required: true
+        - name: supplier_code
+          in: query
+          type: array
+          description: Show only editorial content from certain suppliers
+        - name: date_start
+          in: query
+          type: string
+          description: Show only editorial content generated on or after a specific date
+        - name: date_end
+          in: query
+          type: string
+          description: Show only editorial content generated on or before a specific date
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor of the page with which to start fetching results; this cursor is returned from previous
+            requests
+    - name: v2-editorial-updated
+      path: /v2/editorial/updated
+      operations:
+      - name: getupdatedimages
+        method: GET
+        description: (Deprecated) List updated content
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: type
+          in: query
+          type: string
+          description: Specify `addition` to return only images that were added or `edit` to return only images that were
+            edited or deleted
+          required: true
+        - name: date_updated_start
+          in: query
+          type: string
+          description: Show images images added, edited, or deleted after the specified date. Acceptable range is 1970-01-01T00:00:01
+            to 2038-01-19T00:00:00.
+          required: true
+        - name: date_updated_end
+          in: query
+          type: string
+          description: Show images images added, edited, or deleted before the specified date. Acceptable range is 1970-01-01T00:00:01
+            to 2038-01-19T00:00:00.
+          required: true
+        - name: date_taken_start
+          in: query
+          type: string
+          description: 'Show images that were taken on or after the specified date; use this parameter if you want recently
+            created images from the collection instead of updated older '
+        - name: date_taken_end
+          in: query
+          type: string
+          description: Show images that were taken before the specified date
+        - name: cursor
+          in: query
+          type: string
+          description: The cursor of the page with which to start fetching results; this cursor is returned from previous
+            requests
+        - name: sort
+          in: query
+          type: string
+          description: Sort by
+        - name: supplier_code
+          in: query
+          type: array
+          description: Show only editorial content from certain suppliers
+        - name: country
+          in: query
+          type: string
+          description: Show only editorial content that is available for distribution in a certain country
+          required: true
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+    - name: v2-editorial-id
+      path: /v2/editorial/{id}
+      operations:
+      - name: geteditorialimage
+        method: GET
+        description: (Deprecated) Get editorial content details
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Editorial ID
+          required: true
+        - name: country
+          in: query
+          type: string
+          description: Returns only if the content is available for distribution in a certain country
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.SHUTTERSTOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shutterstock-editorial-images-rest
+    port: 8080
+    description: REST adapter for Shutterstock API Reference — editorial_images. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/v2/editorial/categories
+      name: v2-editorial-categories
+      description: REST surface for v2-editorial-categories.
+      operations:
+      - method: GET
+        name: geteditorialcategories
+        description: (Deprecated) List editorial categories
+        call: shutterstock-editorial-images.geteditorialcategories
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/images/categories
+      name: v2-editorial-images-categories
+      description: REST surface for v2-editorial-images-categories.
+      operations:
+      - method: GET
+        name: geteditorialimagecategories
+        description: List editorial categories
+        call: shutterstock-editorial-images.geteditorialimagecategories
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/images/licenses
+      name: v2-editorial-images-licenses
+      description: REST surface for v2-editorial-images-licenses.
+      operations:
+      - method: GET
+        name: geteditorialimagelicenselist
+        description: List editorial image licenses
+        call: shutterstock-editorial-images.geteditorialimagelicenselist
+        with:
+          image_id: rest.image_id
+          license: rest.license
+          page: rest.page
+          per_page: rest.per_page
+          sort: rest.sort
+          username: rest.username
+          start_date: rest.start_date
+          end_date: rest.end_date
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: licenseeditorialimages
+        description: License editorial content
+        call: shutterstock-editorial-images.licenseeditorialimages
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/images/livefeeds
+      name: v2-editorial-images-livefeeds
+      description: REST surface for v2-editorial-images-livefeeds.
+      operations:
+      - method: GET
+        name: geteditoriallivefeedimageslist
+        description: Get editorial livefeed list
+        call: shutterstock-editorial-images.geteditoriallivefeedimageslist
+        with:
+          country: rest.country
+          page: rest.page
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/images/livefeeds/{id}
+      name: v2-editorial-images-livefeeds-id
+      description: REST surface for v2-editorial-images-livefeeds-id.
+      operations:
+      - method: GET
+        name: geteditorialimagelivefeed
+        description: Get editorial livefeed
+        call: shutterstock-editorial-images.geteditorialimagelivefeed
+        with:
+          id: rest.id
+          country: rest.country
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/images/livefeeds/{id}/items
+      name: v2-editorial-images-livefeeds-id-items
+      description: REST surface for v2-editorial-images-livefeeds-id-items.
+      operations:
+      - method: GET
+        name: geteditoriallivefeedimageitems
+        description: Get editorial livefeed items
+        call: shutterstock-editorial-images.geteditoriallivefeedimageitems
+        with:
+          id: rest.id
+          country: rest.country
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/images/search
+      name: v2-editorial-images-search
+      description: REST surface for v2-editorial-images-search.
+      operations:
+      - method: GET
+        name: searcheditorialimages
+        description: Search editorial images
+        call: shutterstock-editorial-images.searcheditorialimages
+        with:
+          query: rest.query
+          sort: rest.sort
+          category: rest.category
+          country: rest.country
+          supplier_code: rest.supplier_code
+          date_start: rest.date_start
+          date_end: rest.date_end
+          per_page: rest.per_page
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/images/{id}
+      name: v2-editorial-images-id
+      description: REST surface for v2-editorial-images-id.
+      operations:
+      - method: GET
+        name: geteditorialimagedetails
+        description: Get editorial content details
+        call: shutterstock-editorial-images.geteditorialimagedetails
+        with:
+          id: rest.id
+          country: rest.country
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/licenses
+      name: v2-editorial-licenses
+      description: REST surface for v2-editorial-licenses.
+      operations:
+      - method: POST
+        name: licenseeditorialimage
+        description: (Deprecated) License editorial content
+        call: shutterstock-editorial-images.licenseeditorialimage
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/livefeeds
+      name: v2-editorial-livefeeds
+      description: REST surface for v2-editorial-livefeeds.
+      operations:
+      - method: GET
+        name: geteditoriallivefeedlist
+        description: (Deprecated) Get editorial livefeed list
+        call: shutterstock-editorial-images.geteditoriallivefeedlist
+        with:
+          country: rest.country
+          page: rest.page
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/livefeeds/{id}
+      name: v2-editorial-livefeeds-id
+      description: REST surface for v2-editorial-livefeeds-id.
+      operations:
+      - method: GET
+        name: geteditoriallivefeed
+        description: (Deprecated) Get editorial livefeed
+        call: shutterstock-editorial-images.geteditoriallivefeed
+        with:
+          id: rest.id
+          country: rest.country
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/livefeeds/{id}/items
+      name: v2-editorial-livefeeds-id-items
+      description: REST surface for v2-editorial-livefeeds-id-items.
+      operations:
+      - method: GET
+        name: geteditoriallivefeeditems
+        description: (Deprecated) Get editorial livefeed items
+        call: shutterstock-editorial-images.geteditoriallivefeeditems
+        with:
+          id: rest.id
+          country: rest.country
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/search
+      name: v2-editorial-search
+      description: REST surface for v2-editorial-search.
+      operations:
+      - method: GET
+        name: searcheditorial
+        description: (Deprecated) Search editorial content
+        call: shutterstock-editorial-images.searcheditorial
+        with:
+          query: rest.query
+          sort: rest.sort
+          category: rest.category
+          country: rest.country
+          supplier_code: rest.supplier_code
+          date_start: rest.date_start
+          date_end: rest.date_end
+          per_page: rest.per_page
+          cursor: rest.cursor
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/updated
+      name: v2-editorial-updated
+      description: REST surface for v2-editorial-updated.
+      operations:
+      - method: GET
+        name: getupdatedimages
+        description: (Deprecated) List updated content
+        call: shutterstock-editorial-images.getupdatedimages
+        with:
+          type: rest.type
+          date_updated_start: rest.date_updated_start
+          date_updated_end: rest.date_updated_end
+          date_taken_start: rest.date_taken_start
+          date_taken_end: rest.date_taken_end
+          cursor: rest.cursor
+          sort: rest.sort
+          supplier_code: rest.supplier_code
+          country: rest.country
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/editorial/{id}
+      name: v2-editorial-id
+      description: REST surface for v2-editorial-id.
+      operations:
+      - method: GET
+        name: geteditorialimage
+        description: (Deprecated) Get editorial content details
+        call: shutterstock-editorial-images.geteditorialimage
+        with:
+          id: rest.id
+          country: rest.country
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shutterstock-editorial-images-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Shutterstock API Reference — editorial_images. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: deprecated-list-editorial-categories
+      description: (Deprecated) List editorial categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditorialcategories
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-editorial-categories
+      description: List editorial categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditorialimagecategories
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-editorial-image-licenses
+      description: List editorial image licenses
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditorialimagelicenselist
+      with:
+        image_id: tools.image_id
+        license: tools.license
+        page: tools.page
+        per_page: tools.per_page
+        sort: tools.sort
+        username: tools.username
+        start_date: tools.start_date
+        end_date: tools.end_date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: license-editorial-content
+      description: License editorial content
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-editorial-images.licenseeditorialimages
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-editorial-livefeed-list
+      description: Get editorial livefeed list
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditoriallivefeedimageslist
+      with:
+        country: tools.country
+        page: tools.page
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-editorial-livefeed
+      description: Get editorial livefeed
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditorialimagelivefeed
+      with:
+        id: tools.id
+        country: tools.country
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-editorial-livefeed-items
+      description: Get editorial livefeed items
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditoriallivefeedimageitems
+      with:
+        id: tools.id
+        country: tools.country
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-editorial-images
+      description: Search editorial images
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.searcheditorialimages
+      with:
+        query: tools.query
+        sort: tools.sort
+        category: tools.category
+        country: tools.country
+        supplier_code: tools.supplier_code
+        date_start: tools.date_start
+        date_end: tools.date_end
+        per_page: tools.per_page
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-editorial-content-details
+      description: Get editorial content details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditorialimagedetails
+      with:
+        id: tools.id
+        country: tools.country
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deprecated-license-editorial-content
+      description: (Deprecated) License editorial content
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-editorial-images.licenseeditorialimage
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deprecated-get-editorial-livefeed-list
+      description: (Deprecated) Get editorial livefeed list
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditoriallivefeedlist
+      with:
+        country: tools.country
+        page: tools.page
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deprecated-get-editorial-livefeed
+      description: (Deprecated) Get editorial livefeed
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditoriallivefeed
+      with:
+        id: tools.id
+        country: tools.country
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deprecated-get-editorial-livefeed-items
+      description: (Deprecated) Get editorial livefeed items
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditoriallivefeeditems
+      with:
+        id: tools.id
+        country: tools.country
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deprecated-search-editorial-content
+      description: (Deprecated) Search editorial content
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.searcheditorial
+      with:
+        query: tools.query
+        sort: tools.sort
+        category: tools.category
+        country: tools.country
+        supplier_code: tools.supplier_code
+        date_start: tools.date_start
+        date_end: tools.date_end
+        per_page: tools.per_page
+        cursor: tools.cursor
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deprecated-list-updated-content
+      description: (Deprecated) List updated content
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.getupdatedimages
+      with:
+        type: tools.type
+        date_updated_start: tools.date_updated_start
+        date_updated_end: tools.date_updated_end
+        date_taken_start: tools.date_taken_start
+        date_taken_end: tools.date_taken_end
+        cursor: tools.cursor
+        sort: tools.sort
+        supplier_code: tools.supplier_code
+        country: tools.country
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deprecated-get-editorial-content-details
+      description: (Deprecated) Get editorial content details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-editorial-images.geteditorialimage
+      with:
+        id: tools.id
+        country: tools.country
+      outputParameters:
+      - type: object
+        mapping: $.

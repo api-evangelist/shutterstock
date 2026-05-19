@@ -1,0 +1,133 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Shutterstock API Reference — test
+  description: 'Shutterstock API Reference — test. 2 operations. Lead operation: Echo text. Self-contained Naftiko capability
+    covering one Shutterstock business surface.'
+  tags:
+  - Shutterstock
+  - test
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHUTTERSTOCK_API_KEY: SHUTTERSTOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shutterstock-test
+    baseUri: https://api.shutterstock.com
+    description: Shutterstock API Reference — test business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-test
+      path: /v2/test
+      operations:
+      - name: echo
+        method: GET
+        description: Echo text
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: text
+          in: query
+          type: string
+          description: Text to echo
+    - name: v2-test-validate
+      path: /v2/test/validate
+      operations:
+      - name: validate
+        method: GET
+        description: Validate input
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: query
+          type: integer
+          description: Integer ID
+          required: true
+        - name: tag
+          in: query
+          type: array
+          description: List of tags
+        - name: user-agent
+          in: header
+          type: string
+          description: User agent
+    authentication:
+      type: bearer
+      token: '{{env.SHUTTERSTOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shutterstock-test-rest
+    port: 8080
+    description: REST adapter for Shutterstock API Reference — test. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v2/test
+      name: v2-test
+      description: REST surface for v2-test.
+      operations:
+      - method: GET
+        name: echo
+        description: Echo text
+        call: shutterstock-test.echo
+        with:
+          text: rest.text
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/test/validate
+      name: v2-test-validate
+      description: REST surface for v2-test-validate.
+      operations:
+      - method: GET
+        name: validate
+        description: Validate input
+        call: shutterstock-test.validate
+        with:
+          id: rest.id
+          tag: rest.tag
+          user-agent: rest.user-agent
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shutterstock-test-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Shutterstock API Reference — test. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: echo-text
+      description: Echo text
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-test.echo
+      with:
+        text: tools.text
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: validate-input
+      description: Validate input
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-test.validate
+      with:
+        id: tools.id
+        tag: tools.tag
+        user-agent: tools.user-agent
+      outputParameters:
+      - type: object
+        mapping: $.

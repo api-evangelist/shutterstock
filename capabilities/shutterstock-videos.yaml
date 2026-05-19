@@ -1,0 +1,1107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Shutterstock API Reference — videos
+  description: 'Shutterstock API Reference — videos. 18 operations. Lead operation: List videos. Self-contained Naftiko capability
+    covering one Shutterstock business surface.'
+  tags:
+  - Shutterstock
+  - videos
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    SHUTTERSTOCK_API_KEY: SHUTTERSTOCK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: shutterstock-videos
+    baseUri: https://api.shutterstock.com
+    description: Shutterstock API Reference — videos business capability. Self-contained, no shared references.
+    resources:
+    - name: v2-videos
+      path: /v2/videos
+      operations:
+      - name: getvideolist
+        method: GET
+        description: List videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: query
+          type: array
+          description: One or more video IDs
+          required: true
+        - name: view
+          in: query
+          type: string
+          description: Amount of detail to render in the response
+    - name: v2-videos-categories
+      path: /v2/videos/categories
+      operations:
+      - name: getvideocategories
+        method: GET
+        description: List video categories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: language
+          in: query
+          type: string
+          description: Language for the keywords and categories in the response
+    - name: v2-videos-collections
+      path: /v2/videos/collections
+      operations:
+      - name: createclipbox
+        method: POST
+        description: Create video collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: getclipboxlist
+        method: GET
+        description: List video collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+    - name: v2-videos-collections-id
+      path: /v2/videos/collections/{id}
+      operations:
+      - name: getclipbox
+        method: GET
+        description: Get the details of video collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The ID of the collection to return
+          required: true
+      - name: renameclipbox
+        method: POST
+        description: Rename video collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The ID of the collection to rename
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteclipbox
+        method: DELETE
+        description: Delete video collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The ID of the collection to delete
+          required: true
+    - name: v2-videos-collections-id-items
+      path: /v2/videos/collections/{id}/items
+      operations:
+      - name: addclipboxitems
+        method: POST
+        description: Add videos to collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The ID of the collection to which items should be added
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: getclipboxitems
+        method: GET
+        description: Get the contents of video collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The ID of the Collection whose items are to be returned
+          required: true
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: sort
+          in: query
+          type: string
+          description: Sort order
+      - name: deleteclipboxitems
+        method: DELETE
+        description: Remove videos from collections
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The ID of the Collection from which items will be deleted
+          required: true
+        - name: item_id
+          in: query
+          type: array
+          description: One or more video IDs to remove from the collection
+    - name: v2-videos-licenses
+      path: /v2/videos/licenses
+      operations:
+      - name: licensevideos
+        method: POST
+        description: License videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: subscription_id
+          in: query
+          type: string
+          description: The subscription ID to use for licensing
+        - name: size
+          in: query
+          type: string
+          description: The size of the video to license
+        - name: search_id
+          in: query
+          type: string
+          description: The Search ID that led to this licensing event
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: getvideolicenselist
+        method: GET
+        description: List video licenses
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: video_id
+          in: query
+          type: string
+          description: Show licenses for the specified video ID
+        - name: license
+          in: query
+          type: string
+          description: Show videos that are available with the specified license, such as `standard` or `enhanced`; prepending
+            a `-` sign excludes results from that license
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: sort
+          in: query
+          type: string
+          description: Sort by oldest or newest videos first
+        - name: username
+          in: query
+          type: string
+          description: Filter licenses by username of licensee
+        - name: start_date
+          in: query
+          type: string
+          description: Show licenses created on or after the specified date
+        - name: end_date
+          in: query
+          type: string
+          description: Show licenses created before the specified date
+    - name: v2-videos-licenses-id-downloads
+      path: /v2/videos/licenses/{id}/downloads
+      operations:
+      - name: downloadvideos
+        method: POST
+        description: Download videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The license ID of the item to (re)download
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: v2-videos-search
+      path: /v2/videos/search
+      operations:
+      - name: searchvideos
+        method: GET
+        description: Search for videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: added_date
+          in: query
+          type: string
+          description: Show videos added on the specified date
+        - name: added_date_start
+          in: query
+          type: string
+          description: Show videos added on or after the specified date
+        - name: added_date_end
+          in: query
+          type: string
+          description: Show videos added before the specified date
+        - name: aspect_ratio
+          in: query
+          type: string
+          description: Show videos with the specified aspect ratio
+        - name: category
+          in: query
+          type: string
+          description: Show videos with the specified Shutterstock-defined category; specify a category name or ID
+        - name: contributor
+          in: query
+          type: array
+          description: Show videos with the specified artist names or IDs
+        - name: contributor_country
+          in: query
+          type: array
+          description: Show videos from contributors in one or more specified countries
+        - name: duration
+          in: query
+          type: integer
+          description: (Deprecated; use duration_from and duration_to instead) Show videos with the specified duration in
+            seconds
+        - name: duration_from
+          in: query
+          type: integer
+          description: Show videos with the specified duration or longer in seconds
+        - name: duration_to
+          in: query
+          type: integer
+          description: Show videos with the specified duration or shorter in seconds
+        - name: fps
+          in: query
+          type: number
+          description: (Deprecated; use fps_from and fps_to instead) Show videos with the specified frames per second
+        - name: fps_from
+          in: query
+          type: number
+          description: Show videos with the specified frames per second or more
+        - name: fps_to
+          in: query
+          type: number
+          description: Show videos with the specified frames per second or fewer
+        - name: keyword_safe_search
+          in: query
+          type: boolean
+          description: Hide results with potentially unsafe keywords
+        - name: language
+          in: query
+          type: string
+          description: Set query and result language (uses Accept-Language header if not set)
+        - name: license
+          in: query
+          type: array
+          description: Show only videos with the specified license or licenses
+        - name: model
+          in: query
+          type: array
+          description: Show videos with each of the specified models
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: people_age
+          in: query
+          type: string
+          description: Show videos that feature people of the specified age range
+        - name: people_ethnicity
+          in: query
+          type: array
+          description: Show videos with people of the specified ethnicities
+        - name: people_gender
+          in: query
+          type: string
+          description: Show videos with people with the specified gender
+        - name: people_number
+          in: query
+          type: integer
+          description: Show videos with the specified number of people
+        - name: people_model_released
+          in: query
+          type: boolean
+          description: Show only videos of people with a signed model release
+        - name: query
+          in: query
+          type: string
+          description: One or more search terms separated by spaces; you can use NOT to filter out videos that match a term
+        - name: resolution
+          in: query
+          type: string
+          description: Show videos with the specified resolution
+        - name: safe
+          in: query
+          type: boolean
+          description: Enable or disable safe search
+        - name: sort
+          in: query
+          type: string
+          description: Sort by one of these categories
+        - name: view
+          in: query
+          type: string
+          description: Amount of detail to render in the response
+    - name: v2-videos-search-suggestions
+      path: /v2/videos/search/suggestions
+      operations:
+      - name: getvideosuggestions
+        method: GET
+        description: Get suggestions for a search term
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: query
+          in: query
+          type: string
+          description: Search term for which you want keyword suggestions
+          required: true
+        - name: limit
+          in: query
+          type: integer
+          description: Limit the number of the suggestions
+    - name: v2-videos-updated
+      path: /v2/videos/updated
+      operations:
+      - name: getupdatedvideos
+        method: GET
+        description: List updated videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: start_date
+          in: query
+          type: string
+          description: Show videos updated on or after the specified date
+        - name: end_date
+          in: query
+          type: string
+          description: Show videos updated before the specified date
+        - name: interval
+          in: query
+          type: string
+          description: Show videos updated in the specified time period, where the time period is an interval (like SQL INTERVAL)
+            such as 1 DAY, 6 HOUR, or 30 MINUTE; the default is 1
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: sort
+          in: query
+          type: string
+          description: Sort by oldest or newest videos first
+    - name: v2-videos-id
+      path: /v2/videos/{id}
+      operations:
+      - name: getvideo
+        method: GET
+        description: Get details about videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: Video ID
+          required: true
+        - name: language
+          in: query
+          type: string
+          description: Language for the keywords and categories in the response
+        - name: view
+          in: query
+          type: string
+          description: Amount of detail to render in the response
+    - name: v2-videos-id-similar
+      path: /v2/videos/{id}/similar
+      operations:
+      - name: getsimilarvideos
+        method: GET
+        description: List similar videos
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: id
+          in: path
+          type: string
+          description: The ID of a video for which similar videos should be returned
+          required: true
+        - name: language
+          in: query
+          type: string
+          description: Language for the keywords and categories in the response
+        - name: page
+          in: query
+          type: integer
+          description: Page number
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of results per page
+        - name: view
+          in: query
+          type: string
+          description: Amount of detail to render in the response
+    authentication:
+      type: bearer
+      token: '{{env.SHUTTERSTOCK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: shutterstock-videos-rest
+    port: 8080
+    description: REST adapter for Shutterstock API Reference — videos. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/v2/videos
+      name: v2-videos
+      description: REST surface for v2-videos.
+      operations:
+      - method: GET
+        name: getvideolist
+        description: List videos
+        call: shutterstock-videos.getvideolist
+        with:
+          id: rest.id
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/categories
+      name: v2-videos-categories
+      description: REST surface for v2-videos-categories.
+      operations:
+      - method: GET
+        name: getvideocategories
+        description: List video categories
+        call: shutterstock-videos.getvideocategories
+        with:
+          language: rest.language
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/collections
+      name: v2-videos-collections
+      description: REST surface for v2-videos-collections.
+      operations:
+      - method: POST
+        name: createclipbox
+        description: Create video collections
+        call: shutterstock-videos.createclipbox
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getclipboxlist
+        description: List video collections
+        call: shutterstock-videos.getclipboxlist
+        with:
+          page: rest.page
+          per_page: rest.per_page
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/collections/{id}
+      name: v2-videos-collections-id
+      description: REST surface for v2-videos-collections-id.
+      operations:
+      - method: GET
+        name: getclipbox
+        description: Get the details of video collections
+        call: shutterstock-videos.getclipbox
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: renameclipbox
+        description: Rename video collections
+        call: shutterstock-videos.renameclipbox
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteclipbox
+        description: Delete video collections
+        call: shutterstock-videos.deleteclipbox
+        with:
+          id: rest.id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/collections/{id}/items
+      name: v2-videos-collections-id-items
+      description: REST surface for v2-videos-collections-id-items.
+      operations:
+      - method: POST
+        name: addclipboxitems
+        description: Add videos to collections
+        call: shutterstock-videos.addclipboxitems
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getclipboxitems
+        description: Get the contents of video collections
+        call: shutterstock-videos.getclipboxitems
+        with:
+          id: rest.id
+          page: rest.page
+          per_page: rest.per_page
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteclipboxitems
+        description: Remove videos from collections
+        call: shutterstock-videos.deleteclipboxitems
+        with:
+          id: rest.id
+          item_id: rest.item_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/licenses
+      name: v2-videos-licenses
+      description: REST surface for v2-videos-licenses.
+      operations:
+      - method: POST
+        name: licensevideos
+        description: License videos
+        call: shutterstock-videos.licensevideos
+        with:
+          subscription_id: rest.subscription_id
+          size: rest.size
+          search_id: rest.search_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: GET
+        name: getvideolicenselist
+        description: List video licenses
+        call: shutterstock-videos.getvideolicenselist
+        with:
+          video_id: rest.video_id
+          license: rest.license
+          page: rest.page
+          per_page: rest.per_page
+          sort: rest.sort
+          username: rest.username
+          start_date: rest.start_date
+          end_date: rest.end_date
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/licenses/{id}/downloads
+      name: v2-videos-licenses-id-downloads
+      description: REST surface for v2-videos-licenses-id-downloads.
+      operations:
+      - method: POST
+        name: downloadvideos
+        description: Download videos
+        call: shutterstock-videos.downloadvideos
+        with:
+          id: rest.id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/search
+      name: v2-videos-search
+      description: REST surface for v2-videos-search.
+      operations:
+      - method: GET
+        name: searchvideos
+        description: Search for videos
+        call: shutterstock-videos.searchvideos
+        with:
+          added_date: rest.added_date
+          added_date_start: rest.added_date_start
+          added_date_end: rest.added_date_end
+          aspect_ratio: rest.aspect_ratio
+          category: rest.category
+          contributor: rest.contributor
+          contributor_country: rest.contributor_country
+          duration: rest.duration
+          duration_from: rest.duration_from
+          duration_to: rest.duration_to
+          fps: rest.fps
+          fps_from: rest.fps_from
+          fps_to: rest.fps_to
+          keyword_safe_search: rest.keyword_safe_search
+          language: rest.language
+          license: rest.license
+          model: rest.model
+          page: rest.page
+          per_page: rest.per_page
+          people_age: rest.people_age
+          people_ethnicity: rest.people_ethnicity
+          people_gender: rest.people_gender
+          people_number: rest.people_number
+          people_model_released: rest.people_model_released
+          query: rest.query
+          resolution: rest.resolution
+          safe: rest.safe
+          sort: rest.sort
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/search/suggestions
+      name: v2-videos-search-suggestions
+      description: REST surface for v2-videos-search-suggestions.
+      operations:
+      - method: GET
+        name: getvideosuggestions
+        description: Get suggestions for a search term
+        call: shutterstock-videos.getvideosuggestions
+        with:
+          query: rest.query
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/updated
+      name: v2-videos-updated
+      description: REST surface for v2-videos-updated.
+      operations:
+      - method: GET
+        name: getupdatedvideos
+        description: List updated videos
+        call: shutterstock-videos.getupdatedvideos
+        with:
+          start_date: rest.start_date
+          end_date: rest.end_date
+          interval: rest.interval
+          page: rest.page
+          per_page: rest.per_page
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/{id}
+      name: v2-videos-id
+      description: REST surface for v2-videos-id.
+      operations:
+      - method: GET
+        name: getvideo
+        description: Get details about videos
+        call: shutterstock-videos.getvideo
+        with:
+          id: rest.id
+          language: rest.language
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/v2/videos/{id}/similar
+      name: v2-videos-id-similar
+      description: REST surface for v2-videos-id-similar.
+      operations:
+      - method: GET
+        name: getsimilarvideos
+        description: List similar videos
+        call: shutterstock-videos.getsimilarvideos
+        with:
+          id: rest.id
+          language: rest.language
+          page: rest.page
+          per_page: rest.per_page
+          view: rest.view
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: shutterstock-videos-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Shutterstock API Reference — videos. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-videos
+      description: List videos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getvideolist
+      with:
+        id: tools.id
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-video-categories
+      description: List video categories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getvideocategories
+      with:
+        language: tools.language
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-video-collections
+      description: Create video collections
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-videos.createclipbox
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-video-collections
+      description: List video collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getclipboxlist
+      with:
+        page: tools.page
+        per_page: tools.per_page
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-details-video-collections
+      description: Get the details of video collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getclipbox
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: rename-video-collections
+      description: Rename video collections
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-videos.renameclipbox
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-video-collections
+      description: Delete video collections
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: shutterstock-videos.deleteclipbox
+      with:
+        id: tools.id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: add-videos-collections
+      description: Add videos to collections
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-videos.addclipboxitems
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-contents-video-collections
+      description: Get the contents of video collections
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getclipboxitems
+      with:
+        id: tools.id
+        page: tools.page
+        per_page: tools.per_page
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: remove-videos-collections
+      description: Remove videos from collections
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: shutterstock-videos.deleteclipboxitems
+      with:
+        id: tools.id
+        item_id: tools.item_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: license-videos
+      description: License videos
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-videos.licensevideos
+      with:
+        subscription_id: tools.subscription_id
+        size: tools.size
+        search_id: tools.search_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-video-licenses
+      description: List video licenses
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getvideolicenselist
+      with:
+        video_id: tools.video_id
+        license: tools.license
+        page: tools.page
+        per_page: tools.per_page
+        sort: tools.sort
+        username: tools.username
+        start_date: tools.start_date
+        end_date: tools.end_date
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: download-videos
+      description: Download videos
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: shutterstock-videos.downloadvideos
+      with:
+        id: tools.id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: search-videos
+      description: Search for videos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.searchvideos
+      with:
+        added_date: tools.added_date
+        added_date_start: tools.added_date_start
+        added_date_end: tools.added_date_end
+        aspect_ratio: tools.aspect_ratio
+        category: tools.category
+        contributor: tools.contributor
+        contributor_country: tools.contributor_country
+        duration: tools.duration
+        duration_from: tools.duration_from
+        duration_to: tools.duration_to
+        fps: tools.fps
+        fps_from: tools.fps_from
+        fps_to: tools.fps_to
+        keyword_safe_search: tools.keyword_safe_search
+        language: tools.language
+        license: tools.license
+        model: tools.model
+        page: tools.page
+        per_page: tools.per_page
+        people_age: tools.people_age
+        people_ethnicity: tools.people_ethnicity
+        people_gender: tools.people_gender
+        people_number: tools.people_number
+        people_model_released: tools.people_model_released
+        query: tools.query
+        resolution: tools.resolution
+        safe: tools.safe
+        sort: tools.sort
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-suggestions-search-term
+      description: Get suggestions for a search term
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getvideosuggestions
+      with:
+        query: tools.query
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-updated-videos
+      description: List updated videos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getupdatedvideos
+      with:
+        start_date: tools.start_date
+        end_date: tools.end_date
+        interval: tools.interval
+        page: tools.page
+        per_page: tools.per_page
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: get-details-about-videos
+      description: Get details about videos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getvideo
+      with:
+        id: tools.id
+        language: tools.language
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-similar-videos
+      description: List similar videos
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: shutterstock-videos.getsimilarvideos
+      with:
+        id: tools.id
+        language: tools.language
+        page: tools.page
+        per_page: tools.per_page
+        view: tools.view
+      outputParameters:
+      - type: object
+        mapping: $.
