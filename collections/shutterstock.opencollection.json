@@ -1,0 +1,3913 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shutterstock API Reference",
+    "version": "1.0.30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/search",
+            "params": [
+              {
+                "name": "added_date",
+                "value": "",
+                "type": "query",
+                "description": "Show images added on the specified date"
+              },
+              {
+                "name": "added_date_start",
+                "value": "",
+                "type": "query",
+                "description": "Show images added on or after the specified date"
+              },
+              {
+                "name": "aspect_ratio_min",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified aspect ratio or higher, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image"
+              },
+              {
+                "name": "aspect_ratio_max",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified aspect ratio or lower, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image"
+              },
+              {
+                "name": "aspect_ratio",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified aspect ratio, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image"
+              },
+              {
+                "name": "added_date_end",
+                "value": "",
+                "type": "query",
+                "description": "Show images added before the specified date"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified Shutterstock-defined category; specify a category name or ID"
+              },
+              {
+                "name": "color",
+                "value": "",
+                "type": "query",
+                "description": "Specify either a hexadecimal color in the format '4F21EA' or 'grayscale'; the API groups it into one of 15 color categories and returns images that primarily use that color category"
+              },
+              {
+                "name": "contributor",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified contributor names or IDs, allows multiple"
+              },
+              {
+                "name": "contributor_country",
+                "value": "",
+                "type": "query",
+                "description": "Show images from contributors in one or more specified countries"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to display in the response; see the documentation for the fields parameter in the overview section"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "(Deprecated; use height_from and height_to instead) Show images with the specified height"
+              },
+              {
+                "name": "height_from",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified height or larger, in pixels"
+              },
+              {
+                "name": "height_to",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified height or smaller, in pixels"
+              },
+              {
+                "name": "image_type",
+                "value": "",
+                "type": "query",
+                "description": "Show images of the specified type"
+              },
+              {
+                "name": "keyword_safe_search",
+                "value": "",
+                "type": "query",
+                "description": "Hide results with potentially unsafe keywords"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Set query and result language (uses Accept-Language header if not set)"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show only images with the specified license"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Show image results with the specified model IDs"
+              },
+              {
+                "name": "orientation",
+                "value": "",
+                "type": "query",
+                "description": "Show image results with horizontal or vertical orientation"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "people_model_released",
+                "value": "",
+                "type": "query",
+                "description": "Show images of people with a signed model release"
+              },
+              {
+                "name": "people_age",
+                "value": "",
+                "type": "query",
+                "description": "Show images that feature people of the specified age category"
+              },
+              {
+                "name": "people_ethnicity",
+                "value": "",
+                "type": "query",
+                "description": "Show images with people of the specified ethnicities"
+              },
+              {
+                "name": "people_gender",
+                "value": "",
+                "type": "query",
+                "description": "Show images with people of the specified gender"
+              },
+              {
+                "name": "people_number",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified number of people"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms separated by spaces; you can use NOT to filter out images that match a term"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Raise or lower search result rankings based on the result's relevance to a specified region; you can provide a country code or an IP address from which the API infers a country"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable safe search"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "spellcheck_query",
+                "value": "",
+                "type": "query",
+                "description": "Spellcheck the search query and return results on suggested spellings"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "(Deprecated; use width_from and width_to instead) Show images with the specified width"
+              },
+              {
+                "name": "width_from",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified width or larger, in pixels"
+              },
+              {
+                "name": "width_to",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified width or smaller, in pixels"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT. Free API accounts show results only from a limited library of media, not the full Shutterstock media library. Also, the number of search fields"
+        },
+        {
+          "info": {
+            "name": "Get suggestions for a search term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/search/suggestions",
+            "params": [
+              {
+                "name": "query",
+                "value": "cats",
+                "type": "query",
+                "description": "Search term for which you want keyword suggestions"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of suggestions"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint provides autocomplete suggestions for partial search terms."
+        },
+        {
+          "info": {
+            "name": "Get keywords from text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/search/suggestions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns up to 10 important keywords from a block of plain text."
+        },
+        {
+          "info": {
+            "name": "Get details about images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "465011609",
+                "type": "path",
+                "description": "Image ID"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint shows information about an image, including a URL to a preview image and the sizes that it is available in."
+        },
+        {
+          "info": {
+            "name": "List image categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/categories",
+            "params": [
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists the categories (Shutterstock-assigned genres) that images can belong to."
+        },
+        {
+          "info": {
+            "name": "List similar images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/:id/similar",
+            "params": [
+              {
+                "name": "id",
+                "value": "465011609",
+                "type": "path",
+                "description": "Image ID"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns images that are visually similar to an image that you specify."
+        },
+        {
+          "info": {
+            "name": "List image licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/licenses",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "query",
+                "description": "Show licenses for the specified image ID"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show images that are available with the specified license, such as `standard` or `enhanced`; prepending a `-` sign excludes results from that license"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Filter licenses by username of licensee"
+              },
+              {
+                "name": "start_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created on or after the specified date"
+              },
+              {
+                "name": "end_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created before the specified date"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists existing licenses."
+        },
+        {
+          "info": {
+            "name": "License images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/licenses",
+            "params": [
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "query",
+                "description": "Subscription ID to use to license the image"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Image format"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Image size"
+              },
+              {
+                "name": "search_id",
+                "value": "",
+                "type": "query",
+                "description": "Search ID that was provided in the results of an image search"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets licenses for one or more images. You must specify the image IDs in the body parameter and other details like the format, size, and subscription ID either in the query parameter or with each image ID in the body parameter. Values in the body parameter override values in the query parameters."
+        },
+        {
+          "info": {
+            "name": "Download images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/licenses/:id/downloads",
+            "params": [
+              {
+                "name": "id",
+                "value": "e123",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint redownloads images that you have already received a license for."
+        },
+        {
+          "info": {
+            "name": "List recommended images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/recommendations",
+            "params": [
+              {
+                "name": "id",
+                "value": "465011609",
+                "type": "query",
+                "description": "Image IDs"
+              },
+              {
+                "name": "max_items",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned in the response"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Restrict results to safe images"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns images that customers put in the same collection as the specified image IDs."
+        },
+        {
+          "info": {
+            "name": "List image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections",
+            "params": [
+              {
+                "name": "embed",
+                "value": "share_code",
+                "type": "query",
+                "description": "Which sharing information to include in the response, such as a URL to the collection"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "2",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists your collections of images and their basic attributes."
+        },
+        {
+          "info": {
+            "name": "Create image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/collections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates one or more image collections (lightboxes). To add images to the collections, use `POST /v2/images/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Get the details of image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Which sharing information to include in the response, such as a URL to the collection"
+              },
+              {
+                "name": "share_code",
+                "value": "",
+                "type": "query",
+                "description": "Code to retrieve a shared collection"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a collection, including its cover image and timestamps for its creation and most recent update. To get the images in collections, use `GET /v2/images/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Rename image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint sets a new name for an image collection."
+        },
+        {
+          "info": {
+            "name": "Delete image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "136351027",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint deletes an image collection."
+        },
+        {
+          "info": {
+            "name": "Get the contents of image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "share_code",
+                "value": "",
+                "type": "query",
+                "description": "Code to retrieve the contents of a shared collection"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists the IDs of images in a collection and the date that each was added."
+        },
+        {
+          "info": {
+            "name": "Add images to collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint adds one or more images to a collection by image IDs."
+        },
+        {
+          "info": {
+            "name": "Remove images from collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more image IDs to remove from the collection"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint removes one or more images from a collection."
+        },
+        {
+          "info": {
+            "name": "List featured image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/featured",
+            "params": [
+              {
+                "name": "embed",
+                "value": "share_url",
+                "type": "query",
+                "description": "Which sharing information to include in the response, such as a URL to the collection"
+              },
+              {
+                "name": "type",
+                "value": "photo",
+                "type": "query",
+                "description": "The types of collections to return"
+              },
+              {
+                "name": "asset_hint",
+                "value": "share_url",
+                "type": "query",
+                "description": "Cover image size"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists featured collections of specific types and a name and cover image for each collection."
+        },
+        {
+          "info": {
+            "name": "Get the details of featured image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/featured/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "136351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Which sharing information to include in the response, such as a URL to the collection"
+              },
+              {
+                "name": "asset_hint",
+                "value": "",
+                "type": "query",
+                "description": "Cover image size"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a featured collection, including its cover image and timestamps for its creation and most recent update. To get the images, use `GET /v2/images/collections/featured/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Get the contents of featured image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/featured/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "136351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists the IDs of images in a featured collection and the date that each was added."
+        },
+        {
+          "info": {
+            "name": "List updated images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/updated",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Show images that were added, deleted, or edited; by default, the endpoint returns images that were updated in any of these ways"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Show images updated on or after the specified date"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Show images updated before the specified date"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Show images updated in the specified time period, where the time period is an interval (like SQL INTERVAL) such as 1 DAY, 6 HOUR, or 30 MINUTE; the default is 1 HOUR, which shows images that were updated in the hour preceding the request"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists images that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the `interval` parameter to show images that were updated recently, but you can also use the `start_date` and `end_date` parameters to specify a range of no more than three days. Do not use the `interval` parameter with either `start_date` or `end_date`."
+        },
+        {
+          "info": {
+            "name": "List images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images",
+            "params": [
+              {
+                "name": "id",
+                "value": "1110335168,465011609",
+                "type": "query",
+                "description": "One or more image IDs"
+              },
+              {
+                "name": "view",
+                "value": "minimal",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists information about one or more images, including the available sizes."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "videos",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/search",
+            "params": [
+              {
+                "name": "added_date",
+                "value": "",
+                "type": "query",
+                "description": "Show videos added on the specified date"
+              },
+              {
+                "name": "added_date_start",
+                "value": "",
+                "type": "query",
+                "description": "Show videos added on or after the specified date"
+              },
+              {
+                "name": "added_date_end",
+                "value": "",
+                "type": "query",
+                "description": "Show videos added before the specified date"
+              },
+              {
+                "name": "aspect_ratio",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified aspect ratio"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified Shutterstock-defined category; specify a category name or ID"
+              },
+              {
+                "name": "contributor",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified artist names or IDs"
+              },
+              {
+                "name": "contributor_country",
+                "value": "US",
+                "type": "query",
+                "description": "Show videos from contributors in one or more specified countries"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "(Deprecated; use duration_from and duration_to instead) Show videos with the specified duration in seconds"
+              },
+              {
+                "name": "duration_from",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified duration or longer in seconds"
+              },
+              {
+                "name": "duration_to",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified duration or shorter in seconds"
+              },
+              {
+                "name": "fps",
+                "value": "",
+                "type": "query",
+                "description": "(Deprecated; use fps_from and fps_to instead) Show videos with the specified frames per second"
+              },
+              {
+                "name": "fps_from",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified frames per second or more"
+              },
+              {
+                "name": "fps_to",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified frames per second or fewer"
+              },
+              {
+                "name": "keyword_safe_search",
+                "value": "",
+                "type": "query",
+                "description": "Hide results with potentially unsafe keywords"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Set query and result language (uses Accept-Language header if not set)"
+              },
+              {
+                "name": "license",
+                "value": "commercial,editorial",
+                "type": "query",
+                "description": "Show only videos with the specified license or licenses"
+              },
+              {
+                "name": "model",
+                "value": "442583,434750",
+                "type": "query",
+                "description": "Show videos with each of the specified models"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "people_age",
+                "value": "",
+                "type": "query",
+                "description": "Show videos that feature people of the specified age range"
+              },
+              {
+                "name": "people_ethnicity",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with people of the specified ethnicities"
+              },
+              {
+                "name": "people_gender",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with people with the specified gender"
+              },
+              {
+                "name": "people_number",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified number of people"
+              },
+              {
+                "name": "people_model_released",
+                "value": "",
+                "type": "query",
+                "description": "Show only videos of people with a signed model release"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms separated by spaces; you can use NOT to filter out videos that match a term"
+              },
+              {
+                "name": "resolution",
+                "value": "",
+                "type": "query",
+                "description": "Show videos with the specified resolution"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable safe search"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by one of these categories"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for videos. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
+        },
+        {
+          "info": {
+            "name": "Get suggestions for a search term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/search/suggestions",
+            "params": [
+              {
+                "name": "query",
+                "value": "cats",
+                "type": "query",
+                "description": "Search term for which you want keyword suggestions"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of the suggestions"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint provides autocomplete suggestions for partial search terms."
+        },
+        {
+          "info": {
+            "name": "List videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos",
+            "params": [
+              {
+                "name": "id",
+                "value": "639703,993721",
+                "type": "query",
+                "description": "One or more video IDs"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists information about one or more videos, including the aspect ratio and URLs to previews."
+        },
+        {
+          "info": {
+            "name": "Get details about videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "30867073",
+                "type": "path",
+                "description": "Video ID"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint shows information about a video, including URLs to previews and the sizes that it is available in."
+        },
+        {
+          "info": {
+            "name": "List video licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/licenses",
+            "params": [
+              {
+                "name": "video_id",
+                "value": "",
+                "type": "query",
+                "description": "Show licenses for the specified video ID"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show videos that are available with the specified license, such as `standard` or `enhanced`; prepending a `-` sign excludes results from that license"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by oldest or newest videos first"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Filter licenses by username of licensee"
+              },
+              {
+                "name": "start_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created on or after the specified date"
+              },
+              {
+                "name": "end_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created before the specified date"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists existing licenses."
+        },
+        {
+          "info": {
+            "name": "License videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/videos/licenses",
+            "params": [
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "query",
+                "description": "The subscription ID to use for licensing"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "The size of the video to license"
+              },
+              {
+                "name": "search_id",
+                "value": "",
+                "type": "query",
+                "description": "The Search ID that led to this licensing event"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets licenses for one or more videos. You must specify the video IDs in the body parameter and the size and subscription ID either in the query parameter or with each video ID in the body parameter. Values in the body parameter override values in the query parameters."
+        },
+        {
+          "info": {
+            "name": "Download videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/videos/licenses/:id/downloads",
+            "params": [
+              {
+                "name": "id",
+                "value": "e123",
+                "type": "path",
+                "description": "The license ID of the item to (re)download"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint redownloads videos that you have already received a license for."
+        },
+        {
+          "info": {
+            "name": "List video collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/collections",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists your collections of videos and their basic attributes."
+        },
+        {
+          "info": {
+            "name": "Create video collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/videos/collections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates one or more collections (clipboxes). To add videos to collections, use `POST /v2/videos/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Get the details of video collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "17555176",
+                "type": "path",
+                "description": "The ID of the collection to return"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a collection, including the timestamp for its creation and the number of videos in it. To get the videos in collections, use GET /v2/videos/collections/{id}/items."
+        },
+        {
+          "info": {
+            "name": "Rename video collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/videos/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "17555176",
+                "type": "path",
+                "description": "The ID of the collection to rename"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint sets a new name for a collection."
+        },
+        {
+          "info": {
+            "name": "Delete video collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/videos/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "17555176",
+                "type": "path",
+                "description": "The ID of the collection to delete"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint deletes a collection."
+        },
+        {
+          "info": {
+            "name": "List video categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/categories",
+            "params": [
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists the categories (Shutterstock-assigned genres) that videos can belong to."
+        },
+        {
+          "info": {
+            "name": "Get the contents of video collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "17555176",
+                "type": "path",
+                "description": "The ID of the Collection whose items are to be returned"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists the IDs of videos in a collection and the date that each was added."
+        },
+        {
+          "info": {
+            "name": "Add videos to collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/videos/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "17555176",
+                "type": "path",
+                "description": "The ID of the collection to which items should be added"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint adds one or more videos to a collection by video IDs."
+        },
+        {
+          "info": {
+            "name": "Remove videos from collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/videos/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "17555176",
+                "type": "path",
+                "description": "The ID of the Collection from which items will be deleted"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more video IDs to remove from the collection"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint removes one or more videos from a collection."
+        },
+        {
+          "info": {
+            "name": "List similar videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/:id/similar",
+            "params": [
+              {
+                "name": "id",
+                "value": "2140697",
+                "type": "path",
+                "description": "The ID of a video for which similar videos should be returned"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for videos that are similar to a video that you specify."
+        },
+        {
+          "info": {
+            "name": "List updated videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/videos/updated",
+            "params": [
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Show videos updated on or after the specified date"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Show videos updated before the specified date"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Show videos updated in the specified time period, where the time period is an interval (like SQL INTERVAL) such as 1 DAY, 6 HOUR, or 30 MINUTE; the default is 1 HOUR, which shows videos that were updated in the hour preceding the request"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by oldest or newest videos first"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists videos that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the `interval` parameter to show videos that were updated recently, but you can also use the `start_date` and `end_date` parameters to specify a range of no more than three days. Do not use the `interval` parameter with either `start_date` or `end_date`."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "audio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/search",
+            "params": [
+              {
+                "name": "artists",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with one of the specified artist names or IDs"
+              },
+              {
+                "name": "bpm",
+                "value": "",
+                "type": "query",
+                "description": "(Deprecated; use bpm_from and bpm_to instead) Show tracks with the specified beats per minute"
+              },
+              {
+                "name": "bpm_from",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified beats per minute or faster"
+              },
+              {
+                "name": "bpm_to",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified beats per minute or slower"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified duration in seconds"
+              },
+              {
+                "name": "duration_from",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified duration or longer in seconds"
+              },
+              {
+                "name": "duration_to",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified duration or shorter in seconds"
+              },
+              {
+                "name": "genre",
+                "value": "Classical,Holiday",
+                "type": "query",
+                "description": "Show tracks with each of the specified genres; to get the list of genres, use `GET /v2/audio/genres`"
+              },
+              {
+                "name": "is_instrumental",
+                "value": "",
+                "type": "query",
+                "description": "Show instrumental music only"
+              },
+              {
+                "name": "instruments",
+                "value": "Trumpet,Percussion",
+                "type": "query",
+                "description": "Show tracks with each of the specified instruments; to get the list of instruments, use `GET /v2/audio/instruments`"
+              },
+              {
+                "name": "moods",
+                "value": "Confident,Playful",
+                "type": "query",
+                "description": "Show tracks with each of the specified moods; to get the list of moods, use `GET /v2/audio/moods`"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "1",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "query",
+                "value": "drum",
+                "type": "query",
+                "description": "One or more search terms separated by spaces"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "vocal_description",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified vocal description (male, female)"
+              },
+              {
+                "name": "view",
+                "value": "full",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to display in the response; see the documentation for the fields parameter in the overview section"
+              },
+              {
+                "name": "library",
+                "value": "",
+                "type": "query",
+                "description": "Which library to search"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Which language to search in"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for tracks. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter."
+        },
+        {
+          "info": {
+            "name": "List audio genres",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/genres",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns a list of all audio genres."
+        },
+        {
+          "info": {
+            "name": "List audio instruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/instruments",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns a list of all audio instruments."
+        },
+        {
+          "info": {
+            "name": "List audio moods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/moods",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns a list of all audio moods."
+        },
+        {
+          "info": {
+            "name": "List audio tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio",
+            "params": [
+              {
+                "name": "id",
+                "value": "442583,434750",
+                "type": "query",
+                "description": "One or more audio IDs"
+              },
+              {
+                "name": "view",
+                "value": "full",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists information about one or more audio tracks, including the description and publication date."
+        },
+        {
+          "info": {
+            "name": "Get details about audio tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "442583",
+                "type": "path",
+                "description": "Audio track ID"
+              },
+              {
+                "name": "view",
+                "value": "full",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint shows information about a track, including its genres, instruments, and other attributes."
+        },
+        {
+          "info": {
+            "name": "List audio licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/licenses",
+            "params": [
+              {
+                "name": "audio_id",
+                "value": "1",
+                "type": "query",
+                "description": "Show licenses for the specified track ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists existing licenses. You can filter the results according to the track ID to see if you have an existing license for a specific track."
+        },
+        {
+          "info": {
+            "name": "License audio tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/licenses",
+            "params": [
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "License type"
+              },
+              {
+                "name": "search_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the search that led to licensing this track"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets licenses for one or more tracks."
+        },
+        {
+          "info": {
+            "name": "Download audio tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/licenses/:id/downloads",
+            "params": [
+              {
+                "name": "id",
+                "value": "e123",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint redownloads tracks that you have already received a license for."
+        },
+        {
+          "info": {
+            "name": "List audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/collections",
+            "params": [
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "100",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists your collections of audio tracks and their basic attributes."
+        },
+        {
+          "info": {
+            "name": "Create audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/collections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates one or more collections (soundboxes). To add tracks, use `POST /v2/audio/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Get the details of audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433107",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a collection, including the number of items in it and when it was last updated. To get the tracks in collections, use `GET /v2/audio/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Rename audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433107",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint sets a new name for a collection."
+        },
+        {
+          "info": {
+            "name": "Delete audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433111",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint deletes a collection."
+        },
+        {
+          "info": {
+            "name": "Get the contents of audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433113",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists the IDs of tracks in a collection and the date that each was added."
+        },
+        {
+          "info": {
+            "name": "Add audio tracks to collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433115",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint adds one or more tracks to a collection by track IDs."
+        },
+        {
+          "info": {
+            "name": "Remove audio tracks from collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433119",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "item_id",
+                "value": "76688182,40005859",
+                "type": "query",
+                "description": "One or more item IDs to remove from the collection"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint removes one or more tracks from a collection."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "editorial_images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search editorial images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms separated by spaces"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Show editorial content within a certain editorial category; specify by category name"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Show only editorial content that is available for distribution in a certain country"
+              },
+              {
+                "name": "supplier_code",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content from certain suppliers"
+              },
+              {
+                "name": "date_start",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content generated on or after a specific date"
+              },
+              {
+                "name": "date_end",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content generated on or before a specific date"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for editorial images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
+        },
+        {
+          "info": {
+            "name": "List editorial categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/categories",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to."
+        },
+        {
+          "info": {
+            "name": "Get editorial content details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "9926131a",
+                "type": "path",
+                "description": "Editorial ID"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the content is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint shows information about an editorial image, including a URL to a preview image and the sizes that it is available in."
+        },
+        {
+          "info": {
+            "name": "List editorial image licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/licenses",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "query",
+                "description": "Show licenses for the specified editorial image ID"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show editorial images that are available with the specified license name"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Filter licenses by username of licensee"
+              },
+              {
+                "name": "start_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created on or after the specified date"
+              },
+              {
+                "name": "end_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created before the specified date"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists existing editorial image licenses."
+        },
+        {
+          "info": {
+            "name": "License editorial content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/editorial/images/licenses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets licenses for one or more editorial images. You must specify the country and one or more editorial images to license."
+        },
+        {
+          "info": {
+            "name": "Get editorial livefeed list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/livefeeds",
+            "params": [
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only livefeeds that are available for distribution in a certain country"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get editorial livefeed list"
+        },
+        {
+          "info": {
+            "name": "Get editorial livefeed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/livefeeds/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+                "type": "path",
+                "description": "Editorial livefeed ID; must be an URI encoded string"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the livefeed is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get editorial livefeed"
+        },
+        {
+          "info": {
+            "name": "Get editorial livefeed items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/livefeeds/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+                "type": "path",
+                "description": "Editorial livefeed ID; must be an URI encoded string"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the livefeed items are available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get editorial livefeed items"
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Get editorial content details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "9926131a",
+                "type": "path",
+                "description": "Editorial ID"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the content is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/{id}` instead to show information about an editorial image, including a URL to a preview image and the sizes that it is available in."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) License editorial content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/editorial/licenses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Deprecated; use `POST /v2/editorial/images/licenses` instead to get licenses for one or more editorial images. You must specify the country and one or more editorial images to license."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Get editorial livefeed list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/livefeeds",
+            "params": [
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only livefeeds that are available for distribution in a certain country"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/livefeeds` instead to get a list of editorial livefeeds."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Get editorial livefeed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/livefeeds/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+                "type": "path",
+                "description": "Editorial livefeed ID; must be an URI encoded string"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the livefeed is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated: use `GET /v2/editorial/images/livefeeds/{id}` instead to get an editorial livefeed."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Get editorial livefeed items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/livefeeds/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+                "type": "path",
+                "description": "Editorial livefeed ID; must be an URI encoded string"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the livefeed items are available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/livefeeds/{id}/items` instead to get editorial livefeed items."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Search editorial content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms separated by spaces"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Show editorial content within a certain editorial category; specify by category name"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Show only editorial content that is available for distribution in a certain country"
+              },
+              {
+                "name": "supplier_code",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content from certain suppliers"
+              },
+              {
+                "name": "date_start",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content generated on or after a specific date"
+              },
+              {
+                "name": "date_end",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content generated on or before a specific date"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/search` instead to search for editorial images."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) List editorial categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/categories",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/categories` instead. This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) List updated content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/updated",
+            "params": [
+              {
+                "name": "type",
+                "value": "edit",
+                "type": "query",
+                "description": "Specify `addition` to return only images that were added or `edit` to return only images that were edited or deleted"
+              },
+              {
+                "name": "date_updated_start",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show images images added, edited, or deleted after the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00."
+              },
+              {
+                "name": "date_updated_end",
+                "value": "2020-02-04T14:00-05:00",
+                "type": "query",
+                "description": "Show images images added, edited, or deleted before the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00."
+              },
+              {
+                "name": "date_taken_start",
+                "value": "2020-02-04",
+                "type": "query",
+                "description": "Show images that were taken on or after the specified date; use this parameter if you want recently created images from the collection instead of updated older assets"
+              },
+              {
+                "name": "date_taken_end",
+                "value": "2020-02-05",
+                "type": "query",
+                "description": "Show images that were taken before the specified date"
+              },
+              {
+                "name": "cursor",
+                "value": "eyJ2IjoxLCJzIjoyfQ==",
+                "type": "query",
+                "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests"
+              },
+              {
+                "name": "sort",
+                "value": "newest",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "supplier_code",
+                "value": "ABC",
+                "type": "query",
+                "description": "Show only editorial content from certain suppliers"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Show only editorial content that is available for distribution in a certain country"
+              },
+              {
+                "name": "per_page",
+                "value": "200",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/updated` instead to get recently updated items."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "editorial_video",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search editorial video content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/videos/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms separated by spaces"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Show editorial video content within a certain editorial category; specify by category name"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Show only editorial video content that is available for distribution in a certain country"
+              },
+              {
+                "name": "supplier_code",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial video content from certain suppliers"
+              },
+              {
+                "name": "date_start",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial video content generated on or after a specific date"
+              },
+              {
+                "name": "date_end",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial video content generated on or before a specific date"
+              },
+              {
+                "name": "resolution",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial video content with specific resolution"
+              },
+              {
+                "name": "fps",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial video content generated with specific frames per second"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for editorial videos. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
+        },
+        {
+          "info": {
+            "name": "List editorial video categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/videos/categories",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists the categories that editorial videos can belong to, which are separate from the categories that other types of assets can belong to."
+        },
+        {
+          "info": {
+            "name": "Get editorial video content details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/videos/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "9926131a",
+                "type": "path",
+                "description": "Editorial ID"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the content is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint shows information about an editorial image, including a URL to a preview image and the sizes that it is available in."
+        },
+        {
+          "info": {
+            "name": "License editorial video content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/editorial/videos/licenses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets licenses for one or more editorial videos. You must specify the country and one or more editorial videos to license."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "computer_vision",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/cv/images",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint uploads an image for reverse image or video search. Images must be in JPEG or PNG format. To get the search results, pass the upload ID that this endpoint returns to the GET /v2/cv/similar/images or GET /v2/cv/similar/videos endpoints. Contact us for access to this endpoint."
+        },
+        {
+          "info": {
+            "name": "List similar images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/cv/similar/images",
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "U6ba16262e3bc2db470b8e3cfa8aaab25",
+                "type": "query",
+                "description": "The asset ID or upload ID to find similar images for"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show only images with the specified license"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable safe search"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns images that are visually similar to an image that you specify or upload."
+        },
+        {
+          "info": {
+            "name": "List similar videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/cv/similar/videos",
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "U6ba16262e3bc2db470b8e3cfa8aaab25",
+                "type": "query",
+                "description": "The asset ID or upload ID to find similar videos for"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show only videos with the specified license"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable safe search"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns videos that are visually similar to an image that you specify or upload."
+        },
+        {
+          "info": {
+            "name": "List suggested keywords",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/cv/keywords",
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "U6ba16262e3bc2db470b8e3cfa8aaab25",
+                "type": "query",
+                "description": "The asset ID or upload ID to suggest keywords for"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns a list of suggested keywords for a media item that you specify or upload."
+        },
+        {
+          "info": {
+            "name": "Upload ephemeral images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `POST /v2/cv/images` instead. This endpoint uploads an image for reverse image search. The image must be in JPEG or PNG format. To get the search results, pass the ID that this endpoint returns to the `GET /v2/images/{id}/similar` endpoint."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "contributors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get details about multiple contributors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors",
+            "params": [
+              {
+                "name": "id",
+                "value": "800506,1653538",
+                "type": "query",
+                "description": "One or more contributor IDs"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists information about one or more contributors, including contributor type, equipment they use and other attributes."
+        },
+        {
+          "info": {
+            "name": "Get details about a single contributor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors/:contributor_id",
+            "params": [
+              {
+                "name": "contributor_id",
+                "value": "1653538",
+                "type": "path",
+                "description": "Contributor ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint shows information about a single contributor, including contributor type, equipment they use, and other attributes."
+        },
+        {
+          "info": {
+            "name": "List contributors' collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors/:contributor_id/collections",
+            "params": [
+              {
+                "name": "contributor_id",
+                "value": "800506",
+                "type": "path",
+                "description": "Contributor ID"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists collections based on contributor ID."
+        },
+        {
+          "info": {
+            "name": "Get details about contributors' collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors/:contributor_id/collections/:id",
+            "params": [
+              {
+                "name": "contributor_id",
+                "value": "800506",
+                "type": "path",
+                "description": "Contributor ID"
+              },
+              {
+                "name": "id",
+                "value": "1991678",
+                "type": "path",
+                "description": "Collection ID that belongs to the contributor"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a contributor's collection, including its cover image, timestamps for its creation, and most recent update. To get the items in collections, use GET /v2/contributors/{contributor_id}/collections/{id}/items."
+        },
+        {
+          "info": {
+            "name": "Get the items in contributors' collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors/:contributor_id/collections/:id/items",
+            "params": [
+              {
+                "name": "contributor_id",
+                "value": "800506",
+                "type": "path",
+                "description": "Contributor ID"
+              },
+              {
+                "name": "id",
+                "value": "1991678",
+                "type": "path",
+                "description": "Collection ID that belongs to the contributor"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists the IDs of items in a contributor's collection and the date that each was added."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "users",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get user details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/user"
+          },
+          "docs": "Get user details"
+        },
+        {
+          "info": {
+            "name": "Get access token details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/user/access_token",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get access token details"
+        },
+        {
+          "info": {
+            "name": "List user subscriptions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/user/subscriptions",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List user subscriptions"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "test",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Echo text",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/test",
+            "params": [
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Text to echo"
+              }
+            ]
+          },
+          "docs": "Echo text"
+        },
+        {
+          "info": {
+            "name": "Validate input",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/test/validate",
+            "headers": [
+              {
+                "name": "user-agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "123",
+                "type": "query",
+                "description": "Integer ID"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "List of tags"
+              }
+            ]
+          },
+          "docs": "Validate input"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "oauth",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Authorize applications",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/oauth/authorize",
+            "params": [
+              {
+                "name": "client_id",
+                "value": "6d097450b209c6dcd859",
+                "type": "query",
+                "description": "Client ID (Consumer Key) of your application"
+              },
+              {
+                "name": "realm",
+                "value": "customer",
+                "type": "query",
+                "description": "User type to be authorized (usually 'customer')"
+              },
+              {
+                "name": "redirect_uri",
+                "value": "localhost",
+                "type": "query",
+                "description": "The callback URI to send the request to after authorization; must use a host name that is registered with your application"
+              },
+              {
+                "name": "response_type",
+                "value": "code",
+                "type": "query",
+                "description": "Type of temporary authorization code that will be used to generate an access code; the only valid value is 'code'"
+              },
+              {
+                "name": "scope",
+                "value": "user.view",
+                "type": "query",
+                "description": "Space-separated list of scopes to be authorized"
+              },
+              {
+                "name": "state",
+                "value": "1540290465000",
+                "type": "query",
+                "description": "Unique value used by the calling app to verify the request"
+              }
+            ]
+          },
+          "docs": "This endpoint returns a redirect URI (in the 'Location' header) that the customer uses to authorize your application and, together with POST /v2/oauth/access_token, generate an access token that represents that authorization."
+        },
+        {
+          "info": {
+            "name": "Get access tokens",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/oauth/access_token",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This endpoint returns an access token for the specified user and with the specified scopes. The token does not expire until the user changes their password. The body parameters must be encoded as form data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

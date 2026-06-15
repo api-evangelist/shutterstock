@@ -1,48 +1,74 @@
-# Shutterstock
+# Shutterstock (shutterstock)
 
-Shutterstock is a leading global technology company providing high-quality images, videos, audio tracks, sound effects, and editorial content to businesses, individuals, and organizations worldwide. With a library of over 350 million assets, Shutterstock offers royalty-free creative content for marketing campaigns, website designs, social media, and more. The Shutterstock API provides programmatic access to search, browse, license, and download media assets, manage collections, access computer vision features, and handle OAuth 2.0 authentication.
+Shutterstock is a leading global technology company providing high-quality images, videos, audio tracks, sound effects, and editorial content to businesses, individuals, and organizations worldwide. With a library of over 350 million assets, Shutterstock offers royalty-free creative content for marketing campaigns, website designs, social media, and more. The Shutterstock API provides programmatic access to search, browse, license, and download media assets, manage collections, access computer vision features, and handle OAuth 2.0 authentication. It also includes contributor profile management and user account operations.
 
-**Human URL:** [https://www.shutterstock.com/developers](https://www.shutterstock.com/developers)
+**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/shutterstock/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/shutterstock/refs/heads/main/apis.yml)
+
+## Scope
+
+- **Type:** Index
+
+## Tags
+
+- Images
+- Media
+- Photos
+- Stock Images
+- Videos
+- Audio
+- Licensing
+- Creative Content
+
+## Timestamps
+
+- **Created:** 2026-05-02
+- **Modified:** 2026-05-19
 
 ## APIs
 
-### Shutterstock API v2
-- **Documentation:** https://www.shutterstock.com/developers/documentation
-- **API Reference:** https://api-reference.shutterstock.com/
+### Shutterstock API
+
+The Shutterstock REST API v2 provides access to 350M+ images, videos, audio tracks, sound effects, and editorial content. It supports searching by keyword, color, category, and visual similarity (computer vision). Licensing operations support subscription and on-demand purchase models. Collections allow users to organize and save assets. OAuth 2.0 is required for licensed content operations; Basic Auth is available for search and browse endpoints.
+
+- **Human URL:** [https://www.shutterstock.com/developers](https://www.shutterstock.com/developers)
 - **Base URL:** `https://api.shutterstock.com`
-- **Getting Started:** https://www.shutterstock.com/developers/documentation/getting-started
-- **Authentication:** OAuth 2.0 (required for licensing) or Basic Auth (for search/browse)
-- **SDK:** https://www.shutterstock.com/developers/documentation/javascript-sdk
-- **Plans:** https://www.shutterstock.com/api/pricing
 
-## Artifacts
+#### Tags
 
-### OpenAPI Specifications
-- [shutterstock-openapi.yml](openapi/shutterstock-openapi.yml) — Complete Shutterstock API v2 with 74 paths and 95 operations (images, videos, audio, editorial, CV, collections, users, OAuth)
+- Images
+- Videos
+- Audio
+- Stock Media
+- Licensing
+- Creative Content
+- Computer Vision
+- Editorial
 
-### JSON Schemas
-- [shutterstock-image-schema.json](json-schema/shutterstock-image-schema.json)
-- [shutterstock-video-schema.json](json-schema/shutterstock-video-schema.json)
+#### Properties
 
-### JSON Structure
-- [shutterstock-image-structure.json](json-structure/shutterstock-image-structure.json)
+- [Documentation](https://www.shutterstock.com/developers/documentation)
+- [API Reference](https://api-reference.shutterstock.com/)
+- [Getting Started](https://www.shutterstock.com/developers/documentation/getting-started)
+- [Authentication](https://www.shutterstock.com/developers/documentation/authentication)
+- [Tutorial](https://www.shutterstock.com/developers/documentation/tutorial)
+- [Plans](https://www.shutterstock.com/api/pricing)
+- [SDK](https://www.shutterstock.com/developers/documentation/javascript-sdk)
+- [GitHub Organization](https://github.com/shutterstock)
+- [OpenAPI](openapi/shutterstock-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+- [Postman Collection](collections/shutterstock.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
+- [Open Collection](collections/shutterstock.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [JSON Schema](json-schema/shutterstock-image-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Schema](json-schema/shutterstock-video-schema.json) — [JSON Schema](https://json-schema.org/specification)
+- [JSON Structure](json-structure/shutterstock-image-structure.json)
+- [JSON-LD](json-ld/shutterstock-context.jsonld) — [JSON-LD](https://www.w3.org/TR/json-ld11/)
+- [Spectral Rules](rules/shutterstock-rules.yml)
+- [Vocabulary](vocabulary/shutterstock-vocabulary.yml)
 
-### JSON-LD Context
-- [shutterstock-context.jsonld](json-ld/shutterstock-context.jsonld)
+## Common Properties
 
-### Examples
-- [shutterstock-search-images-example.json](examples/shutterstock-search-images-example.json) — Search stock photos by keyword and color
-- [shutterstock-license-image-example.json](examples/shutterstock-license-image-example.json) — License a stock image for download
-
-### Rules
-- [shutterstock-rules.yml](rules/shutterstock-rules.yml)
-
-### Capabilities
-- [media-search-and-licensing.yaml](capabilities/media-search-and-licensing.yaml) — Images, videos, audio, editorial, computer vision, collections, and user management for stock media workflows
-
-### Vocabulary
-- [shutterstock-vocabulary.yml](vocabulary/shutterstock-vocabulary.yml)
+- [LinkedIn](https://www.linkedin.com/company/shutterstock)
 
 ## Maintainers
 
-**Kin Lane** - kin@apievangelist.com
+**FN:** Kin Lane
+**Email:** kin@apievangelist.com
