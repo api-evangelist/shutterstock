@@ -23,6 +23,10 @@ created: '2026-05-02'
 modified: '2026-05-19'
 specificationVersion: '0.19'
 common:
+  - type: VulnerabilityDisclosure
+    url: security/shutterstock-vulnerability-disclosure.yml
+  - type: DomainSecurity
+    url: security/shutterstock-domain-security.yml
   - type: Authentication
     url: authentication/shutterstock-authentication.yml
   - type: OAuthScopes

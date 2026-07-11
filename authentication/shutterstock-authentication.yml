@@ -1,0 +1,24 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/shutterstock-openapi.yml
+summary:
+  types:
+  - http
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+schemes:
+- name: basic
+  type: http
+  scheme: basic
+  sources:
+  - openapi/shutterstock-openapi.yml
+- name: customer_accessCode
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+    tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+    scopes: 5
+  sources:
+  - openapi/shutterstock-openapi.yml
