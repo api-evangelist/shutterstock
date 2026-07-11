@@ -1,0 +1,45 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/shutterstock-openapi.yml
+schemes:
+- name: customer_accessCode
+  source: openapi/shutterstock-openapi.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+    tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+scopes:
+- scope: collections.edit
+  description: Grant the ability to create new collections, edit a collection, and modify the
+    contents of a collection
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/shutterstock-openapi.yml
+- scope: collections.view
+  description: Grant read-only access to a collection and its contents.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/shutterstock-openapi.yml
+- scope: licenses.create
+  description: Grant the ability to download and license media on behalf of the user.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/shutterstock-openapi.yml
+- scope: licenses.view
+  description: Grant read-only access to a user's licenses.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/shutterstock-openapi.yml
+- scope: purchases.view
+  description: Grant read-only access to a user's purchase history.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/shutterstock-openapi.yml
+- scope: user.view
+  sources:
+  - openapi/shutterstock-openapi.yml
