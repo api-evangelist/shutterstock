@@ -1,0 +1,1994 @@
+openapi: 3.0.0
+info:
+  title: Shutterstock API Reference audio API
+  description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
+  version: 1.0.30
+  contact:
+    name: Shutterstock Developer Support
+    url: https://www.shutterstock.com/developers/contact-us
+  license:
+    name: Shutterstock API Terms
+    url: https://www.shutterstock.com/api/terms
+servers:
+- url: https://api.shutterstock.com
+  description: Shutterstock API
+tags:
+- name: audio
+paths:
+  /v2/audio/search:
+    get:
+      parameters:
+      - description: Show tracks with one of the specified artist names or IDs
+        in: query
+        name: artists
+        schema:
+          type: array
+          items:
+            type: string
+          uniqueItems: false
+      - description: (Deprecated; use bpm_from and bpm_to instead) Show tracks with the specified beats per minute
+        in: query
+        name: bpm
+        deprecated: true
+        schema:
+          type: integer
+          uniqueItems: true
+      - description: Show tracks with the specified beats per minute or faster
+        in: query
+        name: bpm_from
+        schema:
+          type: integer
+          uniqueItems: true
+      - description: Show tracks with the specified beats per minute or slower
+        in: query
+        name: bpm_to
+        schema:
+          type: integer
+          uniqueItems: true
+      - description: Show tracks with the specified duration in seconds
+        in: query
+        name: duration
+        schema:
+          type: integer
+          uniqueItems: true
+      - description: Show tracks with the specified duration or longer in seconds
+        in: query
+        name: duration_from
+        schema:
+          type: integer
+          uniqueItems: true
+      - description: Show tracks with the specified duration or shorter in seconds
+        in: query
+        name: duration_to
+        schema:
+          type: integer
+          uniqueItems: true
+      - description: Show tracks with each of the specified genres; to get the list of genres, use `GET /v2/audio/genres`
+        in: query
+        name: genre
+        explode: true
+        example:
+        - Classical
+        - Holiday
+        schema:
+          type: array
+          items:
+            type: string
+          uniqueItems: false
+      - description: Show instrumental music only
+        in: query
+        name: is_instrumental
+        schema:
+          type: boolean
+          uniqueItems: true
+      - description: Show tracks with each of the specified instruments; to get the list of instruments, use `GET /v2/audio/instruments`
+        in: query
+        name: instruments
+        explode: true
+        example:
+        - Trumpet
+        - Percussion
+        schema:
+          type: array
+          items:
+            type: string
+          uniqueItems: false
+      - description: Show tracks with each of the specified moods; to get the list of moods, use `GET /v2/audio/moods`
+        in: query
+        name: moods
+        explode: true
+        example:
+        - Confident
+        - Playful
+        schema:
+          type: array
+          items:
+            type: string
+          uniqueItems: false
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+          uniqueItems: true
+      - description: Number of results per page
+        in: query
+        name: per_page
+        example: 1
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 500
+          default: 20
+          uniqueItems: true
+      - description: One or more search terms separated by spaces
+        in: query
+        name: query
+        example: drum
+        schema:
+          type: string
+          uniqueItems: true
+      - description: Sort by
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - score
+          - ranking_all
+          - artist
+          - title
+          - bpm
+          - freshness
+          - duration
+          uniqueItems: true
+      - description: Sort order
+        in: query
+        name: sort_order
+        schema:
+          type: string
+          default: desc
+          enum:
+          - asc
+          - desc
+          uniqueItems: true
+      - description: Show tracks with the specified vocal description (male, female)
+        in: query
+        name: vocal_description
+        schema:
+          type: string
+          uniqueItems: true
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        example: full
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: minimal
+          uniqueItems: true
+      - description: Fields to display in the response; see the documentation for the fields parameter in the overview section
+        in: query
+        name: fields
+        schema:
+          type: string
+          uniqueItems: true
+      - description: Which library to search
+        in: query
+        name: library
+        schema:
+          type: string
+          enum:
+          - shutterstock
+          - premier
+          default: premier
+          uniqueItems: true
+      - description: Which language to search in
+        in: query
+        name: language
+        schema:
+          type: string
+          uniqueItems: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudioSearchResults'
+              examples:
+                response:
+                  value:
+                    page: 1
+                    per_page: 5
+                    total_count: 25
+                    search_id: c298887c-6f3e-45df-b6cd-41b246e4a104
+                    data:
+                    - vocal_description: ''
+                      keywords:
+                      - celebratory
+                      - chic
+                      - euphoric
+                      - good times
+                      - hip
+                      - optimistic
+                      - party
+                      - soaring
+                      - upbeat
+                      artists:
+                      - name: Klimenko Music
+                      genres:
+                      - Dance/Electronic
+                      - Electro Pop
+                      - Pop/Rock
+                      instruments:
+                      - Piano
+                      - Synth bass
+                      - Synth drums
+                      - Synthesizer
+                      id: '442583'
+                      isrc: ''
+                      description: Pulsing and feel-good, featuring soaring synthesizer, groovy synth bass drums and synth drums that create a euphoric, upbeat mood.
+                      similar_artists: []
+                      releases: []
+                      is_instrumental: true
+                      title: Another Tomorrow
+                      is_adult: false
+                      lyrics: ''
+                      media_type: audio
+                      recording_version: ''
+                      moods:
+                      - Bright
+                      - Confident
+                      - Fun
+                      - Happy
+                      - Inspiring
+                      - Optimistic
+                      - Playful
+                      - Sophisticated
+                      - Stylish
+                      - Uplifting
+                      language: en
+                      assets:
+                        clean_audio:
+                          file_size: 35188408
+                        preview_mp3:
+                          file_size: 4400203
+                          url: https://ak.picdn.net/shutterstock/audio/442583/preview/preview.mp3
+                        preview_ogg:
+                          file_size: 4453197
+                          url: https://ak.picdn.net/shutterstock/audio/442583/preview/preview.ogg
+                        waveform:
+                          file_size: 18778
+                          url: https://ak.picdn.net/shutterstock/audio/442583/waveform/waveform.png
+                      contributor:
+                        id: '2847971'
+                      duration: 183
+                      album:
+                        id: ''
+                        title: ''
+                      published_time: '2016-08-16T14:30:03-04:00'
+                      updated_time: '2016-08-18T17:59:33-04:00'
+                      bpm: 110
+                      added_date: '2016-08-16'
+                      url: ''
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - audio
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET "https://api.shutterstock.com/v2/audio/search" \
+
+          --header "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          -G \
+
+          --data-urlencode "query=bluegrass" \
+
+          --data-urlencode "duration_from=60" \
+
+          --data-urlencode "moods=uplifting"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst queryParams = {\n  \"query\": \"bluegrass\",\n  \"duration_from\": 60,\n  \"moods\": [\"uplifting\"]\n};\n\naudioApi.searchAudio(queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"query\" => \"bluegrass\",\n  \"duration_from\" => 60,\n  \"moods\" => \"uplifting\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      operationId: searchAudio
+      summary: Search for tracks
+      description: This endpoint searches for tracks. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter.
+  /v2/audio/genres:
+    get:
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - audio
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenreList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - Rock
+      operationId: getGenres
+      summary: List audio genres
+      description: This endpoint returns a list of all audio genres.
+  /v2/audio/instruments:
+    get:
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - audio
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InstrumentList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - Electric Guitar
+      operationId: getInstruments
+      summary: List audio instruments
+      description: This endpoint returns a list of all audio instruments.
+  /v2/audio/moods:
+    get:
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - audio
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MoodList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - Aggressive
+      operationId: getMoods
+      summary: List audio moods
+      description: This endpoint returns a list of all audio moods.
+  /v2/audio:
+    get:
+      parameters:
+      - description: One or more audio IDs
+        in: query
+        name: id
+        required: true
+        example:
+        - '442583'
+        - '434750'
+        schema:
+          type: array
+          items:
+            type: string
+          minItems: 1
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        example: full
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: minimal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudioDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - vocal_description: ''
+                      keywords:
+                      - breezy
+                      - celebration
+                      - festive
+                      - good times
+                      - hopeful
+                      - optimistic
+                      - party
+                      - positive
+                      - reflective
+                      artists:
+                      - name: Fin Productions
+                      genres:
+                      - Dance/Electronic
+                      - Electro Pop
+                      - Pop/Rock
+                      instruments:
+                      - Bass
+                      - Drums
+                      - Electric guitar
+                      - Pads
+                      - Percussion
+                      - Synthesizer
+                      id: '434750'
+                      isrc: ''
+                      description: Pulsing and feel-good, featuring slick electric guitar, synthesizer, bass, electronic drum pads and drums that create a positive, celebratory mood.
+                      similar_artists: []
+                      releases: []
+                      is_instrumental: true
+                      title: Fresh Love
+                      is_adult: false
+                      lyrics: ''
+                      media_type: audio
+                      recording_version: ''
+                      moods:
+                      - Bright
+                      - Confident
+                      - Fun
+                      - Happy
+                      - Inspiring
+                      - Optimistic
+                      - Playful
+                      - Sophisticated
+                      - Stylish
+                      - Uplifting
+                      language: en
+                      assets:
+                        clean_audio:
+                          file_size: 30760372
+                        preview_mp3:
+                          file_size: 3846606
+                          url: https://ak.picdn.net/shutterstock/audio/434750/preview/preview.mp3
+                        preview_ogg:
+                          file_size: 4402608
+                          url: https://ak.picdn.net/shutterstock/audio/434750/preview/preview.ogg
+                        waveform:
+                          file_size: 19822
+                          url: https://ak.picdn.net/shutterstock/audio/434750/waveform/waveform.png
+                      contributor:
+                        id: '2847971'
+                      duration: 160
+                      album:
+                        id: ''
+                        title: ''
+                      published_time: '2016-04-12T17:45:29-04:00'
+                      updated_time: '2016-08-18T18:03:11-04:00'
+                      bpm: 100
+                      added_date: '2016-04-12'
+                      url: ''
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - audio
+      operationId: getTrackList
+      summary: List audio tracks
+      description: This endpoint lists information about one or more audio tracks, including the description and publication date.
+  /v2/audio/{id}:
+    get:
+      parameters:
+      - description: Audio track ID
+        in: path
+        name: id
+        required: true
+        example: '442583'
+        schema:
+          type: integer
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        example: full
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: full
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audio'
+              examples:
+                response:
+                  value:
+                    vocal_description: ''
+                    keywords:
+                    - celebratory
+                    - chic
+                    - euphoric
+                    - good times
+                    - hip
+                    - optimistic
+                    - party
+                    - soaring
+                    - upbeat
+                    artists:
+                    - name: Klimenko Music
+                    genres:
+                    - Dance/Electronic
+                    - Electro Pop
+                    - Pop/Rock
+                    instruments:
+                    - Piano
+                    - Synth bass
+                    - Synth drums
+                    - Synthesizer
+                    id: '442583'
+                    isrc: ''
+                    description: Pulsing and feel-good, featuring soaring synthesizer, groovy synth bass drums and synth drums that create a euphoric, upbeat mood.
+                    similar_artists: []
+                    releases: []
+                    is_instrumental: true
+                    title: Another Tomorrow
+                    is_adult: false
+                    lyrics: ''
+                    media_type: audio
+                    recording_version: ''
+                    moods:
+                    - Bright
+                    - Confident
+                    - Fun
+                    - Happy
+                    - Inspiring
+                    - Optimistic
+                    - Playful
+                    - Sophisticated
+                    - Stylish
+                    - Uplifting
+                    language: en
+                    assets:
+                      clean_audio:
+                        file_size: 35188408
+                      preview_mp3:
+                        file_size: 4400203
+                        url: https://ak.picdn.net/shutterstock/audio/442583/preview/preview.mp3
+                      preview_ogg:
+                        file_size: 4453197
+                        url: https://ak.picdn.net/shutterstock/audio/442583/preview/preview.ogg
+                      waveform:
+                        file_size: 18778
+                        url: https://ak.picdn.net/shutterstock/audio/442583/waveform/waveform.png
+                    contributor:
+                      id: '2847971'
+                    duration: 183
+                    album:
+                      id: ''
+                      title: ''
+                    published_time: '2016-08-16T14:30:03-04:00'
+                    updated_time: '2016-08-18T17:59:33-04:00'
+                    bpm: 110
+                    added_date: '2016-08-16'
+                    url: ''
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - audio
+      operationId: getTrack
+      summary: Get details about audio tracks
+      description: This endpoint shows information about a track, including its genres, instruments, and other attributes.
+  /v2/audio/licenses:
+    post:
+      parameters:
+      - description: License type
+        in: query
+        name: license
+        schema:
+          type: string
+          enum:
+          - audio_platform
+          - premier_music_basic
+          - premier_music_extended
+          - premier_music_pro
+          - premier_music_comp
+      - description: The ID of the search that led to licensing this track
+        in: query
+        name: search_id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseAudioResultDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - audio_id: '1'
+                      download:
+                        url: http://download2.dev.shutterstock.com/gatekeeper/abc/original.wav
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.create
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"audio\": [\n    {\n      \"audio_id\": \"591623\",\n      \"license\": \"audio_platform\",\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/audio/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"audio\": [\n    {\n      \"audio_id\": \"446348\",\n      \"license\": \"audio_platform\",\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n};\n\naudioApi.licenseTrack(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"audio\" => [\n    [\n      \"audio_id\" => \"591623\",\n      \"license\" => \"audio_platform\",\n      \"metadata\" => [\n      \"customer_id\" => \"12345\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      tags:
+      - audio
+      operationId: licenseTrack
+      summary: License audio tracks
+      description: This endpoint gets licenses for one or more tracks.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseAudioRequest'
+            examples:
+              default:
+                description: Overwrite content of soundbox with new items
+                value:
+                  audio:
+                  - audio_id: '591623'
+                    license: audio_platform
+                    metadata:
+                      customer_id: '12345'
+        description: Tracks to license
+        required: true
+    get:
+      parameters:
+      - description: Show licenses for the specified track ID
+        in: query
+        name: audio_id
+        example: '1'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadHistoryDataList'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.view
+      tags:
+      - audio
+      operationId: getAudioLicenseList
+      summary: List audio licenses
+      description: This endpoint lists existing licenses. You can filter the results according to the track ID to see if you have an existing license for a specific track.
+  /v2/audio/licenses/{id}/downloads:
+    post:
+      parameters:
+      - description: License ID
+        in: path
+        name: id
+        required: true
+        example: e123
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.view
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X POST https://api.shutterstock.com/v2/audio/licenses/e123/downloads \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst licenseId = \"e123\"; // license ID, not track ID\n\naudioApi.downloadTracks(licenseId)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses/e123/downloads\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      tags:
+      - audio
+      operationId: downloadTracks
+      summary: Download audio tracks
+      description: This endpoint redownloads tracks that you have already received a license for.
+  /v2/audio/collections:
+    post:
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionCreateResponse'
+        '201':
+          description: Successfully created collection
+          content:
+            application/json:
+              examples:
+                response:
+                  value:
+                    id: '48433105'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"name\": \"Best rock music\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/audio/collections \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst body = {\n  \"name\": \"Best rock music\"\n};\n\naudioApi.createSoundbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"name\" => \"Best rock music\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - audio
+      operationId: createSoundbox
+      summary: Create audio collections
+      description: This endpoint creates one or more collections (soundboxes). To add tracks, use `POST /v2/audio/collections/{id}/items`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionCreateRequest'
+            examples:
+              default:
+                description: Create a soundbox
+                value:
+                  name: Best rock music
+        description: Collection metadata
+        required: true
+    get:
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        example: '1'
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        example: '100'
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 150
+          default: 100
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - name: Test Collection cdad
+                      updated_time: '2014-11-05T19:29:56-05:00'
+                      id: '5747953'
+                      total_item_count: 0
+                      created_time: '2014-11-05T19:29:56-05:00'
+                    - name: Test Collection ff5f
+                      updated_time: '2014-11-05T19:29:56-05:00'
+                      id: '5747955'
+                      total_item_count: 0
+                      created_time: '2014-11-05T19:29:56-05:00'
+                    - name: Updated Collection ebc4
+                      updated_time: '2014-11-05T19:29:58-05:00'
+                      id: '5747957'
+                      total_item_count: 0
+                      created_time: '2014-11-05T19:29:58-05:00'
+                    - name: Test Collection 0072
+                      updated_time: '2014-11-05T19:32:13-05:00'
+                      id: '5747971'
+                      total_item_count: 0
+                      created_time: '2014-11-05T19:32:13-05:00'
+                    - name: Test Collection d332
+                      updated_time: '2014-11-05T19:32:13-05:00'
+                      id: '5747973'
+                      total_item_count: 0
+                      created_time: '2014-11-05T19:32:13-05:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - audio
+      operationId: getSoundboxList
+      summary: List audio collections
+      description: This endpoint lists your collections of audio tracks and their basic attributes.
+  /v2/audio/collections/{id}:
+    get:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '48433107'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+              examples:
+                response:
+                  value:
+                    name: Test Collection c28c
+                    updated_time: '2016-08-18T18:52:56-04:00'
+                    id: '48433107'
+                    total_item_count: 0
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Collection not found
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - audio
+      operationId: getSoundbox
+      summary: Get the details of audio collections
+      description: This endpoint gets more detailed information about a collection, including the number of items in it and when it was last updated. To get the tracks in collections, use `GET /v2/audio/collections/{id}/items`.
+    post:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '48433107'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully updated collection
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"name\": \"Best rock music\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/audio/collections/48433107 \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433107\";\n\nconst body = {\n  \"name\": \"Best rock music\"\n};\n\naudioApi.renameSoundbox(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"name\" => \"Best rock music\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections/48433107\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - audio
+      operationId: renameSoundbox
+      summary: Rename audio collections
+      description: This endpoint sets a new name for a collection.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionUpdateRequest'
+            examples:
+              default:
+                description: Renaming a soundbox
+                value:
+                  name: Best rock music
+        description: Collection changes
+        required: true
+    delete:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '48433111'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully deleted collection
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X DELETE https://api.shutterstock.com/v2/audio/collections/48433111 \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"'
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433107\";\n\naudioApi.deleteSoundbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections/48433111\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - audio
+      operationId: deleteSoundbox
+      summary: Delete audio collections
+      description: This endpoint deletes a collection.
+  /v2/audio/collections/{id}/items:
+    post:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '48433115'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully added collection items
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"items\": [\n    {\n      \"id\": \"442583\"\n    },\n    {\n      \"id\": \"7491192\"\n    }\n  ]\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/audio/collections/48433115/items \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433115\";\n\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"442583\"\n    },\n    {\n      \"id\": \"7491192\"\n    }\n  ]\n};\n\naudioApi.addSoundboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"items\" => [\n    [\n      \"id\" => \"442583\"\n    ],\n    [\n      \"id\" => \"7491192\"\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections/48433115/items\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - audio
+      operationId: addSoundboxItems
+      summary: Add audio tracks to collections
+      description: This endpoint adds one or more tracks to a collection by track IDs.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionItemRequest'
+            examples:
+              default:
+                description: Adds tracks to a soundbox
+                value:
+                  items:
+                  - id: '442583'
+                  - id: '7491192'
+        description: List of items to add to collection
+        required: true
+    get:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '48433113'
+        schema:
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 150
+          default: 100
+      - description: Sort order
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - oldest
+          default: oldest
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - added_time: '2016-08-18T18:52:59-04:00'
+                      id: '76688182'
+                      media_type: audio
+                    - added_time: '2016-08-18T18:52:59-04:00'
+                      id: '40005859'
+                      media_type: audio
+                    page: 1
+                    per_page: 100
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - audio
+      operationId: getSoundboxItems
+      summary: Get the contents of audio collections
+      description: This endpoint lists the IDs of tracks in a collection and the date that each was added.
+    delete:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '48433119'
+        schema:
+          type: string
+      - description: One or more item IDs to remove from the collection
+        in: query
+        name: item_id
+        example:
+        - '76688182'
+        - '40005859'
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully removed collection items
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X DELETE https://api.shutterstock.com/v2/audio/collections/48433119/items?item_id=36345523 \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"'
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst audioApi = new sstk.AudioApi();\n\nconst collectionId = \"48433119\";\n\n// Array of tracks to remove\nconst tracksToRemove = {\n  \"item_id\": [\n    \"76688182\",\n    \"40005859\"\n  ]\n};\n\naudioApi.deleteSoundboxItems(collectionId, tracksToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections/48433119/items?item_id=495863218\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - audio
+      operationId: deleteSoundboxItems
+      summary: Remove audio tracks from collections
+      description: This endpoint removes one or more tracks from a collection.
+components:
+  schemas:
+    Artist:
+      description: Metadata about the artist that created the media
+      properties:
+        name:
+          type: string
+          description: The artist's name
+      required:
+      - name
+      type: object
+    Album:
+      description: Album metadata
+      properties:
+        id:
+          type: string
+          description: The album ID
+        title:
+          type: string
+          description: The album title
+      required:
+      - id
+      - title
+      type: object
+      additionalProperties: false
+    CollectionItem:
+      description: Metadata about an item that is part of a collection
+      properties:
+        added_time:
+          description: The date the item was added to the collection
+          format: date-time
+          type: string
+        id:
+          description: ID of the item
+          type: string
+        media_type:
+          description: The media type of the item, such as image, video, or audio
+          type: string
+      required:
+      - id
+      type: object
+    DownloadHistoryDataList:
+      description: List of download events
+      properties:
+        data:
+          description: Download events
+          items:
+            $ref: '#/components/schemas/DownloadHistory'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    CollectionDataList:
+      description: List of collections
+      example:
+        data:
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747953'
+          name: Test Collection cdad
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747955'
+          name: Test Collection ff5f
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:58-05:00'
+          id: '5747957'
+          name: Updated Collection ebc4
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:58-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747971'
+          name: Test Collection 0072
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747973'
+          name: Test Collection d332
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+      properties:
+        data:
+          description: Collections
+          items:
+            $ref: '#/components/schemas/Collection'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    LicenseAudioResult:
+      description: The response to a licensing request for an audio track
+      properties:
+        audio_id:
+          description: ID of the track that was licensed
+          type: string
+        download:
+          $ref: '#/components/schemas/Url'
+        error:
+          description: Error information if applicable
+          type: string
+      required:
+      - audio_id
+      type: object
+    Collection:
+      description: Metadata about a collection of assets
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/CollectionItem'
+        created_time:
+          description: When the collection was created
+          format: date-time
+          type: string
+        id:
+          description: The collection ID
+          type: string
+        items_updated_time:
+          description: The last time this collection's items were updated
+          format: date-time
+          type: string
+        name:
+          description: The name of the collection
+          type: string
+        share_code:
+          description: A code that can be used to share the collection (optional)
+          type: string
+        share_url:
+          description: The browser URL that can be used to share the collection (optional)
+          type: string
+        total_item_count:
+          description: The number of items in the collection
+          type: integer
+        updated_time:
+          description: The last time the collection was update (other than changes to the items in it)
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    CollectionItemRequest:
+      description: Request to get a list of items in a collection
+      properties:
+        items:
+          description: List of items
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+      required:
+      - items
+      type: object
+    CollectionCreateRequest:
+      description: Collection creation request
+      example:
+        name: Test Collection 19cf
+      properties:
+        name:
+          description: The name of the collection
+          type: string
+      required:
+      - name
+      type: object
+    AudioAssets:
+      description: Files that are available as part of an audio asset
+      properties:
+        album_art:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        clean_audio:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        original_audio:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        preview_mp3:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        preview_ogg:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        waveform:
+          $ref: '#/components/schemas/AudioAssetDetails'
+      type: object
+    Contributor:
+      description: Information about a contributor
+      properties:
+        id:
+          description: ID of the contributor
+          type: string
+      required:
+      - id
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    Audio:
+      description: Audio metadata
+      example:
+        added_date: '2016-08-16'
+        album:
+          id: ''
+          title: ''
+        artists:
+        - name: Klimenko Music
+        assets:
+          clean_audio:
+            file_size: 35188408
+          preview_mp3:
+            file_size: 4400203
+            url: https://ak.picdn.net/shutterstock/audio/442583/preview/preview.mp3
+          preview_ogg:
+            file_size: 4453197
+            url: https://ak.picdn.net/shutterstock/audio/442583/preview/preview.ogg
+          waveform:
+            file_size: 18778
+            url: https://ak.picdn.net/shutterstock/audio/442583/waveform/waveform.png
+        bpm: 110
+        contributor:
+          id: '2847971'
+        description: Pulsing and feel-good, featuring soaring synthesizer, groovy synth bass drums and synth drums that create a euphoric, upbeat mood.
+        duration: 183
+        genres:
+        - Dance/Electronic
+        - Electro Pop
+        - Pop/Rock
+        id: '442583'
+        instruments:
+        - Piano
+        - Synth bass
+        - Synth drums
+        - Synthesizer
+        is_adult: false
+        is_instrumental: true
+        isrc: ''
+        keywords:
+        - celebratory
+        - chic
+        - euphoric
+        - good times
+        - hip
+        - optimistic
+        - party
+        - soaring
+        - upbeat
+        language: en
+        lyrics: ''
+        media_type: audio
+        moods:
+        - Bright
+        - Confident
+        - Fun
+        - Happy
+        - Inspiring
+        - Optimistic
+        - Playful
+        - Sophisticated
+        - Stylish
+        - Uplifting
+        published_time: '2016-08-16T14:30:03-04:00'
+        recording_version: ''
+        releases: []
+        similar_artists: []
+        title: Another Tomorrow
+        updated_time: '2016-08-18T17:59:33-04:00'
+        vocal_description: ''
+        url: ''
+      properties:
+        added_date:
+          description: Date this track was added to the Shutterstock library
+          format: date
+          type: string
+        affiliate_url:
+          description: Affiliate referral link; appears only for registered affiliate partners
+          type: string
+        album:
+          $ref: '#/components/schemas/Album'
+        artists:
+          description: List of artists
+          items:
+            $ref: '#/components/schemas/Artist'
+          type: array
+        assets:
+          $ref: '#/components/schemas/AudioAssets'
+        bpm:
+          description: BPM (beats per minute) of this track
+          type: integer
+        contributor:
+          $ref: '#/components/schemas/Contributor'
+        deleted_time:
+          format: date-time
+          type: string
+        description:
+          description: Description of this track
+          type: string
+        duration:
+          description: Duration of this track in seconds
+          type: integer
+        genres:
+          description: List of all genres for this track
+          items:
+            description: Genre that is associated with this track
+            type: string
+          type: array
+        id:
+          description: Shutterstock ID of this track
+          type: string
+        instruments:
+          description: List of all instruments that appear in this track
+          items:
+            description: Instrument that appears in this track
+            type: string
+          type: array
+        is_adult:
+          description: Whether or not this track contains adult content
+          type: boolean
+        is_instrumental:
+          description: Whether or not this track is purely instrumental (lacking lyrics)
+          type: boolean
+        isrc:
+          description: ''
+          type: string
+        keywords:
+          description: List of all keywords for this track
+          items:
+            description: Keyword for this track
+            type: string
+          type: array
+        language:
+          description: Language of this track's lyrics
+          type: string
+        lyrics:
+          description: Lyrics of this track
+          type: string
+        media_type:
+          description: Media type of this track; should always be "audio"
+          type: string
+        model_releases:
+          description: List of all model releases for this track
+          items:
+            $ref: '#/components/schemas/ModelRelease'
+          type: array
+        moods:
+          description: List of all moods of this track
+          items:
+            description: Mood of this track
+            type: string
+          type: array
+        published_time:
+          description: Time this track was published
+          format: date-time
+          type: string
+        recording_version:
+          description: Recording version of this track
+          type: string
+        releases:
+          description: List of all releases of this track
+          items:
+            description: Release of this track
+            type: string
+          type: array
+        similar_artists:
+          description: List of all similar artists of this track
+          items:
+            $ref: '#/components/schemas/Artist'
+          type: array
+        submitted_time:
+          description: Time this track was submitted
+          format: date-time
+          type: string
+        title:
+          description: Title of this track
+          type: string
+        updated_time:
+          description: Time this track was last updated
+          format: date-time
+          type: string
+        vocal_description:
+          description: Vocal description of this track
+          type: string
+        url:
+          description: ''
+          type: string
+      required:
+      - id
+      - media_type
+      - contributor
+      type: object
+      additionalProperties: false
+    DownloadHistoryMediaDetails:
+      description: Information about the downloaded media
+      properties:
+        format:
+          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
+        id:
+          description: ID of the download history media details
+          type: string
+      required:
+      - id
+      type: object
+    InstrumentList:
+      description: List of instruments
+      example:
+        data:
+        - Electric Guitar
+      properties:
+        data:
+          description: List of instruments
+          items:
+            type: string
+          type: array
+      required:
+      - data
+      type: object
+      additionalProperties: false
+    LicenseAudioResultDataList:
+      description: List of audio license results
+      example:
+        data:
+        - audio_id: '1'
+          download:
+            url: http://download2.dev.shutterstock.com/gatekeeper/abc/original.wav
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseAudioResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    MoodList:
+      description: List of audio moods
+      example:
+        data:
+        - Aggressive
+      properties:
+        data:
+          description: List of audio moods
+          items:
+            type: string
+          type: array
+      required:
+      - data
+      type: object
+      additionalProperties: false
+    LicenseAudio:
+      description: An audio track in a licensing request
+      properties:
+        audio_id:
+          description: ID of the track being licensed
+          type: string
+        license:
+          description: Type of license
+          enum:
+          - audio_platform
+          - premier_music_basic
+          - premier_music_extended
+          - premier_music_pro
+          - premier_music_comp
+          type: string
+        search_id:
+          description: ID of the search that led to this licensing event
+          type: string
+      required:
+      - audio_id
+      type: object
+    LicenseAudioRequest:
+      description: Audio license request data
+      example:
+        audio:
+        - audio_id: '1'
+      properties:
+        audio:
+          description: List of audio tracks to license
+          items:
+            $ref: '#/components/schemas/LicenseAudio'
+          type: array
+      required:
+      - audio
+      type: object
+    CollectionCreateResponse:
+      description: Collection creation response
+      example:
+        id: '48433105'
+      properties:
+        id:
+          description: ID of the new collection
+          type: string
+      required:
+      - id
+      type: object
+    ModelRelease:
+      description: Model and property release metadata
+      properties:
+        id:
+          description: ID of the model or property release
+          type: string
+      type: object
+    AudioDataList:
+      description: List of tracks
+      example:
+        data:
+        - added_date: '2016-04-12'
+          album:
+            id: ''
+            title: ''
+          artists:
+          - name: Fin Productions
+          assets:
+            clean_audio:
+              file_size: 30760372
+            preview_mp3:
+              file_size: 3846606
+              url: https://ak.picdn.net/shutterstock/audio/434750/preview/preview.mp3
+            preview_ogg:
+              file_size: 4402608
+              url: https://ak.picdn.net/shutterstock/audio/434750/preview/preview.ogg
+            waveform:
+              file_size: 19822
+              url: https://ak.picdn.net/shutterstock/audio/434750/waveform/waveform.png
+          bpm: 100
+          contributor:
+            id: '2847971'
+          description: Pulsing and feel-good, featuring slick electric guitar, synthesizer, bass, electronic drum pads and drums that create a positive, celebratory mood.
+          duration: 160
+          genres:
+          - Dance/Electronic
+          - Electro Pop
+          - Pop/Rock
+          id: '434750'
+          instruments:
+          - Bass
+          - Drums
+          - Electric guitar
+          - Pads
+          - Percussion
+          - Synthesizer
+          is_adult: false
+          is_instrumental: true
+          isrc: ''
+          keywords:
+          - breezy
+          - celebration
+          - festive
+          - good times
+          - hopeful
+          - optimistic
+          - party
+          - positive
+          - reflective
+          language: en
+          lyrics: ''
+          media_type: audio
+          moods:
+          - Bright
+          - Confident
+          - Fun
+          - Happy
+          - Inspiring
+          - Optimistic
+          - Playful
+          - Sophisticated
+          - Stylish
+          - Uplifting
+          published_time: '2016-04-12T17:45:29-04:00'
+          recording_version: ''
+          releases: []
+          similar_artists: []
+          title: Fresh Love
+          updated_time: '2016-08-18T18:03:11-04:00'
+          vocal_description: ''
+      properties:
+        data:
+          description: Tracks
+          items:
+            $ref: '#/components/schemas/Audio'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    DownloadHistoryUserDetails:
+      description: Information about a user
+      properties:
+        username:
+          description: The name of the user who downloaded the item
+          type: string
+      required:
+      - username
+      type: object
+    AudioAssetDetails:
+      description: Information about a file that is part of an audio asset
+      properties:
+        file_size:
+          description: File size of the track
+          type: integer
+        url:
+          description: URL the track is available at
+          type: string
+      type: object
+    CollectionUpdateRequest:
+      description: Collection update request
+      example:
+        name: My collection with a new name
+      properties:
+        name:
+          description: The new name of the collection
+          type: string
+      required:
+      - name
+      type: object
+    AudioSearchResults:
+      description: Audio search results
+      properties:
+        data:
+          description: List of tracks
+          items:
+            $ref: '#/components/schemas/Audio'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+        search_id:
+          description: ID of the search
+          type: string
+      required:
+      - data
+      - total_count
+      - search_id
+      type: object
+      additionalProperties: false
+    DownloadHistory:
+      description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
+      properties:
+        audio:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        download_time:
+          description: Date the media was downloaded the first time
+          format: date-time
+          type: string
+        id:
+          description: ID of the download
+          type: string
+        image:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        is_downloadable:
+          description: Specifies if the media is downloadable via its respective downloads endpoint
+          type: boolean
+        license:
+          description: The name of the license of this download
+          type: string
+        metadata:
+          description: The metadata that was passed in the original licensing request
+          type: object
+        subscription_id:
+          description: ID of the subscription used to perform this download
+          type: string
+        user:
+          $ref: '#/components/schemas/DownloadHistoryUserDetails'
+        video:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+      required:
+      - id
+      - download_time
+      - license
+      type: object
+    GenreList:
+      description: List of audio genres
+      example:
+        data:
+        - Rock
+      properties:
+        data:
+          description: List of genres
+          items:
+            type: string
+          type: array
+      required:
+      - data
+      type: object
+      additionalProperties: false
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
+      properties:
+        data:
+          description: Assets in the collection
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    DownloadHistoryFormatDetails:
+      description: Information about the format of a download
+      properties:
+        format:
+          description: The format of the downloaded media
+          type: string
+        size:
+          description: The size of the downloaded media
+          type: string
+      type: object
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
+    customer_accessCode:
+      type: oauth2
+      x-shutterstock-realm: customer
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+          tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+          scopes:
+            licenses.create: Grant the ability to download and license media on behalf of the user.
+            purchases.view: Grant read-only access to a user's purchase history.
+            licenses.view: Grant read-only access to a user's licenses.
+            collections.edit: Grant the ability to create new collections, edit a collection, and modify the contents of a collection
+            collections.view: Grant read-only access to a collection and its contents.

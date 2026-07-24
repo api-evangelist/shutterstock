@@ -1,0 +1,268 @@
+openapi: 3.0.0
+info:
+  title: Shutterstock API Reference audio oauth API
+  description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
+  version: 1.0.30
+  contact:
+    name: Shutterstock Developer Support
+    url: https://www.shutterstock.com/developers/contact-us
+  license:
+    name: Shutterstock API Terms
+    url: https://www.shutterstock.com/api/terms
+servers:
+- url: https://api.shutterstock.com
+  description: Shutterstock API
+tags:
+- name: oauth
+paths:
+  /v2/oauth/authorize:
+    get:
+      parameters:
+      - description: Client ID (Consumer Key) of your application
+        in: query
+        name: client_id
+        example: 6d097450b209c6dcd859
+        required: true
+        schema:
+          type: string
+      - description: User type to be authorized (usually 'customer')
+        in: query
+        name: realm
+        example: customer
+        schema:
+          type: string
+          enum:
+          - customer
+          - contributor
+          default: customer
+      - description: The callback URI to send the request to after authorization; must use a host name that is registered with your application
+        in: query
+        name: redirect_uri
+        example: localhost
+        required: true
+        schema:
+          type: string
+      - description: Type of temporary authorization code that will be used to generate an access code; the only valid value is 'code'
+        in: query
+        name: response_type
+        example: code
+        required: true
+        schema:
+          type: string
+          enum:
+          - code
+      - description: Space-separated list of scopes to be authorized
+        in: query
+        name: scope
+        example: user.view
+        schema:
+          type: string
+          default: user.view
+      - description: Unique value used by the calling app to verify the request
+        in: query
+        name: state
+        example: '1540290465000'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '302':
+          description: Redirect user to authenticate with Shutterstock
+          content:
+            text/html:
+              schema:
+                $ref: '#/components/schemas/AuthorizeResponse'
+              examples:
+                default:
+                  description: Redirect user to authenticate with Shutterstock
+                  value: https://accounts.shutterstock.com/login?next=%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26state%3D1539619928633%26scope%3Dlicenses.create%20licenses.view%20purchases.view%26client_id%3D6d097450b209c6dcd859%26redirect_uri%3Dhttp%3A%2F%2Flocalhost%3A3000%2Fmyapp%2Fauth%2Fcallback%26realm%3Dcustomer
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      x-code-samples:
+      - lang: shell
+        source: curl "https://api.shutterstock.com/v2/oauth/authorize" \ -X GET \ -G \ --data-urlencode "scope=licenses.create licenses.view purchases.view" \ --data-urlencode "state=demo_`date +%s`" \ --data-urlencode "response_type=code" \ --data-urlencode "redirect_uri=http://localhost:3000/callback" \ --data-urlencode "client_id=$CLIENT_ID"
+      - lang: javascript--nodejs
+        source: "const axios = require(\"axios\");\n\naxios.get(\"https://api.shutterstock.com/v2/oauth/authorize\", {\n  \"params\": {\n    \"scope\": \"licenses.create licenses.view purchases.view\",\n    \"state\": \"demo_\" + Math.round(new Date() / 1000),\n    \"response_type\": \"code\",\n    \"redirect_uri\": \"http://localhost:3000/callback\",\n    \"client_id\": clientId\n  },\n  // Don't follow the redirect because this program is not running in a browser\n  \"maxRedirects\": 0,\n})\n  .catch(({ response }) => {\n    // HTTP 302: Redirect\n    console.log(response.data);\n  });\n"
+      - lang: php
+        source: '$queryFields = [ "client_id" => $clientId, "redirect_uri" => "http://localhost:3000/callback", "response_type" => "code", "scope" => "licenses.create licenses.view purchases.view", "state" => time() ];
+
+          $options = [ CURLOPT_URL => "https://api.shutterstock.com/v2/oauth/authorize?" . http_build_query($queryFields), CURLOPT_USERAGENT => "php/curl", CURLOPT_RETURNTRANSFER => 1 ];
+
+          $handle = curl_init(); curl_setopt_array($handle, $options); $response = curl_exec($handle); curl_close($handle);
+
+          $decodedResponse = json_decode($response); print_r($decodedResponse);'
+      tags:
+      - oauth
+      operationId: authorize
+      summary: Authorize applications
+      description: This endpoint returns a redirect URI (in the 'Location' header) that the customer uses to authorize your application and, together with POST /v2/oauth/access_token, generate an access token that represents that authorization.
+  /v2/oauth/access_token:
+    post:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OauthAccessTokenResponse'
+              examples:
+                response:
+                  value:
+                    access_token: v2/NmQwOTc0NTBiMjA5YzZkY2Q4NTkvMTA4OTg1MDk5L2N1c3RvbWVyLzIvZjB2a0RseGo4Rkt6ZjRmVWJNMm10V2VzcHh1NTBlZWJ6andUQU1NeTVYYnNFTDVWOFRJakItS2RnZTlmbEY1Y3haNWdXLUtYc2JhaXo5djk0V0p2QzZUUWZ4c2FNWm41NkdLYUgyVWlCaVUtQTNVMV9YQWpzd3lpblI3SlZEem8wSG1qQ2NzSkJlX3VQTnNXenBIdkd4SXViVi1rRGJTVENCV0g1U3U0RXRJSV9rSm5lQkl5QXlvbm5JN241UUhv
+                    token_type: Bearer
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      x-code-samples:
+      - lang: shell
+        source: curl "https://api.shutterstock.com/v2/oauth/access_token" \ -X POST \ --data-urlencode "client_id=$CLIENT_ID" \ --data-urlencode "client_secret=$CLIENT_SECRET" \ --data-urlencode "grant_type=authorization_code" \ --data-urlencode "code=$CODE"
+      - lang: javascript--nodejs
+        source: "const axios = require(\"axios\");\n\nconst body = {\n  \"client_id\": clientId,\n  \"client_secret\": clientSecret,\n  \"grant_type\": \"authorization_code\",\n  \"code\": code,\n};\n\naxios.post(\"https://api.shutterstock.com/v2/oauth/access_token\", body)\n  .then((res) => {\n    console.log(res);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"client_id\" => $clientId,\n  \"client_secret\" => $clientSecret,\n  \"grant_type\" => \"authorization_code\",\n  \"code\" => $code\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/oauth/access_token\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Content-Type: application/json\",\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      tags:
+      - oauth
+      operationId: createAccessToken
+      summary: Get access tokens
+      description: This endpoint returns an access token for the specified user and with the specified scopes. The token does not expire until the user changes their password. The body parameters must be encoded as form data.
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  description: Client ID (Consumer Key) of your application
+                  type: string
+                client_secret:
+                  description: Client Secret (Consumer Secret) of your application
+                  type: string
+                code:
+                  description: Response code from the /oauth/authorize flow; required if grant_type=authorization_code
+                  type: string
+                grant_type:
+                  description: 'Grant type: authorization_code generates user tokens, client_credentials generates short-lived client grants'
+                  type: string
+                  enum:
+                  - authorization_code
+                  - client_credentials
+                  - refresh_token
+                realm:
+                  description: User type to be authorized (usually 'customer')
+                  type: string
+                  enum:
+                  - customer
+                  - contributor
+                  default: customer
+                expires:
+                  description: Whether or not the token expires, expiring tokens come with a refresh_token to renew the access_token
+                  type: string
+                  enum:
+                  - 'true'
+                  - 'false'
+                  default: 'false'
+              required:
+              - client_id
+              - grant_type
+            examples:
+              default:
+                value:
+                  client_id: 141024g14g28104gff1h
+          application/json:
+            schema:
+              type: object
+              properties:
+                client_id:
+                  description: Client ID (Consumer Key) of your application
+                  type: string
+                client_secret:
+                  description: Client Secret (Consumer Secret) of your application
+                  type: string
+                code:
+                  description: Response code from the /oauth/authorize flow; required if grant_type=authorization_code
+                  type: string
+                grant_type:
+                  description: 'Grant type: authorization_code generates user tokens, client_credentials generates short-lived client grants'
+                  type: string
+                  enum:
+                  - authorization_code
+                  - client_credentials
+                  - refresh_token
+                realm:
+                  description: User type to be authorized (usually 'customer')
+                  type: string
+                  enum:
+                  - customer
+                  - contributor
+                  default: customer
+                expires:
+                  description: Whether or not the token expires, expiring tokens come with a refresh_token to renew the access_token
+                  type: boolean
+                  default: false
+              required:
+              - client_id
+              - grant_type
+            examples:
+              default:
+                value:
+                  client_id: 141024g14g28104gff1h
+components:
+  schemas:
+    AuthorizeResponse:
+      description: Response to Authorize requests
+      properties:
+        body:
+          description: HTML redirect URL that contains the application authorization 'code'
+          type: string
+      required:
+      - body
+      type: object
+    OauthAccessTokenResponse:
+      description: Access token response to client apps
+      properties:
+        access_token:
+          description: Access token that can be used for future requests
+          type: string
+        expires_in:
+          description: Number of seconds before token expires, only present for expiring tokens
+          type: integer
+        token_type:
+          default: Bearer
+          description: Type of token
+          type: string
+        refresh_token:
+          description: A refresh token that can be used to renew the access_token when it expires, only present for expiring tokens
+          type: string
+        user_token:
+          description: Metadata about the access_token, only present for expiring tokens
+          type: string
+      required:
+      - access_token
+      - token_type
+      type: object
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
+    customer_accessCode:
+      type: oauth2
+      x-shutterstock-realm: customer
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+          tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+          scopes:
+            licenses.create: Grant the ability to download and license media on behalf of the user.
+            purchases.view: Grant read-only access to a user's purchase history.
+            licenses.view: Grant read-only access to a user's licenses.
+            collections.edit: Grant the ability to create new collections, edit a collection, and modify the contents of a collection
+            collections.view: Grant read-only access to a collection and its contents.

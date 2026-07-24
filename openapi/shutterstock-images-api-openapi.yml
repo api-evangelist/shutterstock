@@ -1,0 +1,2831 @@
+openapi: 3.0.0
+info:
+  title: Shutterstock API Reference audio images API
+  description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
+  version: 1.0.30
+  contact:
+    name: Shutterstock Developer Support
+    url: https://www.shutterstock.com/developers/contact-us
+  license:
+    name: Shutterstock API Terms
+    url: https://www.shutterstock.com/api/terms
+servers:
+- url: https://api.shutterstock.com
+  description: Shutterstock API
+tags:
+- name: images
+paths:
+  /v2/images/search:
+    get:
+      parameters:
+      - description: Show images added on the specified date
+        in: query
+        name: added_date
+        schema:
+          type: string
+          format: date
+      - description: Show images added on or after the specified date
+        in: query
+        name: added_date_start
+        schema:
+          type: string
+          format: date
+      - description: Show images with the specified aspect ratio or higher, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image
+        in: query
+        name: aspect_ratio_min
+        schema:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+      - description: Show images with the specified aspect ratio or lower, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image
+        in: query
+        name: aspect_ratio_max
+        schema:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+      - description: Show images with the specified aspect ratio, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image
+        in: query
+        name: aspect_ratio
+        schema:
+          type: number
+          minimum: 0
+          exclusiveMinimum: true
+      - description: Show images added before the specified date
+        in: query
+        name: added_date_end
+        schema:
+          type: string
+          format: date
+      - description: Show images with the specified Shutterstock-defined category; specify a category name or ID
+        in: query
+        name: category
+        schema:
+          type: string
+      - description: Specify either a hexadecimal color in the format '4F21EA' or 'grayscale'; the API groups it into one of 15 color categories and returns images that primarily use that color category
+        in: query
+        name: color
+        schema:
+          type: string
+      - description: Show images with the specified contributor names or IDs, allows multiple
+        in: query
+        name: contributor
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Show images from contributors in one or more specified countries
+        in: query
+        name: contributor_country
+        schema:
+          type: array
+          items:
+            type: string
+            format: country-code-2
+      - description: Fields to display in the response; see the documentation for the fields parameter in the overview section
+        in: query
+        name: fields
+        schema:
+          type: string
+          uniqueItems: true
+      - description: (Deprecated; use height_from and height_to instead) Show images with the specified height
+        in: query
+        name: height
+        deprecated: true
+        schema:
+          type: integer
+      - description: Show images with the specified height or larger, in pixels
+        in: query
+        name: height_from
+        schema:
+          type: integer
+      - description: Show images with the specified height or smaller, in pixels
+        in: query
+        name: height_to
+        schema:
+          type: integer
+      - description: Show images of the specified type
+        in: query
+        name: image_type
+        schema:
+          type: array
+          items:
+            enum:
+            - photo
+            - illustration
+            - vector
+            type: string
+      - description: Hide results with potentially unsafe keywords
+        in: query
+        name: keyword_safe_search
+        schema:
+          type: boolean
+          default: true
+      - description: Set query and result language (uses Accept-Language header if not set)
+        in: query
+        name: language
+        schema:
+          $ref: '#/components/schemas/Language'
+      - description: Show only images with the specified license
+        in: query
+        name: license
+        schema:
+          type: array
+          items:
+            default: commercial
+            enum:
+            - commercial
+            - editorial
+            - enhanced
+            type: string
+      - description: Show image results with the specified model IDs
+        in: query
+        name: model
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Show image results with horizontal or vertical orientation
+        in: query
+        name: orientation
+        schema:
+          type: string
+          enum:
+          - horizontal
+          - vertical
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 500
+          default: 20
+      - description: Show images of people with a signed model release
+        in: query
+        name: people_model_released
+        schema:
+          type: boolean
+      - description: Show images that feature people of the specified age category
+        in: query
+        name: people_age
+        schema:
+          type: string
+          enum:
+          - infants
+          - children
+          - teenagers
+          - 20s
+          - 30s
+          - 40s
+          - 50s
+          - 60s
+          - older
+      - description: Show images with people of the specified ethnicities
+        in: query
+        name: people_ethnicity
+        schema:
+          type: array
+          items:
+            enum:
+            - african
+            - african_american
+            - black
+            - brazilian
+            - chinese
+            - caucasian
+            - east_asian
+            - hispanic
+            - japanese
+            - middle_eastern
+            - native_american
+            - pacific_islander
+            - south_asian
+            - southeast_asian
+            - other
+            type: string
+      - description: Show images with people of the specified gender
+        in: query
+        name: people_gender
+        schema:
+          type: string
+          enum:
+          - male
+          - female
+          - both
+      - description: Show images with the specified number of people
+        in: query
+        name: people_number
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 4
+      - description: One or more search terms separated by spaces; you can use NOT to filter out images that match a term
+        in: query
+        name: query
+        schema:
+          type: string
+      - description: Raise or lower search result rankings based on the result's relevance to a specified region; you can provide a country code or an IP address from which the API infers a country
+        in: query
+        name: region
+        schema:
+          anyOf:
+          - type: string
+            format: country-code-2
+          - type: string
+            format: ipv4
+      - description: Enable or disable safe search
+        in: query
+        name: safe
+        schema:
+          type: boolean
+          default: true
+      - description: Sort by
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - popular
+          - relevance
+          - random
+          default: popular
+      - description: Spellcheck the search query and return results on suggested spellings
+        in: query
+        name: spellcheck_query
+        schema:
+          type: boolean
+          default: true
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: minimal
+      - description: (Deprecated; use width_from and width_to instead) Show images with the specified width
+        in: query
+        name: width
+        deprecated: true
+        schema:
+          type: integer
+      - description: Show images with the specified width or larger, in pixels
+        in: query
+        name: width_from
+        schema:
+          type: integer
+      - description: Show images with the specified width or smaller, in pixels
+        in: query
+        name: width_to
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageSearchResults'
+              examples:
+                response:
+                  value:
+                    page: 1
+                    per_page: 1
+                    total_count: 193097419
+                    search_id: p5S6QwRikdFJTHXwsoiqTg
+                    data:
+                    - id: '1120280123'
+                      aspect: 1.6667
+                      assets:
+                        preview:
+                          height: 269
+                          url: https://image.shutterstock.com/display_pic_with_logo/3673637/1120280123/stock-vector-minimal-geometric-background-dynamic-shapes-composition-eps-vector-1120280123.jpg
+                          width: 450
+                        small_thumb:
+                          height: 60
+                          url: https://thumb10.shutterstock.com/thumb_small/3673637/1120280123/stock-vector-minimal-geometric-background-dynamic-shapes-composition-eps-vector-1120280123.jpg
+                          width: 100
+                        large_thumb:
+                          height: 90
+                          url: https://thumb10.shutterstock.com/thumb_large/3673637/1120280123/stock-vector-minimal-geometric-background-dynamic-shapes-composition-eps-vector-1120280123.jpg
+                          width: 150
+                        huge_thumb:
+                          height: 260
+                          url: https://image.shutterstock.com/image-vector/minimal-geometric-background-dynamic-shapes-260nw-1120280123.jpg
+                          width: 435
+                        preview_1000:
+                          url: https://ak.picdn.net/shutterstock/photos/1120280123/watermark_1000/f4954f705e782cc12cd13910137e3555/preview_1000-1120280123.jpg
+                          width: 1000
+                          height: 600
+                        preview_1500:
+                          url: https://image.shutterstock.com/z/stock-vector-minimal-geometric-background-dynamic-shapes-composition-eps-vector-1120280123.jpg
+                          width: 1500
+                          height: 900
+                      contributor:
+                        id: '3673637'
+                      description: Minimal geometric background. Dynamic shapes composition. Eps10 vector.
+                      image_type: vector
+                      has_model_release: false
+                      media_type: image
+                      url: https://www.shutterstock.com/image-photo/1120280123
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET https://api.shutterstock.com/v2/images/search \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          -G \
+
+          --data-urlencode "query=Vienna" \
+
+          --data-urlencode "orientation=horizontal" \
+
+          --data-urlencode "sort=popular"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst queryParams = {\n  \"query\": \"New York\",\n  \"sort\": \"popular\",\n  \"orientation\": \"horizontal\"\n};\n\nimagesApi.searchImages(queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"query\" => \"New York\",\n  \"sort\" => \"popular\",\n  \"orientation\" => \"horizontal\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      operationId: searchImages
+      summary: Search for images
+      description: This endpoint searches for images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT. Free API accounts show results only from a limited library of media, not the full Shutterstock media library. Also, the number of search fields they can use in a request is limited.
+  /v2/images/search/suggestions:
+    get:
+      parameters:
+      - description: Search term for which you want keyword suggestions
+        in: query
+        name: query
+        required: true
+        example: cats
+        schema:
+          type: string
+      - description: Limit the number of suggestions
+        in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 25
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Suggestions'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getImageSuggestions
+      summary: Get suggestions for a search term
+      description: This endpoint provides autocomplete suggestions for partial search terms.
+    post:
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchEntitiesRequest'
+        description: Plain text to extract keywords from
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchEntitiesResponse'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      x-code-samples:
+      - lang: shell
+        source: 'DATA=''{"text": "The beach is a wonderful place to visit. It has beautiful sand and ocean waves."}''
+
+
+          curl -X POST https://api.shutterstock.com/v2/images/search/suggestions \
+
+          -d "$DATA" \
+
+          -H "Content-Type: application/json" \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"text\": \"The beach is a wonderful place to visit. It has beautiful sand and ocean waves.\"\n};\n\nimagesApi.postImageEntities(body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"text\" => \"The beach is a wonderful place to visit. It has beautiful sand and ocean waves.\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/search/suggestions\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      tags:
+      - images
+      operationId: postImageEntities
+      summary: Get keywords from text
+      description: This endpoint returns up to 10 important keywords from a block of plain text.
+  /v2/images/{id}:
+    get:
+      parameters:
+      - description: Image ID
+        in: path
+        name: id
+        required: true
+        example: '465011609'
+        schema:
+          type: string
+      - description: Language for the keywords and categories in the response
+        in: query
+        name: language
+        example: es
+        schema:
+          $ref: '#/components/schemas/Language'
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: full
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Image'
+              examples:
+                response:
+                  value:
+                    id: '465011609'
+                    added_date: '2016-08-07'
+                    aspect: 0.8501
+                    assets:
+                      huge_jpg:
+                        display_name: Huge
+                        dpi: 300
+                        file_size: 6980608
+                        format: jpg
+                        height: 4902
+                        is_licensable: true
+                        width: 4167
+                      vector_eps:
+                        display_name: Vector
+                        format: eps
+                        is_licensable: true
+                      preview:
+                        height: 450
+                        url: https://image.shutterstock.com/display_pic_with_logo/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg
+                        width: 382
+                      small_thumb:
+                        height: 100
+                        url: https://thumb7.shutterstock.com/thumb_small/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg
+                        width: 85
+                      large_thumb:
+                        height: 150
+                        url: https://thumb7.shutterstock.com/thumb_large/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg
+                        width: 128
+                      huge_thumb:
+                        height: 260
+                        url: https://image.shutterstock.com/image-vector/happy-mid-autumn-festival-background-260nw-465011609.jpg
+                        width: 221
+                      preview_1000:
+                        url: https://ak.picdn.net/shutterstock/photos/465011609/watermark_1000/e80e64e55f14aeb951feaf93ea337dc0/preview_1000-465011609.jpg
+                        width: 850
+                        height: 1000
+                      preview_1500:
+                        url: https://image.shutterstock.com/z/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg
+                        width: 1275
+                        height: 1500
+                    categories:
+                    - id: '8'
+                      name: Holidays
+                    - id: '11'
+                      name: The Arts
+                    contributor:
+                      id: '1384888'
+                    description: Happy Mid Autumn Festival background with golden glitter Moon and hand drawn Moon Rabbits. Vector illustration
+                    image_type: vector
+                    is_adult: false
+                    is_editorial: false
+                    is_illustration: true
+                    has_model_release: false
+                    has_property_release: true
+                    keywords:
+                    - abstract
+                    - art
+                    - artistic
+                    - asian
+                    - autumn
+                    - background
+                    - bunny
+                    - calligraphy
+                    - celebration
+                    - china
+                    media_type: image
+                    url: https://www.shutterstock.com/image-photo/465011609
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getImage
+      summary: Get details about images
+      description: This endpoint shows information about an image, including a URL to a preview image and the sizes that it is available in.
+  /v2/images/categories:
+    get:
+      parameters:
+      - description: Language for the keywords and categories in the response
+        in: query
+        name: language
+        example: es
+        schema:
+          $ref: '#/components/schemas/Language'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '15'
+                      name: Science
+                    - id: '17'
+                      name: Signs/Symbols
+                    - id: '18'
+                      name: Sports/Recreation
+                    - id: '16'
+                      name: Technology
+                    - id: '0'
+                      name: Transportation
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getImageCategories
+      summary: List image categories
+      description: This endpoint lists the categories (Shutterstock-assigned genres) that images can belong to.
+  /v2/images/{id}/similar:
+    get:
+      parameters:
+      - description: Image ID
+        in: path
+        name: id
+        required: true
+        example: '465011609'
+        schema:
+          type: string
+      - description: Language for the keywords and categories in the response
+        in: query
+        name: language
+        example: es
+        schema:
+          $ref: '#/components/schemas/Language'
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 20
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: minimal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageSearchResults'
+              examples:
+                response:
+                  value:
+                    page: 1
+                    per_page: 1
+                    total_count: 200
+                    search_id: ''
+                    data:
+                    - id: '224429596'
+                      aspect: 1
+                      assets:
+                        preview:
+                          height: 450
+                          url: https://image.shutterstock.com/display_pic_with_logo/302287/224429596/stock-vector-happy-halloween-vector-224429596.jpg
+                          width: 450
+                        small_thumb:
+                          height: 100
+                          url: https://thumb1.shutterstock.com/thumb_small/302287/224429596/stock-vector-happy-halloween-vector-224429596.jpg
+                          width: 100
+                        large_thumb:
+                          height: 150
+                          url: https://thumb1.shutterstock.com/thumb_large/302287/224429596/stock-vector-happy-halloween-vector-224429596.jpg
+                          width: 150
+                        huge_thumb:
+                          height: 260
+                          url: https://image.shutterstock.com/image-vector/happy-halloween-vector-260nw-224429596.jpg
+                          width: 260
+                        preview_1000:
+                          url: https://ak.picdn.net/shutterstock/photos/224429596/watermark_1000/9b5c88b67f10298f7b5340f21dffc953/preview_1000-224429596.jpg
+                          width: 1000
+                          height: 1000
+                        preview_1500:
+                          url: https://image.shutterstock.com/z/stock-vector-happy-halloween-vector-224429596.jpg
+                          width: 1500
+                          height: 1500
+                      contributor:
+                        id: '302287'
+                      description: Happy Halloween - vector
+                      image_type: vector
+                      media_type: image
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getSimilarImages
+      summary: List similar images
+      description: This endpoint returns images that are visually similar to an image that you specify.
+  /v2/images/licenses:
+    post:
+      parameters:
+      - description: Subscription ID to use to license the image
+        in: query
+        name: subscription_id
+        schema:
+          type: string
+      - description: Image format
+        in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - eps
+          - jpg
+          default: jpg
+      - description: Image size
+        in: query
+        name: size
+        schema:
+          type: string
+          enum:
+          - small
+          - medium
+          - huge
+          - vector
+          - custom
+          default: huge
+      - description: Search ID that was provided in the results of an image search
+        in: query
+        name: search_id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseImageResultDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - image_id: '547233985'
+                      download:
+                        url: https://download.shutterstock.com/gatekeeper/[random-characters]/shutterstock_547233985.jpg
+                      allotment_charge: 1
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.create
+        - purchases.view
+        ldap_accessCode:
+        - user.view
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"images\": [\n    {\n      \"image_id\": \"59656357\",\n      \"price\": 12.50,\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n}'\n\ncurl -X POST \"https://api.shutterstock.com/v2/images/licenses?subscription_id=$SUBSCRIPTION_ID\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\" \\\n-H 'Content-Type: application/json' \\\n-d \"$DATA\"\n"
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"images\": [\n    {\n      \"image_id\": \"419235589\",\n      \"price\": 12.50,\n      \"metadata\": {\n        \"customer_id\": \"12345\"\n      }\n    }\n  ]\n};\n\nconst queryParams = {\n  \"format\": \"jpg\",\n  \"size\": \"huge\",\n  \"subscription_id\": process.env.SUBSCRIPTION_ID\n};\n\nimagesApi.licenseImages(body, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"images\" => [\n    [\n      \"image_id\" => \"539753938\",\n      \"price\" => 12.50,\n      \"metadata\" => [\n        \"customer_id\" => \"12345\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses?subscription_id=$SUBSCRIPTION_ID\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      tags:
+      - images
+      operationId: licenseImages
+      summary: License images
+      description: This endpoint gets licenses for one or more images. You must specify the image IDs in the body parameter and other details like the format, size, and subscription ID either in the query parameter or with each image ID in the body parameter. Values in the body parameter override values in the query parameters.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseImageRequest'
+            examples:
+              default:
+                value:
+                  images:
+                  - image_id: '59656357'
+                    format: jpg
+                    metadata:
+                      customer_id: '12345'
+                      geo_location: US
+                      number_viewed: '15'
+                      search_term: dog
+                  - image_id: '75359656'
+                    editorial_acknowledgement: true
+                    format: jpg
+                    metadata:
+                      customer_id: '12345'
+                      geo_location: US
+                      number_viewed: '15'
+                      search_term: dog
+        description: List of images to request licenses for and information about each license transaction; these values override the defaults in the query parameters
+        required: true
+    get:
+      parameters:
+      - description: Show licenses for the specified image ID
+        in: query
+        name: image_id
+        schema:
+          type: string
+      - description: Show images that are available with the specified license, such as `standard` or `enhanced`; prepending a `-` sign excludes results from that license
+        in: query
+        name: license
+        schema:
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 200
+          default: 20
+      - description: Sort order
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - oldest
+          default: newest
+      - description: Filter licenses by username of licensee
+        in: query
+        name: username
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Show licenses created on or after the specified date
+        schema:
+          type: string
+          format: date-time
+        example: 2020-02-02T13:00-05:00
+      - name: end_date
+        in: query
+        description: Show licenses created before the specified date
+        schema:
+          type: string
+          format: date-time
+        example: 2020-02-02T13:00-05:00
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadHistoryDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: e121
+                      user:
+                        username: userone
+                      license: standard
+                      subscription_id: s18382630
+                      download_time: '2016-10-03T15:58:18-04:00'
+                      metadata:
+                        client: Company A
+                        other: Important media
+                        purchase_order: '457234'
+                        job: Important project
+                      image:
+                        id: '114350371'
+                        format:
+                          size: huge
+                    - id: e122
+                      user:
+                        username: userone
+                      license: standard
+                      subscription_id: s18382630
+                      download_time: '2016-10-03T16:01:12-04:00'
+                      metadata:
+                        client: Company A
+                        other: Important media
+                        purchase_order: '457234'
+                        job: Important project
+                      image:
+                        id: '135658703'
+                        format:
+                          size: medium
+                    - id: e123
+                      user:
+                        username: userone
+                      license: standard
+                      subscription_id: s18382630
+                      download_time: '2016-10-03T16:01:18-04:00'
+                      metadata:
+                        client: Company A
+                        other: Important media
+                        purchase_order: '457234'
+                        job: Important project
+                      image:
+                        id: '107771801'
+                        format:
+                          size: vector
+                    page: 1
+                    per_page: 3
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.view
+      tags:
+      - images
+      operationId: getImageLicenseList
+      summary: List image licenses
+      description: This endpoint lists existing licenses.
+  /v2/images/licenses/{id}/downloads:
+    post:
+      parameters:
+      - description: License ID
+        in: path
+        name: id
+        required: true
+        example: e123
+        schema:
+          type: string
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"size\": \"huge\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/images/licenses/e123/downloads \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst licenseId = \"e123\"; // license ID, not image ID\n\nconst body = {\n  \"size\": \"huge\"\n};\n\nimagesApi.downloadImage(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"size\" => \"huge\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/licenses/e123/downloads\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+              examples:
+                response:
+                  value:
+                    url: https://download.qa.shutterstock.com/gatekeeper/LzEyMy9odWdlLmpwZyIsIm0iOjEsvdjNsbFNWbVNEQ2FhcHV1VlhhSU9VeUpVIl0/shutterstock_60447496.jpg'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.view
+      tags:
+      - images
+      operationId: downloadImage
+      summary: Download images
+      description: This endpoint redownloads images that you have already received a license for.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedownloadImage'
+            examples:
+              default:
+                value:
+                  size: huge
+        description: Information about the images to redownload
+        required: true
+  /v2/images/recommendations:
+    get:
+      parameters:
+      - description: Image IDs
+        in: query
+        name: id
+        required: true
+        example:
+        - 465011609
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Maximum number of results returned in the response
+        in: query
+        name: max_items
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 20
+      - description: Restrict results to safe images
+        in: query
+        name: safe
+        schema:
+          type: boolean
+          default: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '106363526'
+                    - id: '113284498'
+                    - id: '107390756'
+                    - id: '99379946'
+                    - id: '133918412'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getImageRecommendations
+      summary: List recommended images
+      description: This endpoint returns images that customers put in the same collection as the specified image IDs.
+  /v2/images/collections:
+    post:
+      responses:
+        '200':
+          description: No response was specified
+        '201':
+          description: Creation successful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionCreateResponse'
+              examples:
+                response:
+                  value:
+                    id: '101202664'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"name\": \"My collection\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/images/collections \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst body = {\n  \"name\": \"My collection\"\n};\n\nimagesApi.createLightbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"name\" => \"My collection\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - images
+      operationId: createLightbox
+      summary: Create image collections
+      description: This endpoint creates one or more image collections (lightboxes). To add images to the collections, use `POST /v2/images/collections/{id}/items`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionCreateRequest'
+            examples:
+              default:
+                value:
+                  name: My collection
+        description: The names of the new collections
+        required: true
+    get:
+      parameters:
+      - description: Which sharing information to include in the response, such as a URL to the collection
+        in: query
+        name: embed
+        example: share_code
+        schema:
+          type: array
+          items:
+            enum:
+            - share_code
+            - share_url
+            type: string
+      - description: Page number
+        in: query
+        name: page
+        example: 1
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        example: 2
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 150
+          default: 100
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '21663574'
+                      name: Kittens and puppies
+                      total_item_count: 0
+                      items_updated_time: '2018-08-02T07:33:24-04:00'
+                    - id: '21663571'
+                      name: young couples
+                      total_item_count: 0
+                      items_updated_time: '2018-08-02T07:33:22-04:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - images
+      operationId: getLightboxList
+      summary: List image collections
+      description: This endpoint lists your collections of images and their basic attributes.
+  /v2/images/collections/{id}:
+    get:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '126351027'
+        schema:
+          type: string
+      - description: Which sharing information to include in the response, such as a URL to the collection
+        in: query
+        name: embed
+        schema:
+          type: array
+          items:
+            enum:
+            - share_code
+            - share_url
+            type: string
+      - description: Code to retrieve a shared collection
+        in: query
+        name: share_code
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+              examples:
+                response:
+                  value:
+                    id: '336351027'
+                    name: My collection
+                    total_item_count: 1
+                    items_updated_time: '2017-05-17T16:28:39-04:00'
+                    cover_item:
+                      id: '954500'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - images
+      operationId: getLightbox
+      summary: Get the details of image collections
+      description: This endpoint gets more detailed information about a collection, including its cover image and timestamps for its creation and most recent update. To get the images in collections, use `GET /v2/images/collections/{id}/items`.
+    post:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '126351027'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully updated collection
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"name\": \"My new collection name\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/images/collections/126351027 \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\nconst body = {\n  \"name\": \"My new collection name\"\n};\n\nimagesApi.renameLightbox(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"name\" => \"My new collection name\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections/126351027\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - images
+      operationId: renameLightbox
+      summary: Rename image collections
+      description: This endpoint sets a new name for an image collection.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionUpdateRequest'
+            examples:
+              default:
+                value:
+                  name: My new collection name
+        description: The new name for the collection
+        required: true
+    delete:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '136351027'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully deleted collection
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X DELETE https://api.shutterstock.com/v2/images/collections/136351027 \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"'
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"136351027\"; // Collection ID\n\nimagesApi.deleteLightbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections/136351027\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - images
+      operationId: deleteLightbox
+      summary: Delete image collections
+      description: This endpoint deletes an image collection.
+  /v2/images/collections/{id}/items:
+    post:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '126351027'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully added collection items
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"items\": [\n    {\n      \"id\": \"49572945\",\n      \"media_type\": \"image\"\n    }\n  ]\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/images/collections/126351027/items \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"495863218\",\n      \"media_type\": \"image\"\n    }\n  ]\n};\n\nimagesApi.addLightboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"items\" => [\n    [\n      \"id\" => \"49572945\",\n      \"media_type\" => \"image\"\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections/126351027/items\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - images
+      operationId: addLightboxItems
+      summary: Add images to collections
+      description: This endpoint adds one or more images to a collection by image IDs.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionItemRequest'
+            examples:
+              default:
+                value:
+                  items:
+                  - id: '49572945'
+                    media_type: image
+        description: Array of image IDs to add to the collection
+        required: true
+    get:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '126351027'
+        schema:
+          type: string
+      - description: Code to retrieve the contents of a shared collection
+        in: query
+        name: share_code
+        schema:
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 150
+          default: 100
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '38162050'
+                      added_time: '2016-11-25T16:44:25-05:00'
+                    - id: '38139676'
+                      added_time: '2016-11-25T16:44:22-05:00'
+                    - id: '787905'
+                      added_time: '2016-11-25T16:44:19-05:00'
+                    - id: '826197'
+                      added_time: '2016-11-25T16:44:16-05:00'
+                    - id: '38124508'
+                      added_time: '2016-11-25T16:44:14-05:00'
+                    - id: '126445388'
+                      added_time: '2016-11-25T16:44:02-05:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - images
+      operationId: getLightboxItems
+      summary: Get the contents of image collections
+      description: This endpoint lists the IDs of images in a collection and the date that each was added.
+    delete:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '126351027'
+        schema:
+          type: string
+      - description: One or more image IDs to remove from the collection
+        in: query
+        name: item_id
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully removed collection items
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X DELETE https://api.shutterstock.com/v2/images/collections/186726599/items?item_id=495863218 \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"'
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst collectionId = \"126351027\"; // Collection ID\n\n// Array of images to remove\nconst imagesToRemove = {\n  \"item_id\": [\n    \"495863218\"\n  ]\n};\n\nimagesApi.deleteLightboxItems(collectionId, imagesToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/collections/126351027/items?item_id=495863218\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - images
+      operationId: deleteLightboxItems
+      summary: Remove images from collections
+      description: This endpoint removes one or more images from a collection.
+  /v2/images/collections/featured:
+    get:
+      parameters:
+      - description: Which sharing information to include in the response, such as a URL to the collection
+        in: query
+        name: embed
+        example: share_url
+        schema:
+          type: string
+          enum:
+          - share_url
+      - description: The types of collections to return
+        in: query
+        name: type
+        example: photo
+        schema:
+          type: array
+          items:
+            enum:
+            - photo
+            - editorial
+            - vector
+            type: string
+      - description: Cover image size
+        in: query
+        name: asset_hint
+        example: share_url
+        schema:
+          type: string
+          enum:
+          - 1x
+          - 2x
+          default: 1x
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeaturedCollectionDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - total_item_count: 50
+                      items_updated_time: '2018-01-30T09:49:22-05:00'
+                      name: Flower Still Lifes
+                      id: '73497710'
+                      created_time: '2018-03-06T19:19:02.000Z'
+                      updated_time: '2018-03-06T21:28:06.000Z'
+                      cover_item:
+                        url: https://ak.picdn.net/assets/cms/ecedf10e57824db9516560f7523f084b445c1672-shutterstock_104947832.jpg
+                      share_url: http://www.shutterstock.com/collections/73497710-flower-still-lifes.html
+                    - total_item_count: 100
+                      items_updated_time: '2016-05-18T10:49:02-04:00'
+                      name: Feeling Down
+                      id: '45566855'
+                      created_time: '2018-03-06T18:54:19.000Z'
+                      updated_time: '2018-03-07T13:58:21.000Z'
+                      cover_item:
+                        url: https://ak.picdn.net/assets/cms/3aa67c2b92c7cead79da08b955f409269553fade-shutterstock_343681901.jpg
+                      share_url: http://www.shutterstock.com/collections/45566855-feeling-down.html
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getFeaturedLightboxList
+      summary: List featured image collections
+      description: This endpoint lists featured collections of specific types and a name and cover image for each collection.
+  /v2/images/collections/featured/{id}:
+    get:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '136351027'
+        schema:
+          type: string
+      - description: Which sharing information to include in the response, such as a URL to the collection
+        in: query
+        name: embed
+        schema:
+          type: string
+          enum:
+          - share_url
+      - description: Cover image size
+        in: query
+        name: asset_hint
+        schema:
+          type: string
+          enum:
+          - 1x
+          - 2x
+          default: 1x
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FeaturedCollection'
+              examples:
+                response:
+                  value:
+                    total_item_count: 100
+                    items_updated_time: '2016-05-18T10:49:02-04:00'
+                    name: Feeling Down
+                    id: '136351027'
+                    created_time: '2018-03-06T18:54:19.000Z'
+                    updated_time: '2018-03-07T13:58:21.000Z'
+                    cover_item:
+                      url: https://ak.picdn.net/assets/cms/3aa67c2b92c7ceadd79da08b95d5f409269553fade-shutterstock_343681901.jpg
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Featured collection not found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getFeaturedLightbox
+      summary: Get the details of featured image collections
+      description: This endpoint gets more detailed information about a featured collection, including its cover image and timestamps for its creation and most recent update. To get the images, use `GET /v2/images/collections/featured/{id}/items`.
+  /v2/images/collections/featured/{id}/items:
+    get:
+      parameters:
+      - description: Collection ID
+        in: path
+        name: id
+        required: true
+        example: '136351027'
+        schema:
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 150
+          default: 100
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '2931777093'
+                      added_time: '2016-05-18T10:49:02-04:00'
+                    - id: '4101383321'
+                      added_time: '2016-05-18T10:39:06-04:00'
+                    - id: '1821077001'
+                      added_time: '2016-05-18T10:31:04-04:00'
+                    - id: '3451984902'
+                      added_time: '2016-05-18T10:21:54-04:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Featured collection not found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getFeaturedLightboxItems
+      summary: Get the contents of featured image collections
+      description: This endpoint lists the IDs of images in a featured collection and the date that each was added.
+  /v2/images/updated:
+    get:
+      parameters:
+      - in: query
+        name: type
+        description: Show images that were added, deleted, or edited; by default, the endpoint returns images that were updated in any of these ways
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - addition
+            - deletion
+            - edit
+      - in: query
+        name: start_date
+        description: Show images updated on or after the specified date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: end_date
+        description: Show images updated before the specified date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: interval
+        description: Show images updated in the specified time period, where the time period is an interval (like SQL INTERVAL) such as 1 DAY, 6 HOUR, or 30 MINUTE; the default is 1 HOUR, which shows images that were updated in the hour preceding the request
+        schema:
+          type: string
+          default: 1 HOUR
+      - in: query
+        name: page
+        description: Page number
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - in: query
+        name: per_page
+        description: Number of results per page
+        schema:
+          type: integer
+          default: 100
+          maximum: 2000
+          minimum: 1
+      - in: query
+        name: sort
+        description: Sort order
+        schema:
+          type: string
+          default: newest
+          enum:
+          - newest
+          - oldest
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatedMediaDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '1398917399'
+                      updated_time: '2019-06-04T15:56:44-04:00'
+                      updates:
+                      - edit
+                    - id: '1398978491'
+                      updated_time: '2019-06-04T15:56:44-04:00'
+                      updates:
+                      - edit
+                    - id: '1414537214'
+                      updated_time: '2019-06-04T15:56:44-04:00'
+                      updates:
+                      - edit
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET https://api.shutterstock.com/v2/images/updated \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          -G \
+
+          --data-urlencode "interval=30 MINUTE"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst imagesApi = new sstk.ImagesApi();\n\nconst queryParams = {\n  \"interval\": \"30 MINUTE\"\n};\n\nimagesApi.getUpdatedImages(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"interval\" => \"30 MINUTE\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/images/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getUpdatedImages
+      summary: List updated images
+      description: This endpoint lists images that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the `interval` parameter to show images that were updated recently, but you can also use the `start_date` and `end_date` parameters to specify a range of no more than three days. Do not use the `interval` parameter with either `start_date` or `end_date`.
+  /v2/images:
+    get:
+      parameters:
+      - description: One or more image IDs
+        in: query
+        name: id
+        required: true
+        example:
+        - '1110335168'
+        - '465011609'
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        example: minimal
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: minimal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ImageDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '465011609'
+                      aspect: 0.8501
+                      assets:
+                        preview:
+                          height: 450
+                          url: https://image.shutterstock.com/display_pic_with_logo/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg
+                          width: 382
+                        small_thumb:
+                          height: 100
+                          url: https://thumb7.shutterstock.com/thumb_small/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg
+                          width: 85
+                        large_thumb:
+                          height: 150
+                          url: https://thumb7.shutterstock.com/thumb_large/1384888/465011609/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg
+                          width: 128
+                        huge_thumb:
+                          height: 260
+                          url: https://image.shutterstock.com/image-vector/happy-mid-autumn-festival-background-260nw-465011609.jpg
+                          width: 221
+                        preview_1000:
+                          url: https://ak.picdn.net/shutterstock/photos/465011609/watermark_1000/e80e64e55f14aeb951feaf93ea337dc0/preview_1000-465011609.jpg
+                          width: 850
+                          height: 1000
+                        preview_1500:
+                          url: https://image.shutterstock.com/z/stock-vector-happy-mid-autumn-festival-background-with-golden-glitter-moon-and-hand-drawn-moon-rabbits-vector-465011609.jpg
+                          width: 1275
+                          height: 1500
+                      contributor:
+                        id: '1384888'
+                      description: Happy Mid Autumn Festival background with golden glitter Moon and hand drawn Moon Rabbits. Vector illustration
+                      image_type: vector
+                      media_type: image
+                      is_adult: false
+                      is_editorial: false
+                      is_illustration: true
+                      has_model_release: false
+                      has_property_release: true
+                      url: https://www.shutterstock.com/image-photo/465011609
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - images
+      operationId: getImageList
+      summary: List images
+      description: This endpoint lists information about one or more images, including the available sizes.
+components:
+  schemas:
+    FeaturedCollectionCoverItem:
+      description: Featured collection cover item metadata
+      properties:
+        url:
+          description: URL of the collection cover item
+          type: string
+      required:
+      - url
+      type: object
+    Cookie:
+      description: Cookie object
+      properties:
+        name:
+          description: The name of the cookie
+          type: string
+        value:
+          description: The value of the cookie
+          type: string
+      required:
+      - name
+      - value
+      type: object
+    FeaturedCollectionDataList:
+      description: List of featured collections
+      properties:
+        data:
+          description: Featured collections
+          items:
+            $ref: '#/components/schemas/FeaturedCollection'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    CollectionItem:
+      description: Metadata about an item that is part of a collection
+      properties:
+        added_time:
+          description: The date the item was added to the collection
+          format: date-time
+          type: string
+        id:
+          description: ID of the item
+          type: string
+        media_type:
+          description: The media type of the item, such as image, video, or audio
+          type: string
+      required:
+      - id
+      type: object
+    DownloadHistoryDataList:
+      description: List of download events
+      properties:
+        data:
+          description: Download events
+          items:
+            $ref: '#/components/schemas/DownloadHistory'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    CollectionDataList:
+      description: List of collections
+      example:
+        data:
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747953'
+          name: Test Collection cdad
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747955'
+          name: Test Collection ff5f
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:58-05:00'
+          id: '5747957'
+          name: Updated Collection ebc4
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:58-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747971'
+          name: Test Collection 0072
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747973'
+          name: Test Collection d332
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+      properties:
+        data:
+          description: Collections
+          items:
+            $ref: '#/components/schemas/Collection'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    Image:
+      description: Information about an image
+      properties:
+        added_date:
+          description: Date that the image was added by the contributor
+          format: date
+          type: string
+        affiliate_url:
+          description: Affiliate referral link; appears only for registered affiliate partners
+          type: string
+          format: uri
+        aspect:
+          description: Aspect ratio of the image
+          type: number
+        assets:
+          $ref: '#/components/schemas/ImageAssets'
+          description: Image asset information
+        categories:
+          description: Categories that this image is a part of
+          items:
+            $ref: '#/components/schemas/Category'
+          type: array
+        contributor:
+          $ref: '#/components/schemas/Contributor'
+        description:
+          description: Detailed description of the image
+          type: string
+        has_model_release:
+          description: Indicates whether there are model releases for the image
+          type: boolean
+        has_property_release:
+          description: Indicates whether there are property releases for the image
+          type: boolean
+        id:
+          description: Image ID
+          type: string
+        image_type:
+          description: Type of image
+          type: string
+        is_adult:
+          description: Whether or not this image contains adult content
+          type: boolean
+        is_editorial:
+          description: Whether or not this image is editorial content
+          type: boolean
+        is_illustration:
+          description: Whether or not this image is an illustration
+          type: boolean
+        keywords:
+          description: Keywords associated with the content of this image
+          items:
+            type: string
+          type: array
+        media_type:
+          description: Media type of this image, should always be "image"
+          type: string
+        model_releases:
+          description: List of model releases
+          items:
+            $ref: '#/components/schemas/ModelRelease'
+          type: array
+        models:
+          description: List of models
+          items:
+            $ref: '#/components/schemas/Model'
+          type: array
+        releases:
+          description: List of all releases of this image
+          items:
+            type: string
+          type: array
+        url:
+          description: Link to image information page; included only for certain accounts
+          type: string
+      required:
+      - id
+      - media_type
+      - contributor
+      type: object
+    SearchEntitiesRequest:
+      description: Search entity request data
+      properties:
+        text:
+          description: Plain text to extract keywords from
+          type: string
+          minLength: 1
+          maxLength: 100000
+      required:
+      - text
+      type: object
+    RedownloadImage:
+      description: Data required to redownload an image
+      properties:
+        auth_cookie:
+          description: (Deprecated)
+          deprecated: true
+          $ref: '#/components/schemas/Cookie'
+        show_modal:
+          description: (Deprecated)
+          deprecated: true
+          type: boolean
+        size:
+          description: Size of the image
+          enum:
+          - small
+          - medium
+          - huge
+          - supersize
+          - vector
+          type: string
+        verification_code:
+          description: (Deprecated)
+          deprecated: true
+          type: string
+      type: object
+    LicenseImageResultDataList:
+      description: List of information about licensed images
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseImageResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    Collection:
+      description: Metadata about a collection of assets
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/CollectionItem'
+        created_time:
+          description: When the collection was created
+          format: date-time
+          type: string
+        id:
+          description: The collection ID
+          type: string
+        items_updated_time:
+          description: The last time this collection's items were updated
+          format: date-time
+          type: string
+        name:
+          description: The name of the collection
+          type: string
+        share_code:
+          description: A code that can be used to share the collection (optional)
+          type: string
+        share_url:
+          description: The browser URL that can be used to share the collection (optional)
+          type: string
+        total_item_count:
+          description: The number of items in the collection
+          type: integer
+        updated_time:
+          description: The last time the collection was update (other than changes to the items in it)
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    FeaturedCollection:
+      description: Metadata about a featured collection
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/FeaturedCollectionCoverItem'
+        created_time:
+          description: Date that the collection was created
+          format: date-time
+          type: string
+        hero_item:
+          $ref: '#/components/schemas/FeaturedCollectionCoverItem'
+          description: Top-level item that is meant as a cover image, as the first image seen to represent the collection
+        id:
+          description: Collection ID
+          type: string
+        items_updated_time:
+          description: Date that an item in the collection was last added or removed
+          format: date-time
+          type: string
+        name:
+          description: Name of the collection
+          type: string
+        share_url:
+          description: Unique share url for the collection
+          type: string
+        total_item_count:
+          description: Total number of items in the collection
+          type: integer
+        updated_time:
+          description: Date that the collection was last modified
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    CollectionItemRequest:
+      description: Request to get a list of items in a collection
+      properties:
+        items:
+          description: List of items
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+      required:
+      - items
+      type: object
+    DownloadHistoryFormatDetails:
+      description: Information about the format of a download
+      properties:
+        format:
+          description: The format of the downloaded media
+          type: string
+        size:
+          description: The size of the downloaded media
+          type: string
+      type: object
+    LicenseImageRequest:
+      description: Image license request data
+      properties:
+        images:
+          description: Images to create licenses for
+          items:
+            $ref: '#/components/schemas/LicenseImage'
+          type: array
+      required:
+      - images
+      type: object
+    Contributor:
+      description: Information about a contributor
+      properties:
+        id:
+          description: ID of the contributor
+          type: string
+      required:
+      - id
+      type: object
+    CollectionCreateRequest:
+      description: Collection creation request
+      example:
+        name: Test Collection 19cf
+      properties:
+        name:
+          description: The name of the collection
+          type: string
+      required:
+      - name
+      type: object
+    RecommendationDataList:
+      description: List of recommended images
+      properties:
+        data:
+          description: Recommended images
+          items:
+            $ref: '#/components/schemas/Recommendation'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    ImageSizeDetails:
+      description: Image size information
+      properties:
+        display_name:
+          description: Display name of this image size
+          type: string
+        dpi:
+          type: integer
+        file_size:
+          description: File size (in bytes) of this image size
+          type: integer
+        format:
+          description: Format of this image size
+          type: string
+        height:
+          description: Height of this image size
+          type: integer
+        is_licensable:
+          description: Whether or not this image can be licensed in this image size
+          type: boolean
+        width:
+          description: Width of this image size
+          type: integer
+      type: object
+    Price:
+      description: Price
+      properties:
+        local_amount:
+          description: Dollar amount of the calculated rev-share price in the currency local_currency
+          type: number
+        local_currency:
+          description: Currency of the rev-share price that was calculated
+          type: string
+      type: object
+    LicenseImage:
+      description: Data required to license an image
+      properties:
+        auth_cookie:
+          $ref: '#/components/schemas/Cookie'
+          description: Cookie object
+        editorial_acknowledgement:
+          description: Set to true to acknowledge the editorial agreement
+          type: boolean
+        format:
+          description: Image format to download
+          enum:
+          - jpg
+          - eps
+          type: string
+        image_id:
+          description: Image ID
+          type: string
+        metadata:
+          $ref: '#/components/schemas/LicenseRequestMetadata'
+        price:
+          description: For revenue-sharing transactions, the final cost to the end customer
+          type: number
+        search_id:
+          description: ID of the search that led to this licensing transaction
+          type: string
+        show_modal:
+          description: (Deprecated)
+          type: boolean
+        size:
+          description: Image size to download
+          enum:
+          - small
+          - medium
+          - huge
+          - vector
+          - custom
+          type: string
+        custom_dimensions:
+          $ref: '#/components/schemas/CustomSizeDimensions'
+        subscription_id:
+          description: ID of the subscription to use for the download.
+          type: string
+        verification_code:
+          description: (Deprecated)
+          type: string
+      required:
+      - image_id
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    UpdatedMedia:
+      description: Information about a piece of updated media
+      properties:
+        id:
+          description: ID of the media
+          type: string
+        updated_time:
+          description: Date that the media was updated
+          format: date-time
+          type: string
+        updates:
+          description: Types of updates that were made to the piece of media
+          items:
+            type: string
+          type: array
+      required:
+      - id
+      - updated_time
+      - updates
+      type: object
+    SearchEntitiesResponse:
+      description: The response to a request for keyword analysis
+      example:
+        keywords:
+        - beach
+        - place
+        - sand
+        - ocean
+      properties:
+        keywords:
+          description: The top keywords from the submitted text
+          type: array
+          items:
+            type: string
+    DownloadHistoryMediaDetails:
+      description: Information about the downloaded media
+      properties:
+        format:
+          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
+        id:
+          description: ID of the download history media details
+          type: string
+      required:
+      - id
+      type: object
+    Thumbnail:
+      description: Image thumbnail information
+      properties:
+        height:
+          description: Height in pixels of the image thumbnail
+          type: integer
+        url:
+          description: Direct URL to the image
+          type: string
+        width:
+          description: Width in pixels of the image thumbnail
+          type: integer
+      required:
+      - url
+      - height
+      - width
+      type: object
+    Category:
+      description: Category information
+      properties:
+        id:
+          description: Category ID
+          type: string
+        name:
+          description: Category name
+          type: string
+      type: object
+    Language:
+      description: Language code
+      title: language
+      enum:
+      - cs
+      - da
+      - de
+      - en
+      - es
+      - fi
+      - fr
+      - hu
+      - it
+      - ja
+      - ko
+      - nb
+      - nl
+      - pl
+      - pt
+      - ru
+      - sv
+      - th
+      - tr
+      - zh
+      - zh-Hant
+      type: string
+    CustomSizeDimensions:
+      description: A custom height or a custom width to resize the image to, but not both (experimental)
+      properties:
+        height:
+          description: Custom height to resize the image to
+          type: integer
+          minimum: 100
+        width:
+          description: Custom width to resize the image to
+          type: integer
+          minimum: 100
+      type: object
+    Model:
+      description: Information about a human model or property that appears in media; used to search for assets that this model is in
+      properties:
+        id:
+          description: ID of the model
+          type: string
+      required:
+      - id
+      type: object
+    ImageDataList:
+      description: List of images
+      properties:
+        data:
+          description: Images
+          items:
+            $ref: '#/components/schemas/Image'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    CollectionCreateResponse:
+      description: Collection creation response
+      example:
+        id: '48433105'
+      properties:
+        id:
+          description: ID of the new collection
+          type: string
+      required:
+      - id
+      type: object
+    LicenseImageResult:
+      description: The response to a licensing request for an image
+      properties:
+        allotment_charge:
+          description: Number of credits that this licensing event used
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+          description: Information that is needed to download the image
+        error:
+          description: Error message, appears only if there was an error
+          type: string
+        image_id:
+          description: Image ID that was licensed
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+          description: Wholesale price information; only for rev-share partners
+      required:
+      - image_id
+      type: object
+    Recommendation:
+      description: Media Recommendation
+      properties:
+        id:
+          description: Media ID
+          type: string
+      required:
+      - id
+      type: object
+    ModelRelease:
+      description: Model and property release metadata
+      properties:
+        id:
+          description: ID of the model or property release
+          type: string
+      type: object
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    DownloadHistoryUserDetails:
+      description: Information about a user
+      properties:
+        username:
+          description: The name of the user who downloaded the item
+          type: string
+      required:
+      - username
+      type: object
+    CollectionUpdateRequest:
+      description: Collection update request
+      example:
+        name: My collection with a new name
+      properties:
+        name:
+          description: The new name of the collection
+          type: string
+      required:
+      - name
+      type: object
+    ImageSearchResults:
+      description: Image search results
+      properties:
+        data:
+          description: List of images
+          items:
+            $ref: '#/components/schemas/Image'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+        spellcheck_info:
+          description: Returns information if search phrase has potentially been mistyped or another query would lead to better search results
+          type: object
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+      required:
+      - data
+      - total_count
+      - search_id
+      type: object
+    DownloadHistory:
+      description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
+      properties:
+        audio:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        download_time:
+          description: Date the media was downloaded the first time
+          format: date-time
+          type: string
+        id:
+          description: ID of the download
+          type: string
+        image:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        is_downloadable:
+          description: Specifies if the media is downloadable via its respective downloads endpoint
+          type: boolean
+        license:
+          description: The name of the license of this download
+          type: string
+        metadata:
+          description: The metadata that was passed in the original licensing request
+          type: object
+        subscription_id:
+          description: ID of the subscription used to perform this download
+          type: string
+        user:
+          $ref: '#/components/schemas/DownloadHistoryUserDetails'
+        video:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+      required:
+      - id
+      - download_time
+      - license
+      type: object
+    ImageAssets:
+      description: Information about the assets that are part of an image
+      properties:
+        huge_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        huge_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        large_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        medium_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        preview:
+          $ref: '#/components/schemas/Thumbnail'
+        preview_1000:
+          $ref: '#/components/schemas/Thumbnail'
+        preview_1500:
+          $ref: '#/components/schemas/Thumbnail'
+        small_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        small_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        supersize_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        vector_eps:
+          $ref: '#/components/schemas/ImageSizeDetails'
+      type: object
+    Suggestions:
+      description: List of search suggestions
+      properties:
+        data:
+          description: Search suggestions
+          type: array
+          items:
+            type: string
+      type: object
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
+      properties:
+        data:
+          description: Assets in the collection
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    UpdatedMediaDataList:
+      description: List of updated media
+      properties:
+        data:
+          description: Updated media items
+          items:
+            $ref: '#/components/schemas/UpdatedMedia'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    CategoryDataList:
+      description: List of categories that images can belong to
+      properties:
+        data:
+          description: Categories
+          items:
+            $ref: '#/components/schemas/Category'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
+    customer_accessCode:
+      type: oauth2
+      x-shutterstock-realm: customer
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+          tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+          scopes:
+            licenses.create: Grant the ability to download and license media on behalf of the user.
+            purchases.view: Grant read-only access to a user's purchase history.
+            licenses.view: Grant read-only access to a user's licenses.
+            collections.edit: Grant the ability to create new collections, edit a collection, and modify the contents of a collection
+            collections.view: Grant read-only access to a collection and its contents.

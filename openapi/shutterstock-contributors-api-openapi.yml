@@ -1,0 +1,598 @@
+openapi: 3.0.0
+info:
+  title: Shutterstock API Reference audio contributors API
+  description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
+  version: 1.0.30
+  contact:
+    name: Shutterstock Developer Support
+    url: https://www.shutterstock.com/developers/contact-us
+  license:
+    name: Shutterstock API Terms
+    url: https://www.shutterstock.com/api/terms
+servers:
+- url: https://api.shutterstock.com
+  description: Shutterstock API
+tags:
+- name: contributors
+paths:
+  /v2/contributors:
+    get:
+      parameters:
+      - description: One or more contributor IDs
+        in: query
+        name: id
+        required: true
+        example:
+        - 800506
+        - 1653538
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContributorProfileDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '800506'
+                      display_name: Dave Pusey
+                      about: Dave is a self confessed emotional photographer, capturing, keeping and sharing images for the stories of the wild that they convey.
+                      equipment:
+                      - Both Canon & Nikon
+                      contributor_type:
+                      - illustrator
+                      - videographer
+                      styles:
+                      - black_and_white
+                      - landscape
+                      - nature
+                      subjects:
+                      - animals
+                      - holiday
+                      - nature
+                      - travel
+                      - wildlife
+                      website: leovantage.com
+                      location: za
+                      portfolio_url: http://www.shutterstock.com/g/davep
+                      social_media:
+                        facebook: pages/Dave-Pusey-Photography/131399733564475
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode: []
+      - basic: []
+      tags:
+      - contributors
+      operationId: getContributorList
+      summary: Get details about multiple contributors
+      description: This endpoint lists information about one or more contributors, including contributor type, equipment they use and other attributes.
+  /v2/contributors/{contributor_id}:
+    get:
+      parameters:
+      - description: Contributor ID
+        in: path
+        name: contributor_id
+        required: true
+        example: 1653538
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContributorProfile'
+              examples:
+                response:
+                  value:
+                    id: '1653538'
+                    display_name: Mees Kuiper
+                    about: A 18 year old photographer living in Amsterdam.
+                    equipment:
+                    - Nikon D7000
+                    - Nikkor 70-300mm
+                    - Nikkor 24-70mm
+                    contributor_type:
+                    - photographer
+                    - illustrator
+                    - videographer
+                    styles: []
+                    subjects:
+                    - animals
+                    - buildings
+                    - nature
+                    - people
+                    - wildlife
+                    location: nl
+                    portfolio_url: http://www.shutterstock.com/g/Mees Kuiper
+                    social_media: {}
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode: []
+      - basic: []
+      tags:
+      - contributors
+      operationId: getContributor
+      summary: Get details about a single contributor
+      description: This endpoint shows information about a single contributor, including contributor type, equipment they use, and other attributes.
+  /v2/contributors/{contributor_id}/collections:
+    get:
+      parameters:
+      - description: Contributor ID
+        in: path
+        name: contributor_id
+        required: true
+        example: 800506
+        schema:
+          type: string
+      - description: Sort order
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - last_updated
+          - item_count
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - name: Lion Cubs
+                      cover_item:
+                        id: '87672997'
+                        media_type: image
+                      updated_time: '2014-05-01T05:22:07-04:00'
+                      id: '135931'
+                      total_item_count: 10
+                      created_time: '2012-04-07T02:07:28-04:00'
+                    - name: African Landscapes
+                      cover_item:
+                        id: '79489261'
+                        media_type: image
+                      updated_time: '2014-05-01T05:38:34-04:00'
+                      id: '1991564'
+                      total_item_count: 5
+                      created_time: '2014-05-01T05:23:20-04:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Contributor not found
+      security:
+      - customer_accessCode: []
+      - basic: []
+      tags:
+      - contributors
+      operationId: getContributorCollectionsList
+      summary: List contributors' collections
+      description: This endpoint lists collections based on contributor ID.
+  /v2/contributors/{contributor_id}/collections/{id}:
+    get:
+      parameters:
+      - description: Contributor ID
+        in: path
+        name: contributor_id
+        required: true
+        example: 800506
+        schema:
+          type: string
+      - description: Collection ID that belongs to the contributor
+        in: path
+        name: id
+        required: true
+        example: 1991678
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+              examples:
+                response:
+                  value:
+                    name: Baby Elephants
+                    cover_item:
+                      id: '168592952'
+                      media_type: image
+                    updated_time: '2014-05-01T05:50:21-04:00'
+                    id: '1991678'
+                    total_item_count: 3
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Set not found
+      security:
+      - customer_accessCode: []
+      - basic: []
+      tags:
+      - contributors
+      operationId: getContributorCollections
+      summary: Get details about contributors' collections
+      description: This endpoint gets more detailed information about a contributor's collection, including its cover image, timestamps for its creation, and most recent update. To get the items in collections, use GET /v2/contributors/{contributor_id}/collections/{id}/items.
+  /v2/contributors/{contributor_id}/collections/{id}/items:
+    get:
+      parameters:
+      - description: Contributor ID
+        in: path
+        name: contributor_id
+        required: true
+        example: 800506
+        schema:
+          type: string
+      - description: Collection ID that belongs to the contributor
+        in: path
+        name: id
+        required: true
+        example: 1991678
+        schema:
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      - description: Sort order
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - oldest
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - added_time: '2014-05-01T05:49:46-04:00'
+                      id: '168592952'
+                      media_type: image
+                    - added_time: '2014-05-01T05:49:59-04:00'
+                      id: '88269310'
+                      media_type: image
+                    - added_time: '2014-05-01T05:50:21-04:00'
+                      id: '94373977'
+                      media_type: image
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Set not found
+      security:
+      - customer_accessCode: []
+      - basic: []
+      tags:
+      - contributors
+      operationId: getContributorCollectionItems
+      summary: Get the items in contributors' collections
+      description: This endpoint lists the IDs of items in a contributor's collection and the date that each was added.
+components:
+  schemas:
+    ContributorProfileSocialMedia:
+      description: Contributor profile social media links
+      properties:
+        facebook:
+          description: Facebook link for contributor
+          type: string
+        google_plus:
+          description: Google+ link for contributor
+          type: string
+        linkedin:
+          description: LinkedIn link for contributor
+          type: string
+        pinterest:
+          description: Pinterest page for contributor
+          type: string
+        tumblr:
+          description: Tumblr link for contributor
+          type: string
+        twitter:
+          description: Twitter link for contributor
+          type: string
+      type: object
+    ContributorProfileDataList:
+      description: List of contributor profiles
+      properties:
+        data:
+          description: Conributor profiles
+          items:
+            $ref: '#/components/schemas/ContributorProfile'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Error message
+          type: string
+        page:
+          description: Page of response
+          type: integer
+        per_page:
+          description: Number of contributors per page
+          type: integer
+        total_count:
+          description: Total count of contributors for this request
+          type: integer
+    CollectionItem:
+      description: Metadata about an item that is part of a collection
+      properties:
+        added_time:
+          description: The date the item was added to the collection
+          format: date-time
+          type: string
+        id:
+          description: ID of the item
+          type: string
+        media_type:
+          description: The media type of the item, such as image, video, or audio
+          type: string
+      required:
+      - id
+      type: object
+    Collection:
+      description: Metadata about a collection of assets
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/CollectionItem'
+        created_time:
+          description: When the collection was created
+          format: date-time
+          type: string
+        id:
+          description: The collection ID
+          type: string
+        items_updated_time:
+          description: The last time this collection's items were updated
+          format: date-time
+          type: string
+        name:
+          description: The name of the collection
+          type: string
+        share_code:
+          description: A code that can be used to share the collection (optional)
+          type: string
+        share_url:
+          description: The browser URL that can be used to share the collection (optional)
+          type: string
+        total_item_count:
+          description: The number of items in the collection
+          type: integer
+        updated_time:
+          description: The last time the collection was update (other than changes to the items in it)
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    CollectionDataList:
+      description: List of collections
+      example:
+        data:
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747953'
+          name: Test Collection cdad
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747955'
+          name: Test Collection ff5f
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:58-05:00'
+          id: '5747957'
+          name: Updated Collection ebc4
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:58-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747971'
+          name: Test Collection 0072
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747973'
+          name: Test Collection d332
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+      properties:
+        data:
+          description: Collections
+          items:
+            $ref: '#/components/schemas/Collection'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    ContributorProfile:
+      description: Contributor profile data
+      properties:
+        about:
+          description: Short description of the contributors' library
+          type: string
+        contributor_type:
+          description: Type of content that the contributor specializes in (photographer, illustrator, etc)
+          items:
+            type: string
+          type: array
+        display_name:
+          description: Preferred name to be displayed for the contributor
+          type: string
+        equipment:
+          description: List of equipment used by the contributor (Canon EOS 5D Mark II, etc)
+          items:
+            type: string
+          type: array
+        id:
+          description: Contributor ID
+          type: string
+        location:
+          description: Country code representing the contributor's locale
+          type: string
+          format: country-code-2
+        portfolio_url:
+          description: Web URL for the contributors' profile
+          type: string
+        social_media:
+          $ref: '#/components/schemas/ContributorProfileSocialMedia'
+        styles:
+          description: List of styles that the contributor specializes in (lifestyle, mixed media, etc)
+          items:
+            type: string
+          type: array
+        subjects:
+          description: Generic list of subjects for contributors' work (food_and_drink, holiday, people, etc)
+          items:
+            type: string
+          type: array
+        website:
+          description: Personal website for the contributor
+          type: string
+      required:
+      - id
+      type: object
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
+      properties:
+        data:
+          description: Assets in the collection
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
+    customer_accessCode:
+      type: oauth2
+      x-shutterstock-realm: customer
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+          tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+          scopes:
+            licenses.create: Grant the ability to download and license media on behalf of the user.
+            purchases.view: Grant read-only access to a user's purchase history.
+            licenses.view: Grant read-only access to a user's licenses.
+            collections.edit: Grant the ability to create new collections, edit a collection, and modify the contents of a collection
+            collections.view: Grant read-only access to a collection and its contents.

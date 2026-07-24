@@ -1,0 +1,2009 @@
+openapi: 3.0.0
+info:
+  title: Shutterstock API Reference audio editorial_images API
+  description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
+  version: 1.0.30
+  contact:
+    name: Shutterstock Developer Support
+    url: https://www.shutterstock.com/developers/contact-us
+  license:
+    name: Shutterstock API Terms
+    url: https://www.shutterstock.com/api/terms
+servers:
+- url: https://api.shutterstock.com
+  description: Shutterstock API
+tags:
+- name: editorial_images
+paths:
+  /v2/editorial/images/search:
+    get:
+      parameters:
+      - description: One or more search terms separated by spaces
+        in: query
+        name: query
+        schema:
+          type: string
+      - description: Sort by
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - relevant
+          - newest
+          - oldest
+          default: relevant
+      - description: Show editorial content within a certain editorial category; specify by category name
+        in: query
+        name: category
+        schema:
+          type: string
+      - description: Show only editorial content that is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      - description: Show only editorial content from certain suppliers
+        in: query
+        name: supplier_code
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Show only editorial content generated on or after a specific date
+        in: query
+        name: date_start
+        schema:
+          type: string
+          format: date
+      - description: Show only editorial content generated on or before a specific date
+        in: query
+        name: date_end
+        schema:
+          type: string
+          format: date
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      - description: The cursor of the page with which to start fetching results; this cursor is returned from previous requests
+        in: query
+        name: cursor
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialSearchResults'
+              examples:
+                response:
+                  value:
+                    per_page: 1
+                    total_count: 1556949
+                    search_id: q8igACM5gqQY75owjLoVvw
+                    next: eyJ2IjoxLCJzIjoxfQ==
+                    prev: ''
+                    data:
+                    - id: 9804979n
+                      title: Hong Kong kicks off international e-Sports competition, China - 24 Aug 2018
+                      caption: ''
+                      description: Members of the TyLoo e-Sports team from China prepare to face off against the Kinguin e-Sports team from Poland at the ICBC (Asia) e-Sports and Music Festival Hong Kong 2018, Hong Kong, China, 24 August 2018. The festival runs from 24 to 26 August with professional gamers from around the world competing in international e-sports tournaments.
+                      byline: ALEX HOFFORD/EPA-EFE/Shutterstock
+                      keywords: []
+                      date_taken: '2018-08-24'
+                      categories: []
+                      aspect: 1.481
+                      assets:
+                        thumb_170:
+                          height: 115
+                          width: 170
+                          url: https://editorial01.shutterstock.com/thumb/9804979n/c4377a53/Shutterstock_9804979n.jpg
+                        thumb_220:
+                          height: 149
+                          width: 220
+                          url: https://editorial01.shutterstock.com/thumb-220/9804979n/c57a68c7/Shutterstock_9804979n.jpg
+                        watermark_450:
+                          height: 304
+                          width: 450
+                          url: https://editorial01.shutterstock.com/wm-preview-450/9804979n/37d19dce/Shutterstock_9804979n.jpg
+                        watermark_1500:
+                          height: 1500
+                          width: 1040
+                          url: https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg
+                        original:
+                          display_name: Original
+                          height: 3263
+                          width: 4831
+                          is_licensable: true
+                        small_jpg:
+                          display_name: Small
+                          height: 337
+                          width: 500
+                          is_licensable: true
+                        medium_jpg:
+                          display_name: Med
+                          height: 675
+                          width: 1000
+                          is_licensable: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET https://api.shutterstock.com/v2/editorial/images/search \
+
+          -H "Accept: application/json" \
+
+          -G \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          --data-urlencode "query=football" \
+
+          --data-urlencode "country=USA" \
+
+          --data-urlencode "sort=newest" \
+
+          --data-urlencode "date_start=2018-10-23"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.editorialImagesSearch(country, queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"query\" => \"football\",\n  \"country\" => \"USA\",\n  \"date_start\" => \"2018-10-23\",\n  \"sort\" => \"newest\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/images/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      operationId: searchEditorialImages
+      summary: Search editorial images
+      description: This endpoint searches for editorial images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT.
+  /v2/editorial/images/categories:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialImageCategoryResults'
+              examples:
+                response:
+                  value:
+                    data:
+                    - name: Animal
+                    - name: Awards
+                    - name: Art
+                    - name: Film Stills
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialImageCategories
+      summary: List editorial categories
+      description: This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to.
+  /v2/editorial/images/{id}:
+    get:
+      parameters:
+      - description: Editorial ID
+        in: path
+        name: id
+        required: true
+        example: 9926131a
+        schema:
+          type: string
+      - description: Returns only if the content is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialContent'
+              examples:
+                response:
+                  value:
+                    id: 9767412v
+                    title: Tokyo 2020 Olympics mascot Miraitowa and Paralympics mascot Someity debut, Japan - 22 Jul 2018
+                    caption: ''
+                    description: Tokyo 2020 Olympics mascot Miraitowa greets with former Japanese prime minister Yoshiko Mori, President of Tokyo 2020 Olympics Committee, as mascots of Tokyo 2020 Olympics and Paralympics debut in Tokyo, Japan, 22 July 2018. Tokyo 2020 Olympics will start on 24 July 2020 and run until 09 August 2020.
+                    byline: KIMIMASA MAYAMA/EPA-EFE/Shutterstock
+                    keywords: []
+                    date_taken: '2018-07-22'
+                    categories: []
+                    aspect: 1.33
+                    assets:
+                      thumb_170:
+                        height: 128
+                        width: 170
+                        url: https://editorial01.shutterstock.com/thumb/9767412v/36aeb953/Shutterstock_9767412v.jpg
+                      thumb_220:
+                        height: 165
+                        width: 220
+                        url: https://editorial01.shutterstock.com/thumb-220/9767412v/b786b189/Shutterstock_9767412v.jpg
+                      watermark_450:
+                        height: 338
+                        width: 450
+                        url: https://editorial01.shutterstock.com/wm-preview-450/9767412v/f75b6680/Shutterstock_9767412v.jpg
+                      watermark_1500:
+                        height: 1500
+                        width: 1040
+                        url: https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg
+                      original:
+                        display_name: Original
+                        height: 3447
+                        width: 4586
+                        is_licensable: true
+                      small_jpg:
+                        display_name: Small
+                        height: 375
+                        width: 500
+                        is_licensable: true
+                      medium_jpg:
+                        display_name: Med
+                        height: 751
+                        width: 1000
+                        is_licensable: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialImageDetails
+      summary: Get editorial content details
+      description: This endpoint shows information about an editorial image, including a URL to a preview image and the sizes that it is available in.
+  /v2/editorial/images/licenses:
+    get:
+      parameters:
+      - description: Show licenses for the specified editorial image ID
+        in: query
+        name: image_id
+        schema:
+          type: string
+      - description: Show editorial images that are available with the specified license name
+        in: query
+        name: license
+        schema:
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 200
+          default: 20
+      - description: Sort order
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - oldest
+          default: newest
+      - description: Filter licenses by username of licensee
+        in: query
+        name: username
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Show licenses created on or after the specified date
+        schema:
+          type: string
+          format: date-time
+        example: 2020-02-02T13:00-05:00
+      - name: end_date
+        in: query
+        description: Show licenses created before the specified date
+        schema:
+          type: string
+          format: date-time
+        example: 2020-02-02T13:00-05:00
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadHistoryDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: e1dbb15d5384725d292cf64f793ac45062
+                      user:
+                        username: username1
+                      license: premier_editorial_all_digital
+                      download_time: '2020-12-18T02:22:56.000Z'
+                      is_downloadable: false
+                      image:
+                        id: 11231389im
+                        format:
+                          size: original
+                      subscription_id: 1221a491741j1k41yd91dh37al324
+                      metadata:
+                        client: Company A
+                        other: Important media
+                        purchase_order: '457234'
+                        job: Important project
+                    - id: e1dbb15d5384725d292cf64f793ac45114
+                      user:
+                        username: username2
+                      license: premier_editorial_all_digital
+                      download_time: '2020-12-11T01:24:22.000Z'
+                      is_downloadable: false
+                      image:
+                        id: 11231442aa
+                        format:
+                          size: original
+                      subscription_id: 1221a491741j1k41yd91dh37al324
+                      metadata:
+                        client: Company B
+                        other: Important image
+                        purchase_order: '5583831'
+                        job: Important project
+                    page: 1
+                    per_page: 2
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.view
+      tags:
+      - editorial_images
+      operationId: getEditorialImageLicenseList
+      summary: List editorial image licenses
+      description: This endpoint lists existing editorial image licenses.
+    post:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseEditorialContentResults'
+              examples:
+                response:
+                  value:
+                    data:
+                    - editorial_id: '69656358'
+                      download:
+                        url: https://s3-eu-west-1.amazonaws.com/api-downloads.rexfeatures.com/[random-characters].jpg?Expires=1524717323
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - customer_accessCode:
+        - licenses.create
+        - purchases.view
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/editorial/images/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst body = {\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n};\n\neditorialApi.licenseEditorialImage(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"editorial\" => [\n    [\n      \"editorial_id\" => \"8594090h\",\n      \"license\" => \"premier_editorial_comp\"\n    ]\n  ],\n  \"country\" => \"USA\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/images/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      tags:
+      - editorial_images
+      operationId: licenseEditorialImages
+      summary: License editorial content
+      description: This endpoint gets licenses for one or more editorial images. You must specify the country and one or more editorial images to license.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseEditorialContentRequest'
+            examples:
+              default:
+                value:
+                  editorial:
+                  - editorial_id: 8594090h
+                    license: premier_editorial_comp
+                  country: USA
+        description: License editorial content
+        required: true
+  /v2/editorial/images/livefeeds:
+    get:
+      parameters:
+      - description: Returns only livefeeds that are available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialImageLivefeedList'
+              examples:
+                response:
+                  value:
+                    page: 1
+                    per_page: 1
+                    total_count: 6011
+                    data:
+                    - id: 2018%2F10%2F19%2F'Butterfly'%20photocall%2C%20Rome%20Film%20Festival
+                      name: '''Butterfly'' photocall, Rome Film Festival'
+                      total_item_count: 24
+                      created_time: '2018-10-19T20:27:26+00:00'
+                      cover_item:
+                        height: 170
+                        width: 113
+                        url: https://editorial01.shutterstock.com/thumb/9938080a/532b2be1/Shutterstock_9938080a.jpg
+                        id: 9938080a
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialLivefeedImagesList
+      summary: Get editorial livefeed list
+  /v2/editorial/images/livefeeds/{id}:
+    get:
+      parameters:
+      - description: Editorial livefeed ID; must be an URI encoded string
+        in: path
+        name: id
+        required: true
+        example: 2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London
+        schema:
+          type: string
+      - description: Returns only if the livefeed is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialImageLivefeed'
+              examples:
+                response:
+                  value:
+                    id: 2018%2F10%2F19%2F'The%20House%20with%20a%20Clock%20in%20Its%20Walls'%20premiere%2C%20Rome%20Film%20Festival
+                    name: '''The House with a Clock in Its Walls'' premiere, Rome Film Festival'
+                    total_item_count: 100
+                    cover_item:
+                      height: 170
+                      width: 114
+                      url: https://editorial01.shutterstock.com/thumb/9938511p/7d1f17d9/Shutterstock_9938511p.jpg
+                      id: 9938511p
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialImageLivefeed
+      summary: Get editorial livefeed
+  /v2/editorial/images/livefeeds/{id}/items:
+    get:
+      parameters:
+      - description: Editorial livefeed ID; must be an URI encoded string
+        in: path
+        name: id
+        required: true
+        example: 2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London
+        schema:
+          type: string
+      - description: Returns only if the livefeed items are available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialImageContentDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: 9938573m
+                      title: '''The House with a Clock in Its Walls'' premiere, Rome Film Festival, Italy - 19 Oct 2018'
+                      caption: ''
+                      description: Christian Marazziti and Ariadna Romero
+                      byline: Maurizio D'Avanzo/IPA/Shutterstock
+                      keywords: []
+                      date_taken: '2018-10-19'
+                      categories:
+                      - name: Actor
+                      - name: Female
+                      - name: Personality
+                      aspect: 0.666
+                      assets:
+                        thumb_170:
+                          height: 170
+                          width: 113
+                          url: https://editorial01.shutterstock.com/thumb/9938573m/4d5708ce/Shutterstock_9938573m.jpg
+                        thumb_220:
+                          height: 220
+                          width: 146
+                          url: https://editorial01.shutterstock.com/thumb-220/9938573m/b78aabde/Shutterstock_9938573m.jpg
+                        watermark_450:
+                          height: 450
+                          width: 300
+                          url: https://editorial01.shutterstock.com/wm-preview-450/9938573m/4a9a4add/Shutterstock_9938573m.jpg
+                        watermark_1500:
+                          height: 1500
+                          width: 1040
+                          url: https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg
+                        original:
+                          display_name: Original
+                          height: 4928
+                          width: 3280
+                          is_licensable: true
+                        small_jpg:
+                          display_name: Small
+                          height: 500
+                          width: 332
+                          is_licensable: true
+                        medium_jpg:
+                          display_name: Med
+                          height: 1000
+                          width: 660
+                          is_licensable: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialLivefeedImageItems
+      summary: Get editorial livefeed items
+  /v2/editorial/{id}:
+    get:
+      parameters:
+      - description: Editorial ID
+        in: path
+        name: id
+        required: true
+        example: 9926131a
+        schema:
+          type: string
+      - description: Returns only if the content is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialContent'
+              examples:
+                response:
+                  value:
+                    id: 9767412v
+                    title: Tokyo 2020 Olympics mascot Miraitowa and Paralympics mascot Someity debut, Japan - 22 Jul 2018
+                    caption: ''
+                    description: Tokyo 2020 Olympics mascot Miraitowa greets with former Japanese prime minister Yoshiko Mori, President of Tokyo 2020 Olympics Committee, as mascots of Tokyo 2020 Olympics and Paralympics debut in Tokyo, Japan, 22 July 2018. Tokyo 2020 Olympics will start on 24 July 2020 and run until 09 August 2020.
+                    byline: KIMIMASA MAYAMA/EPA-EFE/Shutterstock
+                    keywords: []
+                    date_taken: '2018-07-22'
+                    categories: []
+                    aspect: 1.33
+                    assets:
+                      thumb_170:
+                        height: 128
+                        width: 170
+                        url: https://editorial01.shutterstock.com/thumb/9767412v/36aeb953/Shutterstock_9767412v.jpg
+                      thumb_220:
+                        height: 165
+                        width: 220
+                        url: https://editorial01.shutterstock.com/thumb-220/9767412v/b786b189/Shutterstock_9767412v.jpg
+                      watermark_450:
+                        height: 338
+                        width: 450
+                        url: https://editorial01.shutterstock.com/wm-preview-450/9767412v/f75b6680/Shutterstock_9767412v.jpg
+                      watermark_1500:
+                        height: 1500
+                        width: 1040
+                        url: https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg
+                      original:
+                        display_name: Original
+                        height: 3447
+                        width: 4586
+                        is_licensable: true
+                      small_jpg:
+                        display_name: Small
+                        height: 375
+                        width: 500
+                        is_licensable: true
+                      medium_jpg:
+                        display_name: Med
+                        height: 751
+                        width: 1000
+                        is_licensable: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialImage
+      summary: (Deprecated) Get editorial content details
+      description: Deprecated; use `GET /v2/editorial/images/{id}` instead to show information about an editorial image, including a URL to a preview image and the sizes that it is available in.
+      deprecated: true
+  /v2/editorial/licenses:
+    post:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseEditorialContentResults'
+              examples:
+                response:
+                  value:
+                    data:
+                    - editorial_id: '69656358'
+                      download:
+                        url: https://s3-eu-west-1.amazonaws.com/api-downloads.rexfeatures.com/[random-characters].jpg?Expires=1524717323
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - customer_accessCode:
+        - licenses.create
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/editorial/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst body = {\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n};\n\neditorialApi.licenseEditorialImage(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"editorial\" => [\n    [\n      \"editorial_id\" => \"8594090h\",\n      \"license\" => \"premier_editorial_comp\"\n    ]\n  ],\n  \"country\" => \"USA\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - editorial_images
+      operationId: licenseEditorialImage
+      summary: (Deprecated) License editorial content
+      description: Deprecated; use `POST /v2/editorial/images/licenses` instead to get licenses for one or more editorial images. You must specify the country and one or more editorial images to license.
+      deprecated: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseEditorialContentRequest'
+            examples:
+              default:
+                value:
+                  editorial:
+                  - editorial_id: 8594090h
+                    license: premier_editorial_comp
+                  country: USA
+        description: License editorial content
+        required: true
+  /v2/editorial/livefeeds:
+    get:
+      parameters:
+      - description: Returns only livefeeds that are available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialLivefeedList'
+              examples:
+                response:
+                  value:
+                    page: 1
+                    per_page: 1
+                    total_count: 6011
+                    data:
+                    - id: 2018%2F10%2F19%2F'Butterfly'%20photocall%2C%20Rome%20Film%20Festival
+                      name: '''Butterfly'' photocall, Rome Film Festival'
+                      total_item_count: 24
+                      created_time: '2018-10-19T20:27:26+00:00'
+                      cover_item:
+                        height: 170
+                        width: 113
+                        url: https://editorial01.shutterstock.com/thumb/9938080a/532b2be1/Shutterstock_9938080a.jpg
+                        id: 9938080a
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialLivefeedList
+      summary: (Deprecated) Get editorial livefeed list
+      description: Deprecated; use `GET /v2/editorial/images/livefeeds` instead to get a list of editorial livefeeds.
+      deprecated: true
+  /v2/editorial/livefeeds/{id}:
+    get:
+      parameters:
+      - description: Editorial livefeed ID; must be an URI encoded string
+        in: path
+        name: id
+        required: true
+        example: 2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London
+        schema:
+          type: string
+      - description: Returns only if the livefeed is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialLivefeed'
+              examples:
+                response:
+                  value:
+                    id: 2018%2F10%2F19%2F'The%20House%20with%20a%20Clock%20in%20Its%20Walls'%20premiere%2C%20Rome%20Film%20Festival
+                    name: '''The House with a Clock in Its Walls'' premiere, Rome Film Festival'
+                    total_item_count: 100
+                    cover_item:
+                      height: 170
+                      width: 114
+                      url: https://editorial01.shutterstock.com/thumb/9938511p/7d1f17d9/Shutterstock_9938511p.jpg
+                      id: 9938511p
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialLivefeed
+      summary: (Deprecated) Get editorial livefeed
+      description: 'Deprecated: use `GET /v2/editorial/images/livefeeds/{id}` instead to get an editorial livefeed.'
+      deprecated: true
+  /v2/editorial/livefeeds/{id}/items:
+    get:
+      parameters:
+      - description: Editorial livefeed ID; must be an URI encoded string
+        in: path
+        name: id
+        required: true
+        example: 2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London
+        schema:
+          type: string
+      - description: Returns only if the livefeed items are available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialContentDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: 9938573m
+                      title: '''The House with a Clock in Its Walls'' premiere, Rome Film Festival, Italy - 19 Oct 2018'
+                      caption: ''
+                      description: Christian Marazziti and Ariadna Romero
+                      byline: Maurizio D'Avanzo/IPA/Shutterstock
+                      keywords: []
+                      date_taken: '2018-10-19'
+                      categories:
+                      - name: Actor
+                      - name: Female
+                      - name: Personality
+                      aspect: 0.666
+                      assets:
+                        thumb_170:
+                          height: 170
+                          width: 113
+                          url: https://editorial01.shutterstock.com/thumb/9938573m/4d5708ce/Shutterstock_9938573m.jpg
+                        thumb_220:
+                          height: 220
+                          width: 146
+                          url: https://editorial01.shutterstock.com/thumb-220/9938573m/b78aabde/Shutterstock_9938573m.jpg
+                        watermark_450:
+                          height: 450
+                          width: 300
+                          url: https://editorial01.shutterstock.com/wm-preview-450/9938573m/4a9a4add/Shutterstock_9938573m.jpg
+                        watermark_1500:
+                          height: 1500
+                          width: 1040
+                          url: https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg
+                        original:
+                          display_name: Original
+                          height: 4928
+                          width: 3280
+                          is_licensable: true
+                        small_jpg:
+                          display_name: Small
+                          height: 500
+                          width: 332
+                          is_licensable: true
+                        medium_jpg:
+                          display_name: Med
+                          height: 1000
+                          width: 660
+                          is_licensable: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialLivefeedItems
+      summary: (Deprecated) Get editorial livefeed items
+      description: Deprecated; use `GET /v2/editorial/images/livefeeds/{id}/items` instead to get editorial livefeed items.
+      deprecated: true
+  /v2/editorial/search:
+    get:
+      parameters:
+      - description: One or more search terms separated by spaces
+        in: query
+        name: query
+        schema:
+          type: string
+      - description: Sort by
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - relevant
+          - newest
+          - oldest
+          default: relevant
+      - description: Show editorial content within a certain editorial category; specify by category name
+        in: query
+        name: category
+        schema:
+          type: string
+      - description: Show only editorial content that is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      - description: Show only editorial content from certain suppliers
+        in: query
+        name: supplier_code
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Show only editorial content generated on or after a specific date
+        in: query
+        name: date_start
+        schema:
+          type: string
+          format: date
+      - description: Show only editorial content generated on or before a specific date
+        in: query
+        name: date_end
+        schema:
+          type: string
+          format: date
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      - description: The cursor of the page with which to start fetching results; this cursor is returned from previous requests
+        in: query
+        name: cursor
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialSearchResults'
+              examples:
+                response:
+                  value:
+                    per_page: 1
+                    total_count: 1556949
+                    search_id: q8igACM5gqQY75owjLoVvw
+                    next: eyJ2IjoxLCJzIjoxfQ==
+                    prev: ''
+                    data:
+                    - id: 9804979n
+                      title: Hong Kong kicks off international e-Sports competition, China - 24 Aug 2018
+                      caption: ''
+                      description: Members of the TyLoo e-Sports team from China prepare to face off against the Kinguin e-Sports team from Poland at the ICBC (Asia) e-Sports and Music Festival Hong Kong 2018, Hong Kong, China, 24 August 2018. The festival runs from 24 to 26 August with professional gamers from around the world competing in international e-sports tournaments.
+                      byline: ALEX HOFFORD/EPA-EFE/Shutterstock
+                      keywords: []
+                      date_taken: '2018-08-24'
+                      categories: []
+                      aspect: 1.481
+                      assets:
+                        thumb_170:
+                          height: 115
+                          width: 170
+                          url: https://editorial01.shutterstock.com/thumb/9804979n/c4377a53/Shutterstock_9804979n.jpg
+                        thumb_220:
+                          height: 149
+                          width: 220
+                          url: https://editorial01.shutterstock.com/thumb-220/9804979n/c57a68c7/Shutterstock_9804979n.jpg
+                        watermark_450:
+                          height: 304
+                          width: 450
+                          url: https://editorial01.shutterstock.com/wm-preview-450/9804979n/37d19dce/Shutterstock_9804979n.jpg
+                        watermark_1500:
+                          height: 1500
+                          width: 1040
+                          url: https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg
+                        original:
+                          display_name: Original
+                          height: 3263
+                          width: 4831
+                          is_licensable: true
+                        small_jpg:
+                          display_name: Small
+                          height: 337
+                          width: 500
+                          is_licensable: true
+                        medium_jpg:
+                          display_name: Med
+                          height: 675
+                          width: 1000
+                          is_licensable: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET https://api.shutterstock.com/v2/editorial/search \
+
+          -H "Accept: application/json" \
+
+          -G \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          --data-urlencode "query=football" \
+
+          --data-urlencode "country=USA" \
+
+          --data-urlencode "sort=newest" \
+
+          --data-urlencode "date_start=2018-10-23"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.searchEditorial(country, queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"query\" => \"football\",\n  \"country\" => \"USA\",\n  \"date_start\" => \"2018-10-23\",\n  \"sort\" => \"newest\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      operationId: searchEditorial
+      summary: (Deprecated) Search editorial content
+      description: Deprecated; use `GET /v2/editorial/images/search` instead to search for editorial images.
+      deprecated: true
+  /v2/editorial/categories:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialCategoryResults'
+              examples:
+                response:
+                  value:
+                    data:
+                    - name: Animal
+                    - name: Awards
+                    - name: Art
+                    - name: Film Stills
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_images
+      operationId: getEditorialCategories
+      summary: (Deprecated) List editorial categories
+      description: Deprecated; use `GET /v2/editorial/images/categories` instead. This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to.
+      deprecated: true
+  /v2/editorial/updated:
+    get:
+      parameters:
+      - name: type
+        in: query
+        description: Specify `addition` to return only images that were added or `edit` to return only images that were edited or deleted
+        schema:
+          type: string
+          enum:
+          - edit
+          - addition
+        example: edit
+        required: true
+      - name: date_updated_start
+        description: Show images images added, edited, or deleted after the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: 2020-02-02T13:00-05:00
+        required: true
+      - name: date_updated_end
+        description: Show images images added, edited, or deleted before the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00.
+        in: query
+        schema:
+          type: string
+          format: date-time
+        example: 2020-02-04T14:00-05:00
+        required: true
+      - name: date_taken_start
+        description: Show images that were taken on or after the specified date; use this parameter if you want recently created images from the collection instead of updated older assets
+        in: query
+        schema:
+          type: string
+          pattern: ^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$
+        example: '2020-02-04'
+      - name: date_taken_end
+        description: Show images that were taken before the specified date
+        in: query
+        schema:
+          type: string
+          pattern: ^[0-9]{4}-[0-1][0-9]-[0-3][0-9]$
+        example: '2020-02-05'
+      - name: cursor
+        description: The cursor of the page with which to start fetching results; this cursor is returned from previous requests
+        in: query
+        schema:
+          type: string
+        example: eyJ2IjoxLCJzIjoyfQ==
+      - description: Sort by
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - oldest
+          default: newest
+        example: newest
+      - name: supplier_code
+        description: Show only editorial content from certain suppliers
+        in: query
+        schema:
+          type: array
+          items:
+            type: string
+            maxLength: 5
+        example: ABC
+      - description: Show only editorial content that is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        schema:
+          type: string
+          format: country-code-3
+        example: USA
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 100
+          maximum: 500
+          default: 500
+        example: 200
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialUpdatedResults'
+              examples:
+                response:
+                  value:
+                    per_page: 1
+                    next: eyJ2IjoxLCJzIjoxfQ==
+                    prev: ''
+                    data:
+                    - id: 9804979n
+                      title: Hong Kong kicks off international e-Sports competition, China - 24 Aug 2018
+                      caption: ''
+                      description: Members of the TyLoo e-Sports team from China prepare to face off against the Kinguin e-Sports team from Poland at the ICBC (Asia) e-Sports and Music Festival Hong Kong 2018, Hong Kong, China, 24 August 2018. The festival runs from 24 to 26 August with professional gamers from around the world competing in international e-sports tournaments.
+                      byline: ALEX HOFFORD/EPA-EFE/Shutterstock
+                      supplier_code: EPA
+                      keywords: []
+                      date_taken: '2018-08-24'
+                      categories: []
+                      aspect: 1.481
+                      assets:
+                        thumb_170:
+                          height: 115
+                          width: 170
+                          url: https://editorial01.shutterstock.com/thumb/9804979n/c4377a53/Shutterstock_9804979n.jpg
+                        thumb_220:
+                          height: 149
+                          width: 220
+                          url: https://editorial01.shutterstock.com/thumb-220/9804979n/c57a68c7/Shutterstock_9804979n.jpg
+                        watermark_450:
+                          height: 304
+                          width: 450
+                          url: https://editorial01.shutterstock.com/wm-preview-450/9804979n/37d19dce/Shutterstock_9804979n.jpg
+                        watermark_1500:
+                          height: 1500
+                          width: 1040
+                          url: https://editorial01.shutterstock.com/wm-preview-1500/9933285a/ab82fea4/Shutterstock_9933285a.jpg
+                        original:
+                          display_name: Original
+                          height: 3263
+                          width: 4831
+                          is_licensable: true
+                        small_jpg:
+                          display_name: Small
+                          height: 337
+                          width: 500
+                          is_licensable: true
+                        medium_jpg:
+                          display_name: Med
+                          height: 675
+                          width: 1000
+                          is_licensable: true
+                      updated_time: '2019-07-15T20:04:44-04:00'
+                      updates:
+                      - addition
+                      commercial_status:
+                        status: available
+                      rights:
+                        countries: CAN,+DEU,+GBR,+USA,-*
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - basic: []
+      - customer_accessCode: []
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET https://api.shutterstock.com/v2/editorial/updated \
+
+          -H "Accept: application/json" \
+
+          -G \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          --data-urlencode "type=edit" \
+
+          --data-urlencode "country=USA" \
+
+          --data-urlencode "date_updated_start=2020-02-02T13:00:00Z" \
+
+          --data-urlencode "date_updated_end=2020-02-02T15:00:00Z"'
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst type = \"edit\";\nconst dateUpdatedStart = \"2020-02-02T13:00:00Z\";\nconst dateUpdatedEnd = \"2020-02-02T15:00:00Z\";\nconst country = \"USA\";\n\neditorialApi.getUpdatedImages(type, dateUpdatedStart, dateUpdatedEnd, country)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"type\" => \"edit\",\n  \"country\" => \"USA\",\n  \"date_updated_start\" => \"2020-02-02T13:00:00Z\",\n  \"date_updated_end\" => \"2020-02-02T15:00:00Z\",\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      tags:
+      - editorial_images
+      operationId: getUpdatedImages
+      summary: (Deprecated) List updated content
+      description: Deprecated; use `GET /v2/editorial/images/updated` instead to get recently updated items.
+      deprecated: true
+components:
+  schemas:
+    EditorialContentDataList:
+      description: List of editorial items
+      properties:
+        data:
+          description: Editorial items
+          items:
+            $ref: '#/components/schemas/EditorialContent'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+    EditorialUpdatedResults:
+      description: Editorial updated results
+      properties:
+        data:
+          description: Editorial updated items
+          items:
+            $ref: '#/components/schemas/EditorialUpdatedContent'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        next:
+          description: Cursor value that represents the next page of results
+          type: string
+        per_page:
+          description: Number of results per page
+          type: integer
+        prev:
+          description: Cursor value that represents the previous page of results
+          type: string
+      required:
+      - data
+      type: object
+    LicenseEditorialContentResult:
+      description: The response to a licensing request for editorial content
+      properties:
+        allotment_charge:
+          description: For pre-paid plans, how many credits were used for the item license
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+          description: Information that is needed to download the image
+        editorial_id:
+          description: Editorial ID
+          type: string
+        error:
+          type: string
+      required:
+      - editorial_id
+      type: object
+    DownloadHistoryDataList:
+      description: List of download events
+      properties:
+        data:
+          description: Download events
+          items:
+            $ref: '#/components/schemas/DownloadHistory'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    EditorialAssets:
+      description: Asset information, including size and thumbnail URLs
+      properties:
+        original:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        thumb_170:
+          $ref: '#/components/schemas/Thumbnail'
+        thumb_220:
+          $ref: '#/components/schemas/Thumbnail'
+        watermark_450:
+          $ref: '#/components/schemas/Thumbnail'
+        watermark_1500:
+          $ref: '#/components/schemas/Thumbnail'
+        small_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        medium_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+      type: object
+    EditorialUpdatedContent:
+      description: Metadata about updated editorial content
+      properties:
+        commercial_status:
+          properties:
+            status:
+              type: string
+            reason:
+              type: string
+        aspect:
+          type: number
+        assets:
+          $ref: '#/components/schemas/EditorialAssets'
+        byline:
+          type: string
+        caption:
+          type: string
+        categories:
+          description: List of categories
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
+          type: array
+        date_taken:
+          format: date
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        keywords:
+          items:
+            type: string
+          type: array
+        title:
+          type: string
+        updated_time:
+          type: string
+          format: date-time
+        created_time:
+          type: string
+          format: date-time
+        rights:
+          type: object
+          properties:
+            countries:
+              type: string
+        updates:
+          type: array
+          items:
+            type: string
+        supplier_code:
+          type: string
+      required:
+      - id
+      type: object
+    EditorialImageCategoryResults:
+      description: List of editorial categories
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
+    EditorialLivefeedList:
+      description: List of editorial livefeeds
+      properties:
+        data:
+          description: Editorial livefeeds
+          items:
+            $ref: '#/components/schemas/EditorialLivefeed'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+      required:
+      - data
+      - total_count
+      type: object
+    EditorialLivefeed:
+      description: Metadata about editorial livefeed
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/EditorialCoverItem'
+        created_time:
+          description: When the livefeed was initially created
+          format: date-time
+          type: string
+        id:
+          description: Livefeed ID
+          type: string
+        name:
+          description: Name of the livefeed
+          type: string
+        total_item_count:
+          description: Total count of items in the livefeed
+          type: integer
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    EditorialCategoryResults:
+      description: List of editorial categories
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
+    EditorialSearchResults:
+      description: Editorial search results
+      properties:
+        data:
+          description: Editorial items
+          items:
+            $ref: '#/components/schemas/EditorialContent'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        next:
+          description: Cursor value that represents the next page of results
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        prev:
+          description: Cursor value that represents the previous page of results
+          type: string
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+        total_count:
+          description: Total count of all results
+          type: integer
+      required:
+      - data
+      - total_count
+      type: object
+    ImageSizeDetails:
+      description: Image size information
+      properties:
+        display_name:
+          description: Display name of this image size
+          type: string
+        dpi:
+          type: integer
+        file_size:
+          description: File size (in bytes) of this image size
+          type: integer
+        format:
+          description: Format of this image size
+          type: string
+        height:
+          description: Height of this image size
+          type: integer
+        is_licensable:
+          description: Whether or not this image can be licensed in this image size
+          type: boolean
+        width:
+          description: Width of this image size
+          type: integer
+      type: object
+    EditorialImageLivefeedList:
+      description: List of editorial livefeeds
+      properties:
+        data:
+          description: Editorial livefeeds
+          items:
+            $ref: '#/components/schemas/EditorialLivefeed'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+      required:
+      - data
+      - total_count
+      type: object
+    EditorialCategory:
+      description: Name of an editorial category
+      properties:
+        name:
+          type: string
+      type: object
+    EditorialContent:
+      description: Metadata about editorial content
+      properties:
+        aspect:
+          type: number
+        assets:
+          $ref: '#/components/schemas/EditorialAssets'
+        byline:
+          type: string
+        caption:
+          type: string
+        categories:
+          description: List of categories
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
+          type: array
+        date_taken:
+          format: date
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        keywords:
+          items:
+            type: string
+          type: array
+        title:
+          type: string
+      required:
+      - id
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    EditorialCoverItem:
+      description: Cover image for editorial livefeed
+      properties:
+        height:
+          type: integer
+        id:
+          type: string
+        url:
+          type: string
+        width:
+          type: integer
+      required:
+      - id
+      - url
+      type: object
+    DownloadHistoryMediaDetails:
+      description: Information about the downloaded media
+      properties:
+        format:
+          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
+        id:
+          description: ID of the download history media details
+          type: string
+      required:
+      - id
+      type: object
+    Thumbnail:
+      description: Image thumbnail information
+      properties:
+        height:
+          description: Height in pixels of the image thumbnail
+          type: integer
+        url:
+          description: Direct URL to the image
+          type: string
+        width:
+          description: Width in pixels of the image thumbnail
+          type: integer
+      required:
+      - url
+      - height
+      - width
+      type: object
+    LicenseEditorialContentRequest:
+      description: License editorial content request
+      properties:
+        country:
+          description: Mandatory country code for where the editorial content will be distributed; this value is used for rights checks
+          anyOf:
+          - type: string
+            format: country-code-3
+          - type: string
+            format: country-code-2
+          example: USA
+        editorial:
+          description: Editorial content to license
+          items:
+            $ref: '#/components/schemas/LicenseEditorialContent'
+          type: array
+      required:
+      - country
+      - editorial
+      type: object
+    LicenseEditorialContent:
+      description: Individual editorial content to license
+      properties:
+        editorial_id:
+          description: Editorial ID
+          type: string
+        license:
+          description: License agreement to use for licensing
+          type: string
+        metadata:
+          $ref: '#/components/schemas/LicenseRequestMetadata'
+        size:
+          description: Asset size to download
+          default: original
+          enum:
+          - small
+          - medium
+          - original
+          type: string
+      required:
+      - editorial_id
+      - license
+      type: object
+    EditorialImageLivefeed:
+      description: Metadata about editorial livefeed
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/EditorialCoverItem'
+        created_time:
+          description: When the livefeed was initially created
+          format: date-time
+          type: string
+        id:
+          description: Livefeed ID
+          type: string
+        name:
+          description: Name of the livefeed
+          type: string
+        total_item_count:
+          description: Total count of items in the livefeed
+          type: integer
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    DownloadHistoryUserDetails:
+      description: Information about a user
+      properties:
+        username:
+          description: The name of the user who downloaded the item
+          type: string
+      required:
+      - username
+      type: object
+    DownloadHistory:
+      description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
+      properties:
+        audio:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        download_time:
+          description: Date the media was downloaded the first time
+          format: date-time
+          type: string
+        id:
+          description: ID of the download
+          type: string
+        image:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        is_downloadable:
+          description: Specifies if the media is downloadable via its respective downloads endpoint
+          type: boolean
+        license:
+          description: The name of the license of this download
+          type: string
+        metadata:
+          description: The metadata that was passed in the original licensing request
+          type: object
+        subscription_id:
+          description: ID of the subscription used to perform this download
+          type: string
+        user:
+          $ref: '#/components/schemas/DownloadHistoryUserDetails'
+        video:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+      required:
+      - id
+      - download_time
+      - license
+      type: object
+    LicenseEditorialContentResults:
+      description: List of editorial license results
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseEditorialContentResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+    EditorialImageContentDataList:
+      description: List of editorial items
+      properties:
+        data:
+          description: Editorial items
+          items:
+            $ref: '#/components/schemas/EditorialContent'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+    DownloadHistoryFormatDetails:
+      description: Information about the format of a download
+      properties:
+        format:
+          description: The format of the downloaded media
+          type: string
+        size:
+          description: The size of the downloaded media
+          type: string
+      type: object
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
+    customer_accessCode:
+      type: oauth2
+      x-shutterstock-realm: customer
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+          tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+          scopes:
+            licenses.create: Grant the ability to download and license media on behalf of the user.
+            purchases.view: Grant read-only access to a user's purchase history.
+            licenses.view: Grant read-only access to a user's licenses.
+            collections.edit: Grant the ability to create new collections, edit a collection, and modify the contents of a collection
+            collections.view: Grant read-only access to a collection and its contents.

@@ -1,0 +1,2359 @@
+openapi: 3.0.0
+info:
+  title: Shutterstock API Reference audio videos API
+  description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
+  version: 1.0.30
+  contact:
+    name: Shutterstock Developer Support
+    url: https://www.shutterstock.com/developers/contact-us
+  license:
+    name: Shutterstock API Terms
+    url: https://www.shutterstock.com/api/terms
+servers:
+- url: https://api.shutterstock.com
+  description: Shutterstock API
+tags:
+- name: videos
+paths:
+  /v2/videos/search:
+    get:
+      parameters:
+      - description: Show videos added on the specified date
+        in: query
+        name: added_date
+        schema:
+          type: string
+          format: date
+      - description: Show videos added on or after the specified date
+        in: query
+        name: added_date_start
+        schema:
+          type: string
+          format: date
+      - description: Show videos added before the specified date
+        in: query
+        name: added_date_end
+        schema:
+          type: string
+          format: date
+      - description: Show videos with the specified aspect ratio
+        in: query
+        name: aspect_ratio
+        schema:
+          type: string
+          enum:
+          - '4_3'
+          - '16_9'
+          - nonstandard
+      - description: Show videos with the specified Shutterstock-defined category; specify a category name or ID
+        in: query
+        name: category
+        schema:
+          type: string
+      - description: Show videos with the specified artist names or IDs
+        in: query
+        name: contributor
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Show videos from contributors in one or more specified countries
+        in: query
+        name: contributor_country
+        example: US
+        schema:
+          type: array
+          items:
+            type: string
+            format: country-code-2
+      - description: (Deprecated; use duration_from and duration_to instead) Show videos with the specified duration in seconds
+        in: query
+        name: duration
+        deprecated: true
+        schema:
+          type: integer
+      - description: Show videos with the specified duration or longer in seconds
+        in: query
+        name: duration_from
+        schema:
+          type: integer
+      - description: Show videos with the specified duration or shorter in seconds
+        in: query
+        name: duration_to
+        schema:
+          type: integer
+      - description: (Deprecated; use fps_from and fps_to instead) Show videos with the specified frames per second
+        in: query
+        name: fps
+        deprecated: true
+        schema:
+          type: number
+      - description: Show videos with the specified frames per second or more
+        in: query
+        name: fps_from
+        schema:
+          type: number
+      - description: Show videos with the specified frames per second or fewer
+        in: query
+        name: fps_to
+        schema:
+          type: number
+      - description: Hide results with potentially unsafe keywords
+        in: query
+        name: keyword_safe_search
+        schema:
+          type: boolean
+          default: true
+      - description: Set query and result language (uses Accept-Language header if not set)
+        in: query
+        name: language
+        schema:
+          $ref: '#/components/schemas/Language'
+      - description: Show only videos with the specified license or licenses
+        in: query
+        name: license
+        explode: true
+        example:
+        - commercial
+        - editorial
+        schema:
+          type: array
+          items:
+            default: commercial
+            enum:
+            - commercial
+            - editorial
+            type: string
+      - description: Show videos with each of the specified models
+        in: query
+        name: model
+        example:
+        - '442583'
+        - '434750'
+        explode: true
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 500
+          default: 20
+      - description: Show videos that feature people of the specified age range
+        in: query
+        name: people_age
+        schema:
+          type: string
+          enum:
+          - infants
+          - children
+          - teenagers
+          - 20s
+          - 30s
+          - 40s
+          - 50s
+          - 60s
+          - older
+      - description: Show videos with people of the specified ethnicities
+        in: query
+        name: people_ethnicity
+        schema:
+          type: array
+          items:
+            enum:
+            - african
+            - african_american
+            - black
+            - brazilian
+            - chinese
+            - caucasian
+            - east_asian
+            - hispanic
+            - japanese
+            - middle_eastern
+            - native_american
+            - pacific_islander
+            - south_asian
+            - southeast_asian
+            - other
+            type: string
+      - description: Show videos with people with the specified gender
+        in: query
+        name: people_gender
+        schema:
+          type: string
+          enum:
+          - male
+          - female
+          - both
+      - description: Show videos with the specified number of people
+        in: query
+        name: people_number
+        schema:
+          type: integer
+          minimum: 0
+          maximum: 4
+      - description: Show only videos of people with a signed model release
+        in: query
+        name: people_model_released
+        schema:
+          type: boolean
+      - description: One or more search terms separated by spaces; you can use NOT to filter out videos that match a term
+        in: query
+        name: query
+        schema:
+          type: string
+      - description: Show videos with the specified resolution
+        in: query
+        name: resolution
+        schema:
+          type: string
+          enum:
+          - 4k
+          - standard_definition
+          - high_definition
+      - description: Enable or disable safe search
+        in: query
+        name: safe
+        schema:
+          type: boolean
+          default: true
+      - description: Sort by one of these categories
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - popular
+          - relevance
+          - random
+          default: popular
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: minimal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoSearchResults'
+              examples:
+                response:
+                  value:
+                    page: 1
+                    per_page: 1
+                    total_count: 9488747
+                    search_id: 4LseqIiX-nIW7_vx8-jhWQ
+                    data:
+                    - media_type: video
+                      id: '33248488'
+                      description: 'The Concept of: Digitalization of Information Flow Moving Through Rack Servers in Data Center. Shot on RED EPIC-W 8K Helium Cinema Camera.'
+                      aspect: 1.778
+                      duration: 19
+                      has_model_release: false
+                      contributor:
+                        id: '178456'
+                      aspect_ratio: '16:9'
+                      assets:
+                        thumb_webm:
+                          url: https://ak8.picdn.net/shutterstock/videos/33248488/thumb/stock-footage-the-concept-of-digitalization-of-information-flow-moving-through-rack-servers-in-data-center-shot.webm
+                        thumb_mp4:
+                          url: https://ak8.picdn.net/shutterstock/videos/33248488/thumb/stock-footage-the-concept-of-digitalization-of-information-flow-moving-through-rack-servers-in-data-center-shot.mp4
+                        preview_webm:
+                          url: https://ak8.picdn.net/shutterstock/videos/33248488/preview/stock-footage-the-concept-of-digitalization-of-information-flow-moving-through-rack-servers-in-data-center-shot.webm
+                        preview_mp4:
+                          url: https://ak8.picdn.net/shutterstock/videos/33248488/preview/stock-footage-the-concept-of-digitalization-of-information-flow-moving-through-rack-servers-in-data-center-shot.mp4
+                        thumb_jpg:
+                          url: https://ak8.picdn.net/shutterstock/videos/33248488/thumb/12.jpg
+                        preview_jpg:
+                          url: https://ak8.picdn.net/shutterstock/videos/33248488/thumb/12.jpg
+                      url: https://www.shutterstock.com/video/clip-33248488
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - videos
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET "https://api.shutterstock.com/v2/videos/search" \
+
+          --header "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          -G \
+
+          --data-urlencode "query=hot air balloon" \
+
+          --data-urlencode "duration_from=30" \
+
+          --data-urlencode "sort=popular"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst queryParams = {\n  \"query\": \"hot air balloon\",\n  \"duration_from\": 30,\n  \"sort\": \"popular\"\n};\n\nvideosApi.searchVideos(queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"query\" => \"hot air balloon\",\n  \"duration_from\" => 30,\n  \"sort\" => \"popular\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      operationId: searchVideos
+      summary: Search for videos
+      description: This endpoint searches for videos. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT.
+  /v2/videos/search/suggestions:
+    get:
+      parameters:
+      - description: Search term for which you want keyword suggestions
+        in: query
+        name: query
+        required: true
+        example: cats
+        schema:
+          type: string
+      - description: Limit the number of the suggestions
+        in: query
+        name: limit
+        schema:
+          type: integer
+          default: 10
+          minimum: 1
+          maximum: 25
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Suggestions'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - videos
+      operationId: getVideoSuggestions
+      summary: Get suggestions for a search term
+      description: This endpoint provides autocomplete suggestions for partial search terms.
+  /v2/videos:
+    get:
+      parameters:
+      - description: One or more video IDs
+        in: query
+        name: id
+        required: true
+        example:
+        - '639703'
+        - '993721'
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: minimal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - media_type: video
+                      id: '639703'
+                      description: A family of African Forest Elephants play in the mud in the jungle of the Congo River basin.
+                      aspect: 1.481
+                      duration: 11
+                      has_model_release: false
+                      contributor:
+                        id: '335419'
+                      aspect_ratio: '3:2'
+                      assets:
+                        thumb_webm:
+                          url: https://ak3.picdn.net/shutterstock/videos/639703/thumb/stock-footage-a-family-of-african-forest-elephants-play-in-the-mud-in-the-jungle-of-the-congo-river-basin.webm
+                        thumb_mp4:
+                          url: https://ak3.picdn.net/shutterstock/videos/639703/thumb/stock-footage-a-family-of-african-forest-elephants-play-in-the-mud-in-the-jungle-of-the-congo-river-basin.mp4
+                        preview_webm:
+                          url: https://ak3.picdn.net/shutterstock/videos/639703/preview/stock-footage-a-family-of-african-forest-elephants-play-in-the-mud-in-the-jungle-of-the-congo-river-basin.webm
+                        preview_mp4:
+                          url: https://ak3.picdn.net/shutterstock/videos/639703/preview/stock-footage-a-family-of-african-forest-elephants-play-in-the-mud-in-the-jungle-of-the-congo-river-basin.mp4
+                        thumb_jpg:
+                          url: https://ak3.picdn.net/shutterstock/videos/639703/thumb/1.jpg
+                        preview_jpg:
+                          url: https://ak3.picdn.net/shutterstock/videos/639703/thumb/1.jpg
+                      url: https://www.shutterstock.com/video/clip-639703
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - videos
+      operationId: getVideoList
+      summary: List videos
+      description: This endpoint lists information about one or more videos, including the aspect ratio and URLs to previews.
+  /v2/videos/{id}:
+    get:
+      parameters:
+      - description: Video ID
+        in: path
+        name: id
+        required: true
+        example: '30867073'
+        schema:
+          type: string
+      - description: Language for the keywords and categories in the response
+        in: query
+        name: language
+        example: es
+        schema:
+          $ref: '#/components/schemas/Language'
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: full
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Video'
+              examples:
+                response:
+                  value:
+                    media_type: video
+                    id: '30867073'
+                    description: Fans cheering for sports team on the bleachers of a professional stadium
+                    aspect: 1.896
+                    duration: 19
+                    categories:
+                    - name: People
+                      id: '13'
+                    - name: Sports/Recreation
+                      id: '18'
+                    keywords:
+                    - 4k resolution
+                    - adult
+                    - adults only
+                    - american football - sport
+                    - applauding
+                    - arms raised
+                    has_model_release: true
+                    has_property_release: true
+                    models:
+                    - id: '22793203'
+                    contributor:
+                      id: '907171'
+                    is_adult: false
+                    aspect_ratio: 1.90:1
+                    added_date: '2017-09-18'
+                    assets:
+                      thumb_webm:
+                        url: https://ak3.picdn.net/shutterstock/videos/30867073/thumb/stock-footage-fans-cheering-for-sports-team-on-the-bleachers-of-a-professional-stadium.webm
+                      thumb_mp4:
+                        url: https://ak3.picdn.net/shutterstock/videos/30867073/thumb/stock-footage-fans-cheering-for-sports-team-on-the-bleachers-of-a-professional-stadium.mp4
+                      preview_webm:
+                        url: https://ak3.picdn.net/shutterstock/videos/30867073/preview/stock-footage-fans-cheering-for-sports-team-on-the-bleachers-of-a-professional-stadium.webm
+                      preview_mp4:
+                        url: https://ak3.picdn.net/shutterstock/videos/30867073/preview/stock-footage-fans-cheering-for-sports-team-on-the-bleachers-of-a-professional-stadium.mp4
+                      thumb_jpgs:
+                        urls:
+                        - https://ak3.picdn.net/shutterstock/videos/30867073/thumb/1.jpg
+                        - https://ak3.picdn.net/shutterstock/videos/30867073/thumb/2.jpg
+                        - https://ak3.picdn.net/shutterstock/videos/30867073/thumb/3.jpg
+                        - https://ak3.picdn.net/shutterstock/videos/30867073/thumb/12.jpg
+                      thumb_jpg:
+                        url: https://ak3.picdn.net/shutterstock/videos/30867073/thumb/1.jpg
+                      preview_jpg:
+                        url: https://ak3.picdn.net/shutterstock/videos/30867073/thumb/1.jpg
+                      sd:
+                        height: 480
+                        width: 910
+                        fps: 25
+                        format: mov
+                        file_size: 18221056
+                        display_name: Standard Definition MPEG
+                        is_licensable: true
+                      hd:
+                        height: 1080
+                        width: 2046
+                        fps: 25
+                        format: mov
+                        file_size: 92101632
+                        display_name: HD MPEG
+                        is_licensable: true
+                      web:
+                        height: 240
+                        width: 454
+                        fps: 25
+                        format: mov
+                        file_size: 6441984
+                        display_name: Low Resolution MPEG
+                        is_licensable: true
+                      4k:
+                        height: 2160
+                        width: 4096
+                        fps: 25
+                        format: apch
+                        file_size: 1859655680
+                        display_name: Original UltraHD 4K
+                        is_licensable: true
+                    url: https://www.shutterstock.com/video/clip-30867073
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '404':
+          description: Not found
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - videos
+      operationId: getVideo
+      summary: Get details about videos
+      description: This endpoint shows information about a video, including URLs to previews and the sizes that it is available in.
+  /v2/videos/licenses:
+    post:
+      parameters:
+      - description: The subscription ID to use for licensing
+        in: query
+        name: subscription_id
+        schema:
+          type: string
+      - description: The size of the video to license
+        in: query
+        name: size
+        schema:
+          type: string
+          enum:
+          - web
+          - sd
+          - hd
+          - 4k
+          default: web
+      - description: The Search ID that led to this licensing event
+        in: query
+        name: search_id
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseVideoResultDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - video_id: '2140697'
+                      download:
+                        url: https://download.shutterstock.com/gatekeeper/W3siZSI6MTQ5NzAyNjU1MiwiayI6InZpZGVvLzIxNDA2OTcvc2QubW92IiwibSI6IjEiLCJkIjoic2h1dHRlcnN0b2NrLW1lZGlhIn0sInVsOFY1dElzb3lWZHNxb3JyWlJjS1dyb016TSJd/shutterstock_v2140697.mov
+                      allotment_charge: 1
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.create
+        - purchases.view
+      tags:
+      - videos
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"videos\": [\n    {\n      \"video_id\": \"2140697\",\n      \"size\": \"hd\"\n    },\n    {\n      \"video_id\": \"5613314\",\n      \"size\": \"4k\"\n    }\n  ]\n}'\n\ncurl -X POST 'https://api.shutterstock.com/v2/videos/licenses?subscription_id='$SUBSCRIPTION_ID \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n"
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst body = {\n  \"videos\": [\n    {\n      \"video_id\": \"419235589\"\n    },\n    {\n      \"video_id\": \"1079756147\"\n    }\n  ]\n};\n\nconst queryParams = {\n  \"subscription_id\": SHUTTERSTOCK_SUBSCRIPTION_ID,\n  \"size\": \"web\"\n};\n\nvideosApi.searchVideos(body, queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"videos\" => [\n    [\n      \"video_id\" => \"2140697\",\n      \"size\" => \"hd\"\n    ],\n    [\n      \"video_id\" => \"5613314\",\n      \"size\" => \"4k\"\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/licenses?subscription_id=$SUBSCRIPTION_ID\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      operationId: licenseVideos
+      summary: License videos
+      description: This endpoint gets licenses for one or more videos. You must specify the video IDs in the body parameter and the size and subscription ID either in the query parameter or with each video ID in the body parameter. Values in the body parameter override values in the query parameters.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseVideoRequest'
+            examples:
+              default:
+                value:
+                  videos:
+                  - video_id: '2140697'
+                    size: hd
+                    subscription_id: s8906043
+                  - video_id: '5613314'
+                    size: 4k
+                    subscription_id: s8241443
+        description: List of videos to request licenses for and information about each license transaction; these values override the defaults in the query parameters
+        required: true
+    get:
+      parameters:
+      - description: Show licenses for the specified video ID
+        in: query
+        name: video_id
+        schema:
+          type: string
+      - description: Show videos that are available with the specified license, such as `standard` or `enhanced`; prepending a `-` sign excludes results from that license
+        in: query
+        name: license
+        schema:
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 200
+          default: 20
+      - description: Sort by oldest or newest videos first
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - oldest
+          default: newest
+      - description: Filter licenses by username of licensee
+        in: query
+        name: username
+        schema:
+          type: string
+      - name: start_date
+        in: query
+        description: Show licenses created on or after the specified date
+        schema:
+          type: string
+          format: date-time
+        example: 2020-02-02T13:00-05:00
+      - name: end_date
+        in: query
+        description: Show licenses created before the specified date
+        schema:
+          type: string
+          format: date-time
+        example: 2020-02-02T13:00-05:00
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadHistoryDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: e121
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-24T14:26:25-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e122
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-23T10:10:24-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e123
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-22T07:51:17-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e124
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-21T12:01:07-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e125
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-21T11:59:43-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e126
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-15T10:53:10-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e127
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-14T23:31:59-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e128
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-14T12:52:40-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e129
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-10T15:38:20-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    - id: e130
+                      user:
+                        username: myusername
+                      license: footage_premier
+                      subscription_id: s8907043
+                      download_time: '2018-05-10T15:24:28-04:00'
+                      metadata:
+                        customer_id: '12345'
+                        geo_location: US
+                        number_viewed: '15'
+                        search_term: dog
+                      video:
+                        id: '2140697'
+                        format:
+                          size: sd
+                    page: 1
+                    per_page: 20
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.view
+      tags:
+      - videos
+      operationId: getVideoLicenseList
+      summary: List video licenses
+      description: This endpoint lists existing licenses.
+  /v2/videos/licenses/{id}/downloads:
+    post:
+      parameters:
+      - description: The license ID of the item to (re)download
+        in: path
+        name: id
+        required: true
+        example: e123
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Url'
+              examples:
+                response:
+                  value:
+                    url: https://download1.shutterstock.com/gatekeeper/W3siZSI6MTUzMzMzMzUzMCwiayI6InZpZGVvLzM5NjU4ODEvaGQubW92IiwibSI6MSwiZCI6InNodXR0ZXJzdG9jay1tZWRpYSJ9LCJjZ2lvRU14T09hNWZGTHZsN21iTWVPRVQ3MFEiXQ/shutterstock_v3965881.mov
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.view
+      x-code-samples:
+      - lang: shell
+        source: 'DATA=''{}''
+
+
+          curl -X POST https://api.shutterstock.com/v2/videos/licenses/e123/downloads \
+
+          -d "$DATA" \
+
+          -H "Content-Type: application/json" \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst licenseId = \"e123\";\n\nconst body = {};\n\nvideosApi.downloadVideos(licenseId, body)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/licenses/e123/downloads\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      tags:
+      - videos
+      operationId: downloadVideos
+      summary: Download videos
+      description: This endpoint redownloads videos that you have already received a license for.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedownloadVideo'
+            examples:
+              default:
+                value: {}
+        description: Information about the videos to redownload
+        required: true
+  /v2/videos/collections:
+    post:
+      responses:
+        '200':
+          description: No response was specified
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionCreateResponse'
+        '201':
+          description: Successfully created collection
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionCreateResponse'
+              examples:
+                response:
+                  value:
+                    id: '10120264'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"name\": \"New collection name\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/videos/collections \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst body = {\n  \"name\": \"New collection name\"\n};\n\nvideosApi.createClipbox(body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"name\" => \"New collection name\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - videos
+      operationId: createClipbox
+      summary: Create video collections
+      description: This endpoint creates one or more collections (clipboxes). To add videos to collections, use `POST /v2/videos/collections/{id}/items`.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionCreateRequest'
+            examples:
+              default:
+                value:
+                  name: New collection name
+        description: Collection metadata
+        required: true
+    get:
+      parameters:
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 150
+          default: 100
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - name: kittens and puppies
+                      updated_time: '2017-07-05T08:51:00-04:00'
+                      id: '17553374'
+                      total_item_count: 0
+                      created_time: '2017-07-05T08:51:00-04:00'
+                    - name: wild life
+                      updated_time: '2017-07-05T08:51:00-04:00'
+                      id: '17553375'
+                      total_item_count: 0
+                      created_time: '2017-07-05T08:51:00-04:00'
+                    - name: young couples
+                      updated_time: '2017-07-06T08:50:57-04:00'
+                      id: '17555175'
+                      total_item_count: 2
+                      created_time: '2017-07-06T08:50:57-04:00'
+                    - name: sky timelapses
+                      updated_time: '2017-07-06T08:50:58-04:00'
+                      id: '17555176'
+                      total_item_count: 2
+                      created_time: '2017-07-06T08:50:58-04:00'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - videos
+      operationId: getClipboxList
+      summary: List video collections
+      description: This endpoint lists your collections of videos and their basic attributes.
+  /v2/videos/collections/{id}:
+    get:
+      parameters:
+      - description: The ID of the collection to return
+        in: path
+        name: id
+        required: true
+        example: '17555176'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Collection'
+              examples:
+                response:
+                  value:
+                    name: cats and dogs
+                    updated_time: '2017-07-05T08:51:00-04:00'
+                    id: '17555176'
+                    total_item_count: '0'
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - videos
+      operationId: getClipbox
+      summary: Get the details of video collections
+      description: This endpoint gets more detailed information about a collection, including the timestamp for its creation and the number of videos in it. To get the videos in collections, use GET /v2/videos/collections/{id}/items.
+    post:
+      parameters:
+      - description: The ID of the collection to rename
+        in: path
+        name: id
+        required: true
+        example: '17555176'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully updated collection
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"name\": \"Updated collection name\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/videos/collections/17555176 \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"186765119\";\n\nconst body = {\n  \"name\": \"My new collection name\"\n};\n\nvideosApi.renameClipbox(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"name\" => \"Updated collection name\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - videos
+      operationId: renameClipbox
+      summary: Rename video collections
+      description: This endpoint sets a new name for a collection.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionUpdateRequest'
+            examples:
+              default:
+                value:
+                  name: Updated collection name
+        description: The new name for the collection
+        required: true
+    delete:
+      parameters:
+      - description: The ID of the collection to delete
+        in: path
+        name: id
+        required: true
+        example: '17555176'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully deleted collection
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X DELETE https://api.shutterstock.com/v2/videos/collections/17555176 \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"'
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\";\n\nvideosApi.deleteClipbox(collectionId)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - videos
+      operationId: deleteClipbox
+      summary: Delete video collections
+      description: This endpoint deletes a collection.
+  /v2/videos/categories:
+    get:
+      parameters:
+      - description: Language for the keywords and categories in the response
+        in: query
+        name: language
+        example: es
+        schema:
+          $ref: '#/components/schemas/Language'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CategoryDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '1'
+                      name: Animals/Wildlife
+                    - id: '2'
+                      name: Buildings/Landmarks
+                    - id: '3'
+                      name: Backgrounds/Textures
+                    - id: '4'
+                      name: Business/Finance
+                    - id: '5'
+                      name: Education
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - videos
+      operationId: getVideoCategories
+      summary: List video categories
+      description: This endpoint lists the categories (Shutterstock-assigned genres) that videos can belong to.
+  /v2/videos/collections/{id}/items:
+    post:
+      parameters:
+      - description: The ID of the collection to which items should be added
+        in: path
+        name: id
+        required: true
+        example: '17555176'
+        schema:
+          type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully added collection items
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"items\": [\n    {\n      \"id\": \"10120264\"\n    },\n    {\n      \"id\": \"24419024\"\n    }\n  ]\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/videos/collections/17555176/items \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\"; // Collection ID\n\n// Array of videos to add\nconst body = {\n  \"items\": [\n    {\n      \"id\": \"10120264\",\n      \"media_type\": \"video\"\n    }\n  ]\n};\n\nvideosApi.addLightboxItems(collectionId, body)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"items\" => [\n    [\n      \"id\" => \"10120264\"\n    ],\n    [\n      \"id\" => \"24419024\"\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176/items\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - videos
+      operationId: addClipboxItems
+      summary: Add videos to collections
+      description: This endpoint adds one or more videos to a collection by video IDs.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CollectionItemRequest'
+            examples:
+              default:
+                value:
+                  items:
+                  - id: '10120264'
+                  - id: '24419024'
+        description: Array of video IDs to add to the collection
+        required: true
+    get:
+      parameters:
+      - description: The ID of the Collection whose items are to be returned
+        in: path
+        name: id
+        required: true
+        example: '17555176'
+        schema:
+          type: string
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 150
+          default: 100
+      - description: Sort order
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - newest
+          - oldest
+          default: oldest
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionItemDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - added_time: '2017-07-06T14:33:42-04:00'
+                      id: '123123'
+                      media_type: video
+                    - added_time: '2017-07-06T14:33:42-04:00'
+                      id: '654654'
+                      media_type: video
+                    page: 1
+                    per_page: 100
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.view
+      tags:
+      - videos
+      operationId: getClipboxItems
+      summary: Get the contents of video collections
+      description: This endpoint lists the IDs of videos in a collection and the date that each was added.
+    delete:
+      parameters:
+      - description: The ID of the Collection from which items will be deleted
+        in: path
+        name: id
+        required: true
+        example: '17555176'
+        schema:
+          type: string
+      - description: One or more video IDs to remove from the collection
+        in: query
+        name: item_id
+        schema:
+          type: array
+          items:
+            type: string
+      responses:
+        '200':
+          description: No response was specified
+        '204':
+          description: Successfully removed collection items
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - collections.edit
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X DELETE https://api.shutterstock.com/v2/videos/collections/17555176/items \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN"'
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst collectionId = \"17555176\";\n\n// Array of videos to remove\nconst videosToRemove = {\n  \"item_id\": [\n    \"10120264\"\n  ]\n};\n\nvideosApi.deleteClipboxItems(collectionId, videosToRemove)\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/collections/17555176/items\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - videos
+      operationId: deleteClipboxItems
+      summary: Remove videos from collections
+      description: This endpoint removes one or more videos from a collection.
+  /v2/videos/{id}/similar:
+    get:
+      parameters:
+      - description: The ID of a video for which similar videos should be returned
+        in: path
+        name: id
+        required: true
+        example: '2140697'
+        schema:
+          type: string
+      - description: Language for the keywords and categories in the response
+        in: query
+        name: language
+        example: es
+        schema:
+          $ref: '#/components/schemas/Language'
+      - description: Page number
+        in: query
+        name: page
+        schema:
+          type: integer
+          minimum: 1
+          default: 1
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 500
+          default: 20
+      - description: Amount of detail to render in the response
+        in: query
+        name: view
+        schema:
+          type: string
+          enum:
+          - minimal
+          - full
+          default: minimal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VideoSearchResults'
+              examples:
+                response:
+                  value:
+                    page: 1
+                    per_page: 1
+                    total_count: 200
+                    search_id: ''
+                    data:
+                    - media_type: video
+                      id: '6658088'
+                      description: Caucasian parents wearing casual clothes standing watching ocean waves summer daughters carrying bodyboards surfboards slow motion
+                      aspect: 1.778
+                      duration: 23
+                      contributor:
+                        id: '87721'
+                      aspect_ratio: '16:9'
+                      assets:
+                        thumb_webm:
+                          url: https://ak8.picdn.net/shutterstock/videos/6658088/thumb/stock-footage-caucasian-parents-wearing-casual-clothes-standing-watching-ocean-waves-summer-daughters-carrying.webm
+                        thumb_mp4:
+                          url: https://ak8.picdn.net/shutterstock/videos/6658088/thumb/stock-footage-caucasian-parents-wearing-casual-clothes-standing-watching-ocean-waves-summer-daughters-carrying.mp4
+                        preview_webm:
+                          url: https://ak8.picdn.net/shutterstock/videos/6658088/preview/stock-footage-caucasian-parents-wearing-casual-clothes-standing-watching-ocean-waves-summer-daughters-carrying.webm
+                        preview_mp4:
+                          url: https://ak8.picdn.net/shutterstock/videos/6658088/preview/stock-footage-caucasian-parents-wearing-casual-clothes-standing-watching-ocean-waves-summer-daughters-carrying.mp4
+                        thumb_jpg:
+                          url: https://ak8.picdn.net/shutterstock/videos/6658088/thumb/1.jpg
+                        preview_jpg:
+                          url: https://ak8.picdn.net/shutterstock/videos/6658088/thumb/1.jpg
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - videos
+      operationId: getSimilarVideos
+      summary: List similar videos
+      description: This endpoint searches for videos that are similar to a video that you specify.
+  /v2/videos/updated:
+    get:
+      parameters:
+      - in: query
+        name: start_date
+        description: Show videos updated on or after the specified date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: end_date
+        description: Show videos updated before the specified date
+        schema:
+          type: string
+          format: date
+      - in: query
+        name: interval
+        description: Show videos updated in the specified time period, where the time period is an interval (like SQL INTERVAL) such as 1 DAY, 6 HOUR, or 30 MINUTE; the default is 1 HOUR, which shows videos that were updated in the hour preceding the request
+        schema:
+          type: string
+          default: 1 HOUR
+      - in: query
+        name: page
+        description: Page number
+        schema:
+          type: integer
+          default: 1
+          minimum: 1
+      - in: query
+        name: per_page
+        description: Number of results per page
+        schema:
+          type: integer
+          default: 100
+          maximum: 2000
+          minimum: 1
+      - in: query
+        name: sort
+        description: Sort by oldest or newest videos first
+        schema:
+          default: newest
+          type: string
+          enum:
+          - newest
+          - oldest
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpdatedMediaDataList'
+              examples:
+                response:
+                  value:
+                    data:
+                    - id: '1030611710'
+                      updated_time: '2019-06-04T15:57:31-04:00'
+                      updates:
+                      - addition
+                      - edit
+                    - id: '1030611713'
+                      updated_time: '2019-06-04T15:57:31-04:00'
+                      updates:
+                      - addition
+                      - edit
+                    - id: '1030611719'
+                      updated_time: '2019-06-04T15:57:31-04:00'
+                      updates:
+                      - addition
+                      - edit
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET https://api.shutterstock.com/v2/videos/updated \
+
+          -H "Accept: application/json" \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          -G \
+
+          --data-urlencode "interval=30 MINUTE"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst videosApi = new sstk.VideosApi();\n\nconst queryParams = {\n  \"interval\": \"30 MINUTE\"\n};\n\nvideosApi.getUpdatedVideos(queryParams)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"interval\" => \"30 MINUTE\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/videos/updated?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - videos
+      operationId: getUpdatedVideos
+      summary: List updated videos
+      description: This endpoint lists videos that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the `interval` parameter to show videos that were updated recently, but you can also use the `start_date` and `end_date` parameters to specify a range of no more than three days. Do not use the `interval` parameter with either `start_date` or `end_date`.
+components:
+  schemas:
+    Cookie:
+      description: Cookie object
+      properties:
+        name:
+          description: The name of the cookie
+          type: string
+        value:
+          description: The value of the cookie
+          type: string
+      required:
+      - name
+      - value
+      type: object
+    CollectionItem:
+      description: Metadata about an item that is part of a collection
+      properties:
+        added_time:
+          description: The date the item was added to the collection
+          format: date-time
+          type: string
+        id:
+          description: ID of the item
+          type: string
+        media_type:
+          description: The media type of the item, such as image, video, or audio
+          type: string
+      required:
+      - id
+      type: object
+    DownloadHistoryDataList:
+      description: List of download events
+      properties:
+        data:
+          description: Download events
+          items:
+            $ref: '#/components/schemas/DownloadHistory'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    CollectionDataList:
+      description: List of collections
+      example:
+        data:
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747953'
+          name: Test Collection cdad
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747955'
+          name: Test Collection ff5f
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:58-05:00'
+          id: '5747957'
+          name: Updated Collection ebc4
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:58-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747971'
+          name: Test Collection 0072
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747973'
+          name: Test Collection d332
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+      properties:
+        data:
+          description: Collections
+          items:
+            $ref: '#/components/schemas/Collection'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    VideoSizeDetails:
+      description: Video asset information
+      properties:
+        display_name:
+          description: Display name of this video size
+          type: string
+        file_size:
+          description: File size (in bytes) of this video size
+          type: integer
+        format:
+          description: Format of this video size
+          type: string
+        fps:
+          description: Frames per second of this video size
+          type: number
+        height:
+          description: Height of this video size
+          type: integer
+        is_licensable:
+          description: Whether or not videos can be licensed in this video size
+          type: boolean
+        width:
+          description: Width of this video size
+          type: integer
+      type: object
+    LicenseVideoRequest:
+      description: List of videos to license
+      properties:
+        videos:
+          description: Videos to license
+          items:
+            $ref: '#/components/schemas/LicenseVideo'
+          type: array
+      required:
+      - videos
+      type: object
+    VideoSearchResults:
+      description: Video search results
+      properties:
+        data:
+          description: List of videos
+          items:
+            $ref: '#/components/schemas/Video'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+      required:
+      - data
+      - total_count
+      - search_id
+      type: object
+    Urls:
+      description: List of URLs
+      properties:
+        urls:
+          description: URLs
+          items:
+            type: string
+          type: array
+      required:
+      - urls
+      type: object
+    Collection:
+      description: Metadata about a collection of assets
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/CollectionItem'
+        created_time:
+          description: When the collection was created
+          format: date-time
+          type: string
+        id:
+          description: The collection ID
+          type: string
+        items_updated_time:
+          description: The last time this collection's items were updated
+          format: date-time
+          type: string
+        name:
+          description: The name of the collection
+          type: string
+        share_code:
+          description: A code that can be used to share the collection (optional)
+          type: string
+        share_url:
+          description: The browser URL that can be used to share the collection (optional)
+          type: string
+        total_item_count:
+          description: The number of items in the collection
+          type: integer
+        updated_time:
+          description: The last time the collection was update (other than changes to the items in it)
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    CollectionItemRequest:
+      description: Request to get a list of items in a collection
+      properties:
+        items:
+          description: List of items
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+      required:
+      - items
+      type: object
+    VideoDataList:
+      description: List of videos
+      properties:
+        data:
+          description: Videos
+          items:
+            $ref: '#/components/schemas/Video'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    DownloadHistoryFormatDetails:
+      description: Information about the format of a download
+      properties:
+        format:
+          description: The format of the downloaded media
+          type: string
+        size:
+          description: The size of the downloaded media
+          type: string
+      type: object
+    Video:
+      description: Information about a video
+      properties:
+        added_date:
+          description: Date this video was added to the Shutterstock library
+          format: date
+          type: string
+        affiliate_url:
+          description: Affiliate referral link; appears only for registered affiliate partners
+          type: string
+          format: uri
+        aspect:
+          description: Aspect ratio of this video in decimal format
+          type: number
+        aspect_ratio:
+          description: Aspect ratio of the video
+          type: string
+        assets:
+          $ref: '#/components/schemas/VideoAssets'
+        categories:
+          description: List of categories
+          items:
+            $ref: '#/components/schemas/Category'
+          type: array
+        contributor:
+          $ref: '#/components/schemas/Contributor'
+        description:
+          description: Description of this video
+          type: string
+        duration:
+          description: Duration of this video, in seconds
+          type: number
+        has_model_release:
+          description: Whether or not this video has been released for use by the model appearing in it
+          type: boolean
+        has_property_release:
+          description: Whether or not this video has received a release to show the landmark or property appearing in it
+          type: boolean
+        id:
+          description: ID of the video
+          type: string
+        is_adult:
+          description: Whether or not this video contains adult content
+          type: boolean
+        is_editorial:
+          description: Whether or not this video is editorial content
+          type: boolean
+        keywords:
+          description: Keywords associated with the content of this video
+          items:
+            type: string
+          type: array
+        media_type:
+          description: Media type of this video, should always be "video"
+          type: string
+        models:
+          description: List of models in this video
+          items:
+            $ref: '#/components/schemas/Model'
+          type: array
+        url:
+          description: Link to video information page; included only for certain accounts
+          type: string
+      required:
+      - id
+      - media_type
+      - contributor
+      type: object
+    CollectionCreateRequest:
+      description: Collection creation request
+      example:
+        name: Test Collection 19cf
+      properties:
+        name:
+          description: The name of the collection
+          type: string
+      required:
+      - name
+      type: object
+    Contributor:
+      description: Information about a contributor
+      properties:
+        id:
+          description: ID of the contributor
+          type: string
+      required:
+      - id
+      type: object
+    Price:
+      description: Price
+      properties:
+        local_amount:
+          description: Dollar amount of the calculated rev-share price in the currency local_currency
+          type: number
+        local_currency:
+          description: Currency of the rev-share price that was calculated
+          type: string
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    UpdatedMedia:
+      description: Information about a piece of updated media
+      properties:
+        id:
+          description: ID of the media
+          type: string
+        updated_time:
+          description: Date that the media was updated
+          format: date-time
+          type: string
+        updates:
+          description: Types of updates that were made to the piece of media
+          items:
+            type: string
+          type: array
+      required:
+      - id
+      - updated_time
+      - updates
+      type: object
+    DownloadHistoryMediaDetails:
+      description: Information about the downloaded media
+      properties:
+        format:
+          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
+        id:
+          description: ID of the download history media details
+          type: string
+      required:
+      - id
+      type: object
+    Category:
+      description: Category information
+      properties:
+        id:
+          description: Category ID
+          type: string
+        name:
+          description: Category name
+          type: string
+      type: object
+    Language:
+      description: Language code
+      title: language
+      enum:
+      - cs
+      - da
+      - de
+      - en
+      - es
+      - fi
+      - fr
+      - hu
+      - it
+      - ja
+      - ko
+      - nb
+      - nl
+      - pl
+      - pt
+      - ru
+      - sv
+      - th
+      - tr
+      - zh
+      - zh-Hant
+      type: string
+    LicenseVideoResult:
+      description: The response to a licensing request for a video
+      properties:
+        allotment_charge:
+          description: Number of credits that this licensing event used
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+        error:
+          description: Potential error that occurred during licensing
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+          description: Wholesale price information; only for rev-share partners only
+        video_id:
+          description: ID of the video that was licensed
+          type: string
+      required:
+      - video_id
+      type: object
+    Model:
+      description: Information about a human model or property that appears in media; used to search for assets that this model is in
+      properties:
+        id:
+          description: ID of the model
+          type: string
+      required:
+      - id
+      type: object
+    UpdatedMediaDataList:
+      description: List of updated media
+      properties:
+        data:
+          description: Updated media items
+          items:
+            $ref: '#/components/schemas/UpdatedMedia'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    CollectionCreateResponse:
+      description: Collection creation response
+      example:
+        id: '48433105'
+      properties:
+        id:
+          description: ID of the new collection
+          type: string
+      required:
+      - id
+      type: object
+    LicenseVideo:
+      description: Data required to license a video
+      example:
+        size: hd
+        subscription_id: s8241143
+        video_id: '2140697'
+      properties:
+        auth_cookie:
+          $ref: '#/components/schemas/Cookie'
+        editorial_acknowledgement:
+          description: Whether or not this item is editorial content
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/LicenseRequestMetadata'
+        price:
+          description: Retail price amount; only for rev-share partners
+          type: number
+        search_id:
+          description: ID of the search that led to this licensing event
+          type: string
+        show_modal:
+          description: (Deprecated)
+          type: boolean
+        size:
+          description: Size of the video being licensed
+          enum:
+          - web
+          - sd
+          - hd
+          - 4k
+          type: string
+        subscription_id:
+          description: ID of the subscription used for this license
+          type: string
+        video_id:
+          description: ID of the video being licensed
+          type: string
+      required:
+      - video_id
+      type: object
+    RedownloadVideo:
+      description: Data required to redownload a video
+      properties:
+        auth_cookie:
+          description: (Deprecated)
+          deprecated: true
+          $ref: '#/components/schemas/Cookie'
+        show_modal:
+          description: (Deprecated)
+          deprecated: true
+          type: boolean
+        size:
+          description: Size of the video
+          enum:
+          - web
+          - sd
+          - hd
+          - 4k
+          type: string
+        verification_code:
+          description: (Deprecated)
+          deprecated: true
+          type: string
+      type: object
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    DownloadHistoryUserDetails:
+      description: Information about a user
+      properties:
+        username:
+          description: The name of the user who downloaded the item
+          type: string
+      required:
+      - username
+      type: object
+    CollectionUpdateRequest:
+      description: Collection update request
+      example:
+        name: My collection with a new name
+      properties:
+        name:
+          description: The new name of the collection
+          type: string
+      required:
+      - name
+      type: object
+    VideoAssets:
+      description: Video asset information
+      properties:
+        4k:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        hd:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        preview_jpg:
+          $ref: '#/components/schemas/Url'
+        preview_mp4:
+          $ref: '#/components/schemas/Url'
+        preview_webm:
+          $ref: '#/components/schemas/Url'
+        sd:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        thumb_jpg:
+          $ref: '#/components/schemas/Url'
+        thumb_jpgs:
+          $ref: '#/components/schemas/Urls'
+        thumb_mp4:
+          $ref: '#/components/schemas/Url'
+        thumb_webm:
+          $ref: '#/components/schemas/Url'
+        web:
+          $ref: '#/components/schemas/VideoSizeDetails'
+      type: object
+    DownloadHistory:
+      description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
+      properties:
+        audio:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        download_time:
+          description: Date the media was downloaded the first time
+          format: date-time
+          type: string
+        id:
+          description: ID of the download
+          type: string
+        image:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        is_downloadable:
+          description: Specifies if the media is downloadable via its respective downloads endpoint
+          type: boolean
+        license:
+          description: The name of the license of this download
+          type: string
+        metadata:
+          description: The metadata that was passed in the original licensing request
+          type: object
+        subscription_id:
+          description: ID of the subscription used to perform this download
+          type: string
+        user:
+          $ref: '#/components/schemas/DownloadHistoryUserDetails'
+        video:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+      required:
+      - id
+      - download_time
+      - license
+      type: object
+    Suggestions:
+      description: List of search suggestions
+      properties:
+        data:
+          description: Search suggestions
+          type: array
+          items:
+            type: string
+      type: object
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
+      properties:
+        data:
+          description: Assets in the collection
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    LicenseVideoResultDataList:
+      description: List of video license results
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseVideoResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    CategoryDataList:
+      description: List of categories that images can belong to
+      properties:
+        data:
+          description: Categories
+          items:
+            $ref: '#/components/schemas/Category'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
+    customer_accessCode:
+      type: oauth2
+      x-shutterstock-realm: customer
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+          tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+          scopes:
+            licenses.create: Grant the ability to download and license media on behalf of the user.
+            purchases.view: Grant read-only access to a user's purchase history.
+            licenses.view: Grant read-only access to a user's licenses.
+            collections.edit: Grant the ability to create new collections, edit a collection, and modify the contents of a collection
+            collections.view: Grant read-only access to a collection and its contents.

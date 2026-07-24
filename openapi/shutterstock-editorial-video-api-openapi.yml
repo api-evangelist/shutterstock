@@ -1,0 +1,644 @@
+openapi: 3.0.0
+info:
+  title: Shutterstock API Reference audio editorial_video API
+  description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
+  version: 1.0.30
+  contact:
+    name: Shutterstock Developer Support
+    url: https://www.shutterstock.com/developers/contact-us
+  license:
+    name: Shutterstock API Terms
+    url: https://www.shutterstock.com/api/terms
+servers:
+- url: https://api.shutterstock.com
+  description: Shutterstock API
+tags:
+- name: editorial_video
+paths:
+  /v2/editorial/videos/search:
+    get:
+      parameters:
+      - description: One or more search terms separated by spaces
+        in: query
+        name: query
+        schema:
+          type: string
+      - description: Sort by
+        in: query
+        name: sort
+        schema:
+          type: string
+          enum:
+          - relevant
+          - newest
+          - oldest
+          default: relevant
+      - description: Show editorial video content within a certain editorial category; specify by category name
+        in: query
+        name: category
+        schema:
+          type: string
+      - description: Show only editorial video content that is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      - description: Show only editorial video content from certain suppliers
+        in: query
+        name: supplier_code
+        schema:
+          type: array
+          items:
+            type: string
+      - description: Show only editorial video content generated on or after a specific date
+        in: query
+        name: date_start
+        schema:
+          type: string
+          format: date
+      - description: Show only editorial video content generated on or before a specific date
+        in: query
+        name: date_end
+        schema:
+          type: string
+          format: date
+      - description: Show only editorial video content with specific resolution
+        in: query
+        name: resolution
+        schema:
+          type: string
+          enum:
+          - 4k
+          - high_definition
+          - standard_definition
+      - description: Show only editorial video content generated with specific frames per second
+        in: query
+        name: fps
+        schema:
+          type: number
+      - description: Number of results per page
+        in: query
+        name: per_page
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 50
+          default: 20
+      - description: The cursor of the page with which to start fetching results; this cursor is returned from previous requests
+        in: query
+        name: cursor
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialVideoSearchResults'
+              examples:
+                response:
+                  value:
+                    per_page: 1
+                    total_count: 1556949
+                    search_id: q8igACM5gqQY75owjLoVvw
+                    next: eyJ2IjoxLCJzIjoxfQ==
+                    prev: ''
+                    data:
+                    - id: 10679336a
+                      title: Proud Papa Playing with His Puppies, New Oxford, Pennsylvania, USA - 28 Oct 2020
+                      caption: ''
+                      description: 'Info from Licensor: "In June, we rescued this 2 year old male boxer from spending most of his days in a crate. Our 2 adult female boxers helped him adjust to living a good boxer life with our family. He "thanked" us with this surprise litter of 8 puppies! He has really done amazingly well with playing with all the puppies, and I think he will miss them when they go to their "fur-ever" homes. It was a perfect day of playing in the backyard at the end of October 2020."'
+                      byline: ViralHog/Shutterstock
+                      keywords:
+                      - adorable
+                      - cute
+                      - doggo
+                      - doggy
+                      - dogs
+                      - domesticated animals
+                      - entertainment
+                      - feel good
+                      - grass
+                      - new oxford
+                      - pennsylvania
+                      - pets
+                      - played
+                      - playing
+                      - plays
+                      - pup
+                      - puppies
+                      - puppy
+                      - sweet
+                      - usa
+                      - viralhog
+                      - virals
+                      - yard
+                      date_taken: '2020-10-28'
+                      categories: []
+                      aspect: 1.778
+                      assets:
+                        preview_mp4:
+                          url: https://qa.editorial-cdn.shuttercorp.net/wm-preview-mp4/10679336a/M8TbAb3aNaj2g5w4ODgwMzg=/Shutterstock_10679336a.mp4
+                        preview_webm:
+                          url: https://qa.editorial-cdn.shuttercorp.net/wm-preview-webm/10679336a/M5T3Ab36N4jbgcwbODgwMzg=/Shutterstock_10679336a.webm
+                        thumb_jpg:
+                          url: https://qa.editorial-cdn.shuttercorp.net/thumb-1/10679336a/M5T6Ad37Ncj5g3w1ODgwMzg=/Shutterstock_10679336a.jpg
+                        original:
+                          height: 1080
+                          width: 1920
+                          fps: 29.937
+                          format: avc1
+                          file_size: 124452018
+                          display_name: HD
+                          is_licensable: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_video
+      x-code-samples:
+      - lang: shell
+        source: 'curl -X GET https://api.shutterstock.com/v2/editorial/videos/search \
+
+          -H "Accept: application/json" \
+
+          -G \
+
+          -H "Authorization: Bearer $SHUTTERSTOCK_API_TOKEN" \
+
+          --data-urlencode "query=football" \
+
+          --data-urlencode "country=USA" \
+
+          --data-urlencode "sort=newest" \
+
+          --data-urlencode "date_start=2018-10-23"
+
+          '
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialVideoApi();\n\nconst queryParams = {\n  \"query\": \"football\",\n  \"country\": \"USA\",\n  \"sort\": \"newest\",\n  \"date_start\": \"2018-10-23\"\n};\n\nconst country = \"USA\";\n\neditorialApi.editorialVideosSearch(country, queryParams)\n  .then((data) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$queryFields = [\n  \"query\" => \"football\",\n  \"country\" => \"USA\",\n  \"date_start\" => \"2018-10-23\",\n  \"sort\" => \"newest\"\n];\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/videos/search?\" . http_build_query($queryFields),\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
+      operationId: editorialVideosSearch
+      summary: Search editorial video content
+      description: This endpoint searches for editorial videos. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT.
+  /v2/editorial/videos/categories:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialVideoCategoryResults'
+              examples:
+                response:
+                  value:
+                    data:
+                    - name: Animal
+                    - name: Awards
+                    - name: Art
+                    - name: Film Stills
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_video
+      operationId: getEditorialCategories
+      summary: List editorial video categories
+      description: This endpoint lists the categories that editorial videos can belong to, which are separate from the categories that other types of assets can belong to.
+  /v2/editorial/videos/{id}:
+    get:
+      parameters:
+      - description: Editorial ID
+        in: path
+        name: id
+        required: true
+        example: 9926131a
+        schema:
+          type: string
+      - description: Returns only if the content is available for distribution in a certain country
+        in: query
+        name: country
+        required: true
+        example: USA
+        schema:
+          type: string
+          format: country-code-3
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EditorialVideoContent'
+              examples:
+                response:
+                  value:
+                    id: 10679336a
+                    title: Proud Papa Playing with His Puppies, New Oxford, Pennsylvania, USA - 28 Oct 2020
+                    caption: ''
+                    description: 'Info from Licensor: "In June, we rescued this 2 year old male boxer from spending most of his days in a crate. Our 2 adult female boxers helped him adjust to living a good boxer life with our family. He "thanked" us with this surprise litter of 8 puppies! He has really done amazingly well with playing with all the puppies, and I think he will miss them when they go to their "fur-ever" homes. It was a perfect day of playing in the backyard at the end of October 2020."'
+                    byline: ViralHog/Shutterstock
+                    keywords:
+                    - adorable
+                    - cute
+                    - doggo
+                    - doggy
+                    - dogs
+                    - domesticated animals
+                    - entertainment
+                    - feel good
+                    - grass
+                    - new oxford
+                    - pennsylvania
+                    - pets
+                    - played
+                    - playing
+                    - plays
+                    - pup
+                    - puppies
+                    - puppy
+                    - sweet
+                    - usa
+                    - viralhog
+                    - virals
+                    - yard
+                    date_taken: '2020-10-28'
+                    categories: []
+                    aspect: 1.778
+                    assets:
+                      preview_mp4:
+                        url: https://qa.editorial-cdn.shuttercorp.net/wm-preview-mp4/10679336a/M8TbAb3aNaj2g5w4ODgwMzg=/Shutterstock_10679336a.mp4
+                      preview_webm:
+                        url: https://qa.editorial-cdn.shuttercorp.net/wm-preview-webm/10679336a/M5T3Ab36N4jbgcwbODgwMzg=/Shutterstock_10679336a.webm
+                      thumb_jpg:
+                        url: https://qa.editorial-cdn.shuttercorp.net/thumb-1/10679336a/M5T6Ad37Ncj5g3w1ODgwMzg=/Shutterstock_10679336a.jpg
+                      original:
+                        height: 1080
+                        width: 1920
+                        fps: 29.937
+                        format: avc1
+                        file_size: 124452018
+                        display_name: HD
+                        is_licensable: true
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '406':
+          description: Not Acceptable
+      security:
+      - basic: []
+      - customer_accessCode: []
+      tags:
+      - editorial_video
+      operationId: editorialVideosDetails
+      summary: Get editorial video content details
+      description: This endpoint shows information about an editorial image, including a URL to a preview image and the sizes that it is available in.
+  /v2/editorial/videos/licenses:
+    post:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LicenseEditorialContentResults'
+              examples:
+                response:
+                  value:
+                    data:
+                    - editorial_id: '69656358'
+                      download:
+                        url: https://s3-eu-west-1.amazonaws.com/api-downloads.rexfeatures.com/[random-characters].mov?Expires=1524717323
+        '400':
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+      security:
+      - customer_accessCode:
+        - licenses.create
+        - purchases.view
+      x-code-samples:
+      - lang: shell
+        source: "DATA='{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_video_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}'\n\ncurl -X POST https://api.shutterstock.com/v2/editorial/videos/licenses \\\n-d \"$DATA\" \\\n-H \"Content-Type: application/json\" \\\n-H \"Accept: application/json\" \\\n-H \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\""
+      - lang: javascript--nodejs
+        source: "const sstk = require(\"shutterstock-api\");\n\nsstk.setAccessToken(process.env.SHUTTERSTOCK_API_TOKEN);\n\nconst editorialApi = new sstk.EditorialApi();\n\nconst body = {\n  \"editorial\": [\n    {\n      \"editorial_id\": \"10687492a\",\n      \"license\": \"premier_editorial_video_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n};\n\neditorialApi.licenseEditorialVideo(body)\n  .then(({ data }) => {\n    console.log(data);\n  })\n  .catch((error) => {\n    console.error(error);\n  });\n"
+      - lang: php
+        source: "$body = [\n  \"editorial\" => [\n    [\n      \"editorial_id\" => \"10687492a\",\n      \"license\" => \"premier_editorial_video_comp\"\n    ]\n  ],\n  \"country\" => \"USA\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/editorial/videos/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
+      tags:
+      - editorial_video
+      operationId: licenseEditorialVideo
+      summary: License editorial video content
+      description: This endpoint gets licenses for one or more editorial videos. You must specify the country and one or more editorial videos to license.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LicenseEditorialVideoContentRequest'
+            examples:
+              default:
+                value:
+                  editorial:
+                  - editorial_id: 8594090h
+                    license: premier_editorial_video_comp
+                  country: USA
+        description: License editorial video content
+        required: true
+components:
+  schemas:
+    LicenseEditorialVideoContent:
+      description: Individual editorial video content to license
+      properties:
+        editorial_id:
+          description: Editorial ID
+          type: string
+        license:
+          description: License agreement to use for licensing
+          type: string
+          enum:
+          - premier_editorial_video_digital_only
+          - premier_editorial_video_all_media
+          - premier_editorial_video_all_media_single_territory
+          - premier_editorial_video_comp
+        metadata:
+          $ref: '#/components/schemas/LicenseRequestMetadata'
+        size:
+          description: Asset size to download
+          default: original
+          enum:
+          - original
+          type: string
+      required:
+      - editorial_id
+      - license
+      type: object
+    EditorialCategory:
+      description: Name of an editorial category
+      properties:
+        name:
+          type: string
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    EditorialVideoContent:
+      description: Metadata about editorial content
+      properties:
+        aspect:
+          type: number
+        assets:
+          $ref: '#/components/schemas/EditorialVideoAssets'
+        byline:
+          type: string
+        caption:
+          type: string
+        categories:
+          description: List of categories
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
+          type: array
+        date_taken:
+          format: date
+          type: string
+        description:
+          type: string
+        id:
+          type: string
+        keywords:
+          items:
+            type: string
+          type: array
+        title:
+          type: string
+      required:
+      - id
+      type: object
+    LicenseEditorialContentResult:
+      description: The response to a licensing request for editorial content
+      properties:
+        allotment_charge:
+          description: For pre-paid plans, how many credits were used for the item license
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+          description: Information that is needed to download the image
+        editorial_id:
+          description: Editorial ID
+          type: string
+        error:
+          type: string
+      required:
+      - editorial_id
+      type: object
+    LicenseEditorialVideoContentRequest:
+      description: License editorial video content request
+      properties:
+        country:
+          description: Mandatory country code for where the editorial content will be distributed; this value is used for rights checks
+          anyOf:
+          - type: string
+            format: country-code-3
+          - type: string
+            format: country-code-2
+          example: USA
+        editorial:
+          description: Editorial content to license
+          items:
+            $ref: '#/components/schemas/LicenseEditorialVideoContent'
+          type: array
+      required:
+      - country
+      - editorial
+      type: object
+    VideoSizeDetails:
+      description: Video asset information
+      properties:
+        display_name:
+          description: Display name of this video size
+          type: string
+        file_size:
+          description: File size (in bytes) of this video size
+          type: integer
+        format:
+          description: Format of this video size
+          type: string
+        fps:
+          description: Frames per second of this video size
+          type: number
+        height:
+          description: Height of this video size
+          type: integer
+        is_licensable:
+          description: Whether or not videos can be licensed in this video size
+          type: boolean
+        width:
+          description: Width of this video size
+          type: integer
+      type: object
+    EditorialVideoAssets:
+      description: Asset information, including size and thumbnail URLs
+      properties:
+        original:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        preview_mp4:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+        preview_webm:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+        thumb_jpg:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+      type: object
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    EditorialVideoCategoryResults:
+      description: List of editorial video categories
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
+    LicenseEditorialContentResults:
+      description: List of editorial license results
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseEditorialContentResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+    VideoPreviewUrl:
+      description: Video preview information
+      properties:
+        url:
+          description: Direct URL to the image
+          type: string
+      required:
+      - url
+      type: object
+    EditorialVideoSearchResults:
+      description: Editorial search results
+      properties:
+        data:
+          description: Editorial items
+          items:
+            $ref: '#/components/schemas/EditorialVideoContent'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        next:
+          description: Cursor value that represents the next page of results
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        prev:
+          description: Cursor value that represents the previous page of results
+          type: string
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+        total_count:
+          description: Total count of all results
+          type: integer
+      required:
+      - data
+      - total_count
+      type: object
+  securitySchemes:
+    basic:
+      type: http
+      scheme: basic
+    customer_accessCode:
+      type: oauth2
+      x-shutterstock-realm: customer
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.shutterstock.com/oauth/authorize
+          tokenUrl: https://api.shutterstock.com/v2/oauth/access_token
+          scopes:
+            licenses.create: Grant the ability to download and license media on behalf of the user.
+            purchases.view: Grant read-only access to a user's purchase history.
+            licenses.view: Grant read-only access to a user's licenses.
+            collections.edit: Grant the ability to create new collections, edit a collection, and modify the contents of a collection
+            collections.view: Grant read-only access to a collection and its contents.
