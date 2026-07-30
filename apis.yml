@@ -8,7 +8,20 @@ description: >-
   assets, manage collections, access computer vision features, and handle OAuth 2.0 authentication. It also includes
   contributor profile management and user account operations.
 type: Index
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/shutterstock.png
 tags:
   - Images
   - Media
@@ -36,59 +49,386 @@ common:
   - type: LinkedIn
     url: https://www.linkedin.com/company/shutterstock
 apis:
-  - aid: shutterstock:shutterstock-api
-    name: Shutterstock API
-    description: >-
-      The Shutterstock REST API v2 provides access to 350M+ images, videos, audio tracks, sound effects, and editorial
-      content. It supports searching by keyword, color, category, and visual similarity (computer vision). Licensing
-      operations support subscription and on-demand purchase models. Collections allow users to organize and save
-      assets. OAuth 2.0 is required for licensed content operations; Basic Auth is available for search and browse
-      endpoints.
-    humanURL: https://www.shutterstock.com/developers
-    baseURL: https://api.shutterstock.com
-    tags:
-      - Images
-      - Videos
-      - Audio
-      - Stock Media
-      - Licensing
-      - Creative Content
-      - Computer Vision
-      - Editorial
-    properties:
-      - type: Documentation
-        url: https://www.shutterstock.com/developers/documentation
-      - type: APIReference
-        url: https://api-reference.shutterstock.com/
-      - type: GettingStarted
-        url: https://www.shutterstock.com/developers/documentation/getting-started
-      - type: Authentication
-        url: https://www.shutterstock.com/developers/documentation/authentication
-      - type: Tutorial
-        url: https://www.shutterstock.com/developers/documentation/tutorial
-      - type: Plans
-        url: https://www.shutterstock.com/api/pricing
-      - type: SDKs
-        url: https://www.shutterstock.com/developers/documentation/javascript-sdk
-      - type: GitHubOrganization
-        url: https://github.com/shutterstock
-      - type: OpenAPI
-        url: openapi/shutterstock-openapi.yml
-      - type: JSONSchema
-        url: json-schema/shutterstock-image-schema.json
-      - type: JSONSchema
-        url: json-schema/shutterstock-video-schema.json
-      - type: JSONStructure
-        url: json-structure/shutterstock-image-structure.json
-      - type: JSONLD
-        url: json-ld/shutterstock-context.jsonld
-      - type: SpectralRules
-        url: rules/shutterstock-rules.yml
-      - type: Vocabulary
-        url: vocabulary/shutterstock-vocabulary.yml
-    contact:
-      - FN: Shutterstock Developer Support
-        url: https://www.shutterstock.com/developers/contact-us
+- aid: shutterstock:shutterstock-audio-api
+  name: Shutterstock audio API
+  description: The audio API from Shutterstock — 11 operation(s) for audio.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - audio
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-audio-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-computer-vision-api
+  name: Shutterstock computer_vision API
+  description: The computer_vision API from Shutterstock — 5 operation(s) for computer_vision.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - computer_vision
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-computer-vision-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-contributors-api
+  name: Shutterstock contributors API
+  description: The contributors API from Shutterstock — 5 operation(s) for contributors.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - contributors
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-contributors-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-editorial-images-api
+  name: Shutterstock editorial_images API
+  description: The editorial_images API from Shutterstock — 15 operation(s) for editorial_images.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - editorial_images
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-editorial-images-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-editorial-video-api
+  name: Shutterstock editorial_video API
+  description: The editorial_video API from Shutterstock — 4 operation(s) for editorial_video.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - editorial_video
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-editorial-video-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-images-api
+  name: Shutterstock images API
+  description: The images API from Shutterstock — 16 operation(s) for images.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - images
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-images-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-oauth-api
+  name: Shutterstock oauth API
+  description: The oauth API from Shutterstock — 2 operation(s) for oauth.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - oauth
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-oauth-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-test-api
+  name: Shutterstock test API
+  description: The test API from Shutterstock — 2 operation(s) for test.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - test
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-test-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-users-api
+  name: Shutterstock users API
+  description: The users API from Shutterstock — 3 operation(s) for users.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-users-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
+- aid: shutterstock:shutterstock-videos-api
+  name: Shutterstock videos API
+  description: The videos API from Shutterstock — 12 operation(s) for videos.
+  humanURL: https://www.shutterstock.com/developers
+  baseURL: https://api.shutterstock.com
+  tags:
+  - videos
+  properties:
+  - type: OpenAPI
+    url: openapi/shutterstock-videos-api-openapi.yml
+  - type: Documentation
+    url: https://www.shutterstock.com/developers/documentation
+  - type: APIReference
+    url: https://api-reference.shutterstock.com/
+  - type: GettingStarted
+    url: https://www.shutterstock.com/developers/documentation/getting-started
+  - type: Authentication
+    url: https://www.shutterstock.com/developers/documentation/authentication
+  - type: Tutorial
+    url: https://www.shutterstock.com/developers/documentation/tutorial
+  - type: Plans
+    url: https://www.shutterstock.com/api/pricing
+  - type: SDKs
+    url: https://www.shutterstock.com/developers/documentation/javascript-sdk
+  - type: GitHubOrganization
+    url: https://github.com/shutterstock
+  - type: JSONSchema
+    url: json-schema/shutterstock-image-schema.json
+  - type: JSONSchema
+    url: json-schema/shutterstock-video-schema.json
+  - type: JSONStructure
+    url: json-structure/shutterstock-image-structure.json
+  - type: JSONLD
+    url: json-ld/shutterstock-context.jsonld
+  - type: SpectralRules
+    url: rules/shutterstock-rules.yml
+  - type: Vocabulary
+    url: vocabulary/shutterstock-vocabulary.yml
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
