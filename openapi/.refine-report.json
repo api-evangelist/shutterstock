@@ -1,0 +1,35 @@
+{
+  "provider": "shutterstock",
+  "sources": [
+    "shutterstock-audio-api-openapi.yml",
+    "shutterstock-computer-vision-api-openapi.yml",
+    "shutterstock-contributors-api-openapi.yml",
+    "shutterstock-editorial-images-api-openapi.yml",
+    "shutterstock-editorial-video-api-openapi.yml",
+    "shutterstock-images-api-openapi.yml",
+    "shutterstock-oauth-api-openapi.yml",
+    "shutterstock-test-api-openapi.yml",
+    "shutterstock-users-api-openapi.yml",
+    "shutterstock-videos-api-openapi.yml"
+  ],
+  "outputs": [
+    "shutterstock-audio-api-openapi.yml",
+    "shutterstock-computer-vision-api-openapi.yml",
+    "shutterstock-contributors-api-openapi.yml",
+    "shutterstock-editorial-images-api-openapi.yml",
+    "shutterstock-editorial-video-api-openapi.yml",
+    "shutterstock-images-api-openapi.yml",
+    "shutterstock-oauth-api-openapi.yml",
+    "shutterstock-test-api-openapi.yml",
+    "shutterstock-users-api-openapi.yml",
+    "shutterstock-videos-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [
+    "shutterstock-computer-vision-api-openapi.yml: dangling $ref: #/components/schemas/AssetId",
+    "shutterstock-computer-vision-api-openapi.yml: dangling $ref: #/components/schemas/AssetUploadId"
+  ],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
