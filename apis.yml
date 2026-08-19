@@ -34,7 +34,7 @@ tags:
 url: https://raw.githubusercontent.com/api-evangelist/shutterstock/refs/heads/main/apis.yml
 created: '2026-05-02'
 modified: '2026-05-19'
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 common:
   - type: AgenticAccess
     url: agentic-access/shutterstock-agentic-access.yml
