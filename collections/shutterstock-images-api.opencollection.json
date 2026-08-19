@@ -1,0 +1,1083 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shutterstock API Reference audio images API",
+    "version": "1.0.30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/search",
+            "params": [
+              {
+                "name": "added_date",
+                "value": "",
+                "type": "query",
+                "description": "Show images added on the specified date"
+              },
+              {
+                "name": "added_date_start",
+                "value": "",
+                "type": "query",
+                "description": "Show images added on or after the specified date"
+              },
+              {
+                "name": "aspect_ratio_min",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified aspect ratio or higher, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image"
+              },
+              {
+                "name": "aspect_ratio_max",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified aspect ratio or lower, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image"
+              },
+              {
+                "name": "aspect_ratio",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified aspect ratio, using a positive decimal of the width divided by the height, such as 1.7778 for a 16:9 image"
+              },
+              {
+                "name": "added_date_end",
+                "value": "",
+                "type": "query",
+                "description": "Show images added before the specified date"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified Shutterstock-defined category; specify a category name or ID"
+              },
+              {
+                "name": "color",
+                "value": "",
+                "type": "query",
+                "description": "Specify either a hexadecimal color in the format '4F21EA' or 'grayscale'; the API groups it into one of 15 color categories and returns images that primarily use that color category"
+              },
+              {
+                "name": "contributor",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified contributor names or IDs, allows multiple"
+              },
+              {
+                "name": "contributor_country",
+                "value": "",
+                "type": "query",
+                "description": "Show images from contributors in one or more specified countries"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to display in the response; see the documentation for the fields parameter in the overview section"
+              },
+              {
+                "name": "height",
+                "value": "",
+                "type": "query",
+                "description": "(Deprecated; use height_from and height_to instead) Show images with the specified height"
+              },
+              {
+                "name": "height_from",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified height or larger, in pixels"
+              },
+              {
+                "name": "height_to",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified height or smaller, in pixels"
+              },
+              {
+                "name": "image_type",
+                "value": "",
+                "type": "query",
+                "description": "Show images of the specified type"
+              },
+              {
+                "name": "keyword_safe_search",
+                "value": "",
+                "type": "query",
+                "description": "Hide results with potentially unsafe keywords"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Set query and result language (uses Accept-Language header if not set)"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show only images with the specified license"
+              },
+              {
+                "name": "model",
+                "value": "",
+                "type": "query",
+                "description": "Show image results with the specified model IDs"
+              },
+              {
+                "name": "orientation",
+                "value": "",
+                "type": "query",
+                "description": "Show image results with horizontal or vertical orientation"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "people_model_released",
+                "value": "",
+                "type": "query",
+                "description": "Show images of people with a signed model release"
+              },
+              {
+                "name": "people_age",
+                "value": "",
+                "type": "query",
+                "description": "Show images that feature people of the specified age category"
+              },
+              {
+                "name": "people_ethnicity",
+                "value": "",
+                "type": "query",
+                "description": "Show images with people of the specified ethnicities"
+              },
+              {
+                "name": "people_gender",
+                "value": "",
+                "type": "query",
+                "description": "Show images with people of the specified gender"
+              },
+              {
+                "name": "people_number",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified number of people"
+              },
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms separated by spaces; you can use NOT to filter out images that match a term"
+              },
+              {
+                "name": "region",
+                "value": "",
+                "type": "query",
+                "description": "Raise or lower search result rankings based on the result's relevance to a specified region; you can provide a country code or an IP address from which the API infers a country"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable safe search"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "spellcheck_query",
+                "value": "",
+                "type": "query",
+                "description": "Spellcheck the search query and return results on suggested spellings"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              },
+              {
+                "name": "width",
+                "value": "",
+                "type": "query",
+                "description": "(Deprecated; use width_from and width_to instead) Show images with the specified width"
+              },
+              {
+                "name": "width_from",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified width or larger, in pixels"
+              },
+              {
+                "name": "width_to",
+                "value": "",
+                "type": "query",
+                "description": "Show images with the specified width or smaller, in pixels"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT. Free API accounts show results only from a limited library of media, not the full Shutterstock media library. Also, the number of search fields"
+        },
+        {
+          "info": {
+            "name": "Get suggestions for a search term",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/search/suggestions",
+            "params": [
+              {
+                "name": "query",
+                "value": "cats",
+                "type": "query",
+                "description": "Search term for which you want keyword suggestions"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of suggestions"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint provides autocomplete suggestions for partial search terms."
+        },
+        {
+          "info": {
+            "name": "Get keywords from text",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/search/suggestions",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns up to 10 important keywords from a block of plain text."
+        },
+        {
+          "info": {
+            "name": "Get details about images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "465011609",
+                "type": "path",
+                "description": "Image ID"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint shows information about an image, including a URL to a preview image and the sizes that it is available in."
+        },
+        {
+          "info": {
+            "name": "List image categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/categories",
+            "params": [
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists the categories (Shutterstock-assigned genres) that images can belong to."
+        },
+        {
+          "info": {
+            "name": "List similar images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/:id/similar",
+            "params": [
+              {
+                "name": "id",
+                "value": "465011609",
+                "type": "path",
+                "description": "Image ID"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns images that are visually similar to an image that you specify."
+        },
+        {
+          "info": {
+            "name": "List image licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/licenses",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "query",
+                "description": "Show licenses for the specified image ID"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show images that are available with the specified license, such as `standard` or `enhanced`; prepending a `-` sign excludes results from that license"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Filter licenses by username of licensee"
+              },
+              {
+                "name": "start_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created on or after the specified date"
+              },
+              {
+                "name": "end_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created before the specified date"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists existing licenses."
+        },
+        {
+          "info": {
+            "name": "License images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/licenses",
+            "params": [
+              {
+                "name": "subscription_id",
+                "value": "",
+                "type": "query",
+                "description": "Subscription ID to use to license the image"
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Image format"
+              },
+              {
+                "name": "size",
+                "value": "",
+                "type": "query",
+                "description": "Image size"
+              },
+              {
+                "name": "search_id",
+                "value": "",
+                "type": "query",
+                "description": "Search ID that was provided in the results of an image search"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets licenses for one or more images. You must specify the image IDs in the body parameter and other details like the format, size, and subscription ID either in the query parameter or with each image ID in the body parameter. Values in the body parameter override values in the query parameters."
+        },
+        {
+          "info": {
+            "name": "Download images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/licenses/:id/downloads",
+            "params": [
+              {
+                "name": "id",
+                "value": "e123",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint redownloads images that you have already received a license for."
+        },
+        {
+          "info": {
+            "name": "List recommended images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/recommendations",
+            "params": [
+              {
+                "name": "id",
+                "value": "465011609",
+                "type": "query",
+                "description": "Image IDs"
+              },
+              {
+                "name": "max_items",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results returned in the response"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Restrict results to safe images"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns images that customers put in the same collection as the specified image IDs."
+        },
+        {
+          "info": {
+            "name": "List image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections",
+            "params": [
+              {
+                "name": "embed",
+                "value": "share_code",
+                "type": "query",
+                "description": "Which sharing information to include in the response, such as a URL to the collection"
+              },
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "2",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists your collections of images and their basic attributes."
+        },
+        {
+          "info": {
+            "name": "Create image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/collections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates one or more image collections (lightboxes). To add images to the collections, use `POST /v2/images/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Get the details of image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Which sharing information to include in the response, such as a URL to the collection"
+              },
+              {
+                "name": "share_code",
+                "value": "",
+                "type": "query",
+                "description": "Code to retrieve a shared collection"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a collection, including its cover image and timestamps for its creation and most recent update. To get the images in collections, use `GET /v2/images/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Rename image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint sets a new name for an image collection."
+        },
+        {
+          "info": {
+            "name": "Delete image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "136351027",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint deletes an image collection."
+        },
+        {
+          "info": {
+            "name": "Get the contents of image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "share_code",
+                "value": "",
+                "type": "query",
+                "description": "Code to retrieve the contents of a shared collection"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists the IDs of images in a collection and the date that each was added."
+        },
+        {
+          "info": {
+            "name": "Add images to collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint adds one or more images to a collection by image IDs."
+        },
+        {
+          "info": {
+            "name": "Remove images from collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/images/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "126351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "query",
+                "description": "One or more image IDs to remove from the collection"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint removes one or more images from a collection."
+        },
+        {
+          "info": {
+            "name": "List featured image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/featured",
+            "params": [
+              {
+                "name": "embed",
+                "value": "share_url",
+                "type": "query",
+                "description": "Which sharing information to include in the response, such as a URL to the collection"
+              },
+              {
+                "name": "type",
+                "value": "photo",
+                "type": "query",
+                "description": "The types of collections to return"
+              },
+              {
+                "name": "asset_hint",
+                "value": "share_url",
+                "type": "query",
+                "description": "Cover image size"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists featured collections of specific types and a name and cover image for each collection."
+        },
+        {
+          "info": {
+            "name": "Get the details of featured image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/featured/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "136351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "embed",
+                "value": "",
+                "type": "query",
+                "description": "Which sharing information to include in the response, such as a URL to the collection"
+              },
+              {
+                "name": "asset_hint",
+                "value": "",
+                "type": "query",
+                "description": "Cover image size"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a featured collection, including its cover image and timestamps for its creation and most recent update. To get the images, use `GET /v2/images/collections/featured/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Get the contents of featured image collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/collections/featured/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "136351027",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists the IDs of images in a featured collection and the date that each was added."
+        },
+        {
+          "info": {
+            "name": "List updated images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images/updated",
+            "params": [
+              {
+                "name": "type",
+                "value": "",
+                "type": "query",
+                "description": "Show images that were added, deleted, or edited; by default, the endpoint returns images that were updated in any of these ways"
+              },
+              {
+                "name": "start_date",
+                "value": "",
+                "type": "query",
+                "description": "Show images updated on or after the specified date"
+              },
+              {
+                "name": "end_date",
+                "value": "",
+                "type": "query",
+                "description": "Show images updated before the specified date"
+              },
+              {
+                "name": "interval",
+                "value": "",
+                "type": "query",
+                "description": "Show images updated in the specified time period, where the time period is an interval (like SQL INTERVAL) such as 1 DAY, 6 HOUR, or 30 MINUTE; the default is 1 HOUR, which shows images that were updated in the hour preceding the request"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists images that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the `interval` parameter to show images that were updated recently, but you can also use the `start_date` and `end_date` parameters to specify a range of no more than three days. Do not use the `interval` parameter with either `start_date` or `end_date`."
+        },
+        {
+          "info": {
+            "name": "List images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/images",
+            "params": [
+              {
+                "name": "id",
+                "value": "1110335168,465011609",
+                "type": "query",
+                "description": "One or more image IDs"
+              },
+              {
+                "name": "view",
+                "value": "minimal",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists information about one or more images, including the available sizes."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

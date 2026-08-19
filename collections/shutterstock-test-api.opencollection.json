@@ -1,0 +1,68 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shutterstock API Reference audio test API",
+    "version": "1.0.30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "test",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Echo text",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/test",
+            "params": [
+              {
+                "name": "text",
+                "value": "",
+                "type": "query",
+                "description": "Text to echo"
+              }
+            ]
+          },
+          "docs": "Echo text"
+        },
+        {
+          "info": {
+            "name": "Validate input",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/test/validate",
+            "headers": [
+              {
+                "name": "user-agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "id",
+                "value": "123",
+                "type": "query",
+                "description": "Integer ID"
+              },
+              {
+                "name": "tag",
+                "value": "",
+                "type": "query",
+                "description": "List of tags"
+              }
+            ]
+          },
+          "docs": "Validate input"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

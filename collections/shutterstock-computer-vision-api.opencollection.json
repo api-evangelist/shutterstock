@@ -1,0 +1,202 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shutterstock API Reference audio computer_vision API",
+    "version": "1.0.30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "computer_vision",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Upload images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/cv/images",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint uploads an image for reverse image or video search. Images must be in JPEG or PNG format. To get the search results, pass the upload ID that this endpoint returns to the GET /v2/cv/similar/images or GET /v2/cv/similar/videos endpoints. Contact us for access to this endpoint."
+        },
+        {
+          "info": {
+            "name": "List similar images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/cv/similar/images",
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "U6ba16262e3bc2db470b8e3cfa8aaab25",
+                "type": "query",
+                "description": "The asset ID or upload ID to find similar images for"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show only images with the specified license"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable safe search"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns images that are visually similar to an image that you specify or upload."
+        },
+        {
+          "info": {
+            "name": "List similar videos",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/cv/similar/videos",
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "U6ba16262e3bc2db470b8e3cfa8aaab25",
+                "type": "query",
+                "description": "The asset ID or upload ID to find similar videos for"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show only videos with the specified license"
+              },
+              {
+                "name": "safe",
+                "value": "",
+                "type": "query",
+                "description": "Enable or disable safe search"
+              },
+              {
+                "name": "language",
+                "value": "es",
+                "type": "query",
+                "description": "Language for the keywords and categories in the response"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "view",
+                "value": "",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns videos that are visually similar to an image that you specify or upload."
+        },
+        {
+          "info": {
+            "name": "List suggested keywords",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/cv/keywords",
+            "params": [
+              {
+                "name": "asset_id",
+                "value": "U6ba16262e3bc2db470b8e3cfa8aaab25",
+                "type": "query",
+                "description": "The asset ID or upload ID to suggest keywords for"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns a list of suggested keywords for a media item that you specify or upload."
+        },
+        {
+          "info": {
+            "name": "Upload ephemeral images",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/images",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `POST /v2/cv/images` instead. This endpoint uploads an image for reverse image search. The image must be in JPEG or PNG format. To get the search results, pass the ID that this endpoint returns to the `GET /v2/images/{id}/similar` endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

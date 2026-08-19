@@ -1,0 +1,656 @@
+{
+  "item": [
+    {
+      "id": "46445b46-ffef-4924-b974-b590b12f1bcf",
+      "name": "oauth",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3d8f06f2-03ff-40d8-9cd4-f884a1d27b63",
+          "name": "Authorize applications",
+          "request": {
+            "name": "Authorize applications",
+            "description": {
+              "content": "This endpoint returns a redirect URI (in the 'Location' header) that the customer uses to authorize your application and, together with POST /v2/oauth/access_token, generate an access token that represents that authorization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "oauth",
+                "authorize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) Client ID (Consumer Key) of your application"
+                },
+                {
+                  "disabled": false,
+                  "key": "realm",
+                  "value": "customer",
+                  "description": "User type to be authorized (usually 'customer')"
+                },
+                {
+                  "disabled": false,
+                  "key": "redirect_uri",
+                  "value": "<string>",
+                  "description": "(Required) The callback URI to send the request to after authorization; must use a host name that is registered with your application"
+                },
+                {
+                  "disabled": false,
+                  "key": "response_type",
+                  "value": "<string>",
+                  "description": "(Required) Type of temporary authorization code that will be used to generate an access code; the only valid value is 'code'"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "user.view",
+                  "description": "Space-separated list of scopes to be authorized"
+                },
+                {
+                  "disabled": false,
+                  "key": "state",
+                  "value": "<string>",
+                  "description": "(Required) Unique value used by the calling app to verify the request"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/html"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "19fbc1af-6833-4dc9-9d03-604f52689dff",
+              "name": "No response was specified",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "client_id",
+                      "value": "6d097450b209c6dcd859"
+                    },
+                    {
+                      "key": "realm",
+                      "value": "customer"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "localhost"
+                    },
+                    {
+                      "key": "response_type",
+                      "value": "code"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "user.view"
+                    },
+                    {
+                      "key": "state",
+                      "value": "1540290465000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7e985e77-b26e-4c36-b834-c181afe3e80a",
+              "name": "Redirect user to authenticate with Shutterstock",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "client_id",
+                      "value": "6d097450b209c6dcd859"
+                    },
+                    {
+                      "key": "realm",
+                      "value": "customer"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "localhost"
+                    },
+                    {
+                      "key": "response_type",
+                      "value": "code"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "user.view"
+                    },
+                    {
+                      "key": "state",
+                      "value": "1540290465000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/html"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Found",
+              "code": 302,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/html"
+                }
+              ],
+              "body": "https://accounts.shutterstock.com/login?next=%2Foauth%2Fauthorize%3Fresponse_type%3Dcode%26state%3D1539619928633%26scope%3Dlicenses.create%20licenses.view%20purchases.view%26client_id%3D6d097450b209c6dcd859%26redirect_uri%3Dhttp%3A%2F%2Flocalhost%3A3000%2Fmyapp%2Fauth%2Fcallback%26realm%3Dcustomer",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4e025aa3-1465-4976-b45d-f3f54fc51389",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "client_id",
+                      "value": "6d097450b209c6dcd859"
+                    },
+                    {
+                      "key": "realm",
+                      "value": "customer"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "localhost"
+                    },
+                    {
+                      "key": "response_type",
+                      "value": "code"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "user.view"
+                    },
+                    {
+                      "key": "state",
+                      "value": "1540290465000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bd12f4fb-6dc7-4e31-98f0-976f295d0a1a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "client_id",
+                      "value": "6d097450b209c6dcd859"
+                    },
+                    {
+                      "key": "realm",
+                      "value": "customer"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "localhost"
+                    },
+                    {
+                      "key": "response_type",
+                      "value": "code"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "user.view"
+                    },
+                    {
+                      "key": "state",
+                      "value": "1540290465000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "507fa14c-24fd-4531-a9f0-c2f1b45e3482",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "authorize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "client_id",
+                      "value": "6d097450b209c6dcd859"
+                    },
+                    {
+                      "key": "realm",
+                      "value": "customer"
+                    },
+                    {
+                      "key": "redirect_uri",
+                      "value": "localhost"
+                    },
+                    {
+                      "key": "response_type",
+                      "value": "code"
+                    },
+                    {
+                      "key": "scope",
+                      "value": "user.view"
+                    },
+                    {
+                      "key": "state",
+                      "value": "1540290465000"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73175f55-8905-40e3-863f-f9ac9e988105",
+          "name": "Get access tokens",
+          "request": {
+            "name": "Get access tokens",
+            "description": {
+              "content": "This endpoint returns an access token for the specified user and with the specified scopes. The token does not expire until the user changes their password. The body parameters must be encoded as form data.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "oauth",
+                "access_token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "client_id",
+                  "value": "<string>",
+                  "description": "(Required) Client ID (Consumer Key) of your application"
+                },
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "<string>",
+                  "description": "(Required) Grant type: authorization_code generates user tokens, client_credentials generates short-lived client grants"
+                },
+                {
+                  "disabled": false,
+                  "key": "client_secret",
+                  "value": "<string>",
+                  "description": "Client Secret (Consumer Secret) of your application"
+                },
+                {
+                  "disabled": false,
+                  "key": "code",
+                  "value": "<string>",
+                  "description": "Response code from the /oauth/authorize flow; required if grant_type=authorization_code"
+                },
+                {
+                  "disabled": false,
+                  "key": "realm",
+                  "value": "customer",
+                  "description": "User type to be authorized (usually 'customer')"
+                },
+                {
+                  "disabled": false,
+                  "key": "expires",
+                  "value": "false",
+                  "description": "Whether or not the token expires, expiring tokens come with a refresh_token to renew the access_token"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e82fe19a-0d5c-4c6c-9921-b6e0bef8f4b1",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "access_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Client ID (Consumer Key) of your application",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "141024g14g28104gff1h"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"v2/NmQwOTc0NTBiMjA5YzZkY2Q4NTkvMTA4OTg1MDk5L2N1c3RvbWVyLzIvZjB2a0RseGo4Rkt6ZjRmVWJNMm10V2VzcHh1NTBlZWJ6andUQU1NeTVYYnNFTDVWOFRJakItS2RnZTlmbEY1Y3haNWdXLUtYc2JhaXo5djk0V0p2QzZUUWZ4c2FNWm41NkdLYUgyVWlCaVUtQTNVMV9YQWpzd3lpblI3SlZEem8wSG1qQ2NzSkJlX3VQTnNXenBIdkd4SXViVi1rRGJTVENCV0g1U3U0RXRJSV9rSm5lQkl5QXlvbm5JN241UUhv\",\n  \"token_type\": \"Bearer\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fbd493e8-a612-4aab-bebb-4e9791a51671",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "access_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Client ID (Consumer Key) of your application",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "141024g14g28104gff1h"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9a069abb-e8e6-4c53-9439-21246354089d",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "access_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Client ID (Consumer Key) of your application",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "141024g14g28104gff1h"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e6af9d14-994d-4b93-b895-e87212a84bcb",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "oauth",
+                    "access_token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "description": {
+                        "content": "(Required) Client ID (Consumer Key) of your application",
+                        "type": "text/plain"
+                      },
+                      "key": "client_id",
+                      "value": "141024g14g28104gff1h"
+                    }
+                  ]
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shutterstock.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "657232b6-a83f-4007-b920-dba81039f037",
+    "name": "Shutterstock API Reference audio oauth API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.\n\nContact Support:\n Name: Shutterstock Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

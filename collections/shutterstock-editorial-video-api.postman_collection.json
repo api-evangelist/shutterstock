@@ -1,0 +1,1455 @@
+{
+  "item": [
+    {
+      "id": "bb5b9eab-9599-40d6-a0d5-55556abce65e",
+      "name": "editorial_video",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6a2f4317-de2a-4bff-9e44-aea76237439b",
+          "name": "Search editorial video content",
+          "request": {
+            "name": "Search editorial video content",
+            "description": {
+              "content": "This endpoint searches for editorial videos. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "editorial",
+                "videos",
+                "search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "query",
+                  "value": "<string>",
+                  "description": "One or more search terms separated by spaces"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "relevant",
+                  "description": "Sort by"
+                },
+                {
+                  "disabled": false,
+                  "key": "category",
+                  "value": "<string>",
+                  "description": "Show editorial video content within a certain editorial category; specify by category name"
+                },
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<country-code-3>",
+                  "description": "(Required) Show only editorial video content that is available for distribution in a certain country"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_code",
+                  "value": "<string>",
+                  "description": "Show only editorial video content from certain suppliers"
+                },
+                {
+                  "disabled": false,
+                  "key": "supplier_code",
+                  "value": "<string>",
+                  "description": "Show only editorial video content from certain suppliers"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_start",
+                  "value": "<date>",
+                  "description": "Show only editorial video content generated on or after a specific date"
+                },
+                {
+                  "disabled": false,
+                  "key": "date_end",
+                  "value": "<date>",
+                  "description": "Show only editorial video content generated on or before a specific date"
+                },
+                {
+                  "disabled": false,
+                  "key": "resolution",
+                  "value": "<string>",
+                  "description": "Show only editorial video content with specific resolution"
+                },
+                {
+                  "disabled": false,
+                  "key": "fps",
+                  "value": "<number>",
+                  "description": "Show only editorial video content generated with specific frames per second"
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "20",
+                  "description": "Number of results per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "dc112536-07a8-4130-83e3-ece2f2a5e15d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "relevant"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fps",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"per_page\": 1,\n  \"total_count\": 1556949,\n  \"search_id\": \"q8igACM5gqQY75owjLoVvw\",\n  \"next\": \"eyJ2IjoxLCJzIjoxfQ==\",\n  \"prev\": \"\",\n  \"data\": [\n    {\n      \"id\": \"10679336a\",\n      \"title\": \"Proud Papa Playing with His Puppies, New Oxford, Pennsylvania, USA - 28 Oct 2020\",\n      \"caption\": \"\",\n      \"description\": \"Info from Licensor: \\\"In June, we rescued this 2 year old male boxer from spending most of his days in a crate. Our 2 adult female boxers helped him adjust to living a good boxer life with our family. He \\\"thanked\\\" us with this surprise litter of 8 puppies! He has really done amazingly well with playing with all the puppies, and I think he will miss them when they go to their \\\"fur-ever\\\" homes. It was a perfect day of playing in the backyard at the end of October 2020.\\\"\",\n      \"byline\": \"ViralHog/Shutterstock\",\n      \"keywords\": [\n        \"adorable\",\n        \"cute\",\n        \"doggo\",\n        \"doggy\",\n        \"dogs\",\n        \"domesticated animals\",\n        \"entertainment\",\n        \"feel good\",\n        \"grass\",\n        \"new oxford\",\n        \"pennsylvania\",\n        \"pets\",\n        \"played\",\n        \"playing\",\n        \"plays\",\n        \"pup\",\n        \"puppies\",\n        \"puppy\",\n        \"sweet\",\n        \"usa\",\n        \"viralhog\",\n        \"virals\",\n        \"yard\"\n      ],\n      \"date_taken\": \"2020-10-28\",\n      \"categories\": [],\n      \"aspect\": 1.778,\n      \"assets\": {\n        \"preview_mp4\": {\n          \"url\": \"https://qa.editorial-cdn.shuttercorp.net/wm-preview-mp4/10679336a/M8TbAb3aNaj2g5w4ODgwMzg=/Shutterstock_10679336a.mp4\"\n        },\n        \"preview_webm\": {\n          \"url\": \"https://qa.editorial-cdn.shuttercorp.net/wm-preview-webm/10679336a/M5T3Ab36N4jbgcwbODgwMzg=/Shutterstock_10679336a.webm\"\n        },\n        \"thumb_jpg\": {\n          \"url\": \"https://qa.editorial-cdn.shuttercorp.net/thumb-1/10679336a/M5T6Ad37Ncj5g3w1ODgwMzg=/Shutterstock_10679336a.jpg\"\n        },\n        \"original\": {\n          \"height\": 1080,\n          \"width\": 1920,\n          \"fps\": 29.937,\n          \"format\": \"avc1\",\n          \"file_size\": 124452018,\n          \"display_name\": \"HD\",\n          \"is_licensable\": true\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3583bbef-2bd1-4d8d-aee1-33497570f368",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "relevant"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fps",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c2470b7d-44dc-4acc-b385-a29f4917b54e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "relevant"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fps",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "58ba38cd-4f8f-44dc-a6f0-a38f39752ad3",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "relevant"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fps",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "139428a5-9eb6-4be6-87b7-f32b5ba97596",
+              "name": "Not Acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "relevant"
+                    },
+                    {
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "supplier_code",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "date_start",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "date_end",
+                      "value": "<date>"
+                    },
+                    {
+                      "key": "resolution",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fps",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "20"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "177f02a8-8603-4f6e-9417-d39f5923a276",
+          "name": "List editorial video categories",
+          "request": {
+            "name": "List editorial video categories",
+            "description": {
+              "content": "This endpoint lists the categories that editorial videos can belong to, which are separate from the categories that other types of assets can belong to.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "editorial",
+                "videos",
+                "categories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fc1e3bcd-c7a5-49c2-b03e-af88221fb2e9",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"name\": \"Animal\"\n    },\n    {\n      \"name\": \"Awards\"\n    },\n    {\n      \"name\": \"Art\"\n    },\n    {\n      \"name\": \"Film Stills\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "95afd3a9-4c3f-43bd-b39a-db3f8afaf56e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "06929b4c-a763-4bc0-942d-c349c597b871",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "65a3cb60-40eb-4f6f-a08d-776347ef358f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "categories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7098fec3-cfcd-428d-a702-01eb32b846fe",
+          "name": "Get editorial video content details",
+          "request": {
+            "name": "Get editorial video content details",
+            "description": {
+              "content": "This endpoint shows information about an editorial image, including a URL to a preview image and the sizes that it is available in.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "editorial",
+                "videos",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "country",
+                  "value": "<country-code-3>",
+                  "description": "(Required) Returns only if the content is available for distribution in a certain country"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Editorial ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "basic",
+              "basic": [
+                {
+                  "key": "username",
+                  "value": "{{basicAuthUsername}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{basicAuthPassword}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "758b82f6-00a2-46b1-9139-1c4031c0e150",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Editorial ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"10679336a\",\n  \"title\": \"Proud Papa Playing with His Puppies, New Oxford, Pennsylvania, USA - 28 Oct 2020\",\n  \"caption\": \"\",\n  \"description\": \"Info from Licensor: \\\"In June, we rescued this 2 year old male boxer from spending most of his days in a crate. Our 2 adult female boxers helped him adjust to living a good boxer life with our family. He \\\"thanked\\\" us with this surprise litter of 8 puppies! He has really done amazingly well with playing with all the puppies, and I think he will miss them when they go to their \\\"fur-ever\\\" homes. It was a perfect day of playing in the backyard at the end of October 2020.\\\"\",\n  \"byline\": \"ViralHog/Shutterstock\",\n  \"keywords\": [\n    \"adorable\",\n    \"cute\",\n    \"doggo\",\n    \"doggy\",\n    \"dogs\",\n    \"domesticated animals\",\n    \"entertainment\",\n    \"feel good\",\n    \"grass\",\n    \"new oxford\",\n    \"pennsylvania\",\n    \"pets\",\n    \"played\",\n    \"playing\",\n    \"plays\",\n    \"pup\",\n    \"puppies\",\n    \"puppy\",\n    \"sweet\",\n    \"usa\",\n    \"viralhog\",\n    \"virals\",\n    \"yard\"\n  ],\n  \"date_taken\": \"2020-10-28\",\n  \"categories\": [],\n  \"aspect\": 1.778,\n  \"assets\": {\n    \"preview_mp4\": {\n      \"url\": \"https://qa.editorial-cdn.shuttercorp.net/wm-preview-mp4/10679336a/M8TbAb3aNaj2g5w4ODgwMzg=/Shutterstock_10679336a.mp4\"\n    },\n    \"preview_webm\": {\n      \"url\": \"https://qa.editorial-cdn.shuttercorp.net/wm-preview-webm/10679336a/M5T3Ab36N4jbgcwbODgwMzg=/Shutterstock_10679336a.webm\"\n    },\n    \"thumb_jpg\": {\n      \"url\": \"https://qa.editorial-cdn.shuttercorp.net/thumb-1/10679336a/M5T6Ad37Ncj5g3w1ODgwMzg=/Shutterstock_10679336a.jpg\"\n    },\n    \"original\": {\n      \"height\": 1080,\n      \"width\": 1920,\n      \"fps\": 29.937,\n      \"format\": \"avc1\",\n      \"file_size\": 124452018,\n      \"display_name\": \"HD\",\n      \"is_licensable\": true\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3b61b129-044c-45f1-baf2-82e222935ce9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Editorial ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1504a6ea-e534-4ade-8831-f2fc66351bd6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Editorial ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7166eca0-c693-4fab-887d-b33b2bcb035f",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Editorial ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d2e4c84c-ef52-4685-9706-d5843855fc45",
+              "name": "Not Acceptable",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "country",
+                      "value": "USA"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Editorial ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: basic",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Basic <credentials>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Acceptable",
+              "code": 406,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a11c3ecf-f299-4b1c-9c50-6e00bd149c04",
+          "name": "License editorial video content",
+          "request": {
+            "name": "License editorial video content",
+            "description": {
+              "content": "This endpoint gets licenses for one or more editorial videos. You must specify the country and one or more editorial videos to license.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "editorial",
+                "videos",
+                "licenses"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "licenses.create purchases.view licenses.view collections.edit collections.view"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.shutterstock.com/v2/oauth/access_token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://accounts.shutterstock.com/oauth/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"country\": \"<country-code-3>\",\n  \"editorial\": [\n    {\n      \"editorial_id\": \"<string>\",\n      \"license\": \"<string>\",\n      \"metadata\": {},\n      \"size\": \"original\"\n    },\n    {\n      \"editorial_id\": \"<string>\",\n      \"license\": \"<string>\",\n      \"metadata\": {},\n      \"size\": \"original\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1330a09c-cbd9-4b8e-ac7f-26cace9a7d7a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_video_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"editorial_id\": \"69656358\",\n      \"download\": {\n        \"url\": \"https://s3-eu-west-1.amazonaws.com/api-downloads.rexfeatures.com/[random-characters].mov?Expires=1524717323\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eaadef77-13ff-4641-b62f-20df05172eb5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_video_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2b460fb5-60d0-4868-93f2-463bfecd71c9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_video_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "187eca33-ea85-4b32-8c31-a7bdee324a61",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "editorial",
+                    "videos",
+                    "licenses"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"editorial\": [\n    {\n      \"editorial_id\": \"8594090h\",\n      \"license\": \"premier_editorial_video_comp\"\n    }\n  ],\n  \"country\": \"USA\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.shutterstock.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "4c49b857-53dd-48ad-8269-1c4a44ede216",
+    "name": "Shutterstock API Reference audio editorial_video API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.\n\nContact Support:\n Name: Shutterstock Developer Support",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,199 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shutterstock API Reference audio contributors API",
+    "version": "1.0.30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "contributors",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get details about multiple contributors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors",
+            "params": [
+              {
+                "name": "id",
+                "value": "800506,1653538",
+                "type": "query",
+                "description": "One or more contributor IDs"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists information about one or more contributors, including contributor type, equipment they use and other attributes."
+        },
+        {
+          "info": {
+            "name": "Get details about a single contributor",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors/:contributor_id",
+            "params": [
+              {
+                "name": "contributor_id",
+                "value": "1653538",
+                "type": "path",
+                "description": "Contributor ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint shows information about a single contributor, including contributor type, equipment they use, and other attributes."
+        },
+        {
+          "info": {
+            "name": "List contributors' collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors/:contributor_id/collections",
+            "params": [
+              {
+                "name": "contributor_id",
+                "value": "800506",
+                "type": "path",
+                "description": "Contributor ID"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists collections based on contributor ID."
+        },
+        {
+          "info": {
+            "name": "Get details about contributors' collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors/:contributor_id/collections/:id",
+            "params": [
+              {
+                "name": "contributor_id",
+                "value": "800506",
+                "type": "path",
+                "description": "Contributor ID"
+              },
+              {
+                "name": "id",
+                "value": "1991678",
+                "type": "path",
+                "description": "Collection ID that belongs to the contributor"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a contributor's collection, including its cover image, timestamps for its creation, and most recent update. To get the items in collections, use GET /v2/contributors/{contributor_id}/collections/{id}/items."
+        },
+        {
+          "info": {
+            "name": "Get the items in contributors' collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/contributors/:contributor_id/collections/:id/items",
+            "params": [
+              {
+                "name": "contributor_id",
+                "value": "800506",
+                "type": "path",
+                "description": "Contributor ID"
+              },
+              {
+                "name": "id",
+                "value": "1991678",
+                "type": "path",
+                "description": "Collection ID that belongs to the contributor"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists the IDs of items in a contributor's collection and the date that each was added."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

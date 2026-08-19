@@ -1,0 +1,645 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shutterstock API Reference audio editorial_images API",
+    "version": "1.0.30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "editorial_images",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search editorial images",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms separated by spaces"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Show editorial content within a certain editorial category; specify by category name"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Show only editorial content that is available for distribution in a certain country"
+              },
+              {
+                "name": "supplier_code",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content from certain suppliers"
+              },
+              {
+                "name": "date_start",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content generated on or after a specific date"
+              },
+              {
+                "name": "date_end",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content generated on or before a specific date"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for editorial images. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter. You can also filter search terms out in the `query` parameter by prefixing the term with NOT."
+        },
+        {
+          "info": {
+            "name": "List editorial categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/categories",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to."
+        },
+        {
+          "info": {
+            "name": "Get editorial content details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "9926131a",
+                "type": "path",
+                "description": "Editorial ID"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the content is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint shows information about an editorial image, including a URL to a preview image and the sizes that it is available in."
+        },
+        {
+          "info": {
+            "name": "List editorial image licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/licenses",
+            "params": [
+              {
+                "name": "image_id",
+                "value": "",
+                "type": "query",
+                "description": "Show licenses for the specified editorial image ID"
+              },
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "Show editorial images that are available with the specified license name"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "username",
+                "value": "",
+                "type": "query",
+                "description": "Filter licenses by username of licensee"
+              },
+              {
+                "name": "start_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created on or after the specified date"
+              },
+              {
+                "name": "end_date",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show licenses created before the specified date"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists existing editorial image licenses."
+        },
+        {
+          "info": {
+            "name": "License editorial content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/editorial/images/licenses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets licenses for one or more editorial images. You must specify the country and one or more editorial images to license."
+        },
+        {
+          "info": {
+            "name": "Get editorial livefeed list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/livefeeds",
+            "params": [
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only livefeeds that are available for distribution in a certain country"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get editorial livefeed list"
+        },
+        {
+          "info": {
+            "name": "Get editorial livefeed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/livefeeds/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+                "type": "path",
+                "description": "Editorial livefeed ID; must be an URI encoded string"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the livefeed is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get editorial livefeed"
+        },
+        {
+          "info": {
+            "name": "Get editorial livefeed items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/images/livefeeds/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+                "type": "path",
+                "description": "Editorial livefeed ID; must be an URI encoded string"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the livefeed items are available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Get editorial livefeed items"
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Get editorial content details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "9926131a",
+                "type": "path",
+                "description": "Editorial ID"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the content is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/{id}` instead to show information about an editorial image, including a URL to a preview image and the sizes that it is available in."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) License editorial content",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/editorial/licenses",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Deprecated; use `POST /v2/editorial/images/licenses` instead to get licenses for one or more editorial images. You must specify the country and one or more editorial images to license."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Get editorial livefeed list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/livefeeds",
+            "params": [
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only livefeeds that are available for distribution in a certain country"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/livefeeds` instead to get a list of editorial livefeeds."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Get editorial livefeed",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/livefeeds/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+                "type": "path",
+                "description": "Editorial livefeed ID; must be an URI encoded string"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the livefeed is available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated: use `GET /v2/editorial/images/livefeeds/{id}` instead to get an editorial livefeed."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Get editorial livefeed items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/livefeeds/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "2018%2F10%2F15%2FWomen%20of%20the%20Year%20Lunch%20%26%20Awards%2C%20London",
+                "type": "path",
+                "description": "Editorial livefeed ID; must be an URI encoded string"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Returns only if the livefeed items are available for distribution in a certain country"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/livefeeds/{id}/items` instead to get editorial livefeed items."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) Search editorial content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "One or more search terms separated by spaces"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "category",
+                "value": "",
+                "type": "query",
+                "description": "Show editorial content within a certain editorial category; specify by category name"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Show only editorial content that is available for distribution in a certain country"
+              },
+              {
+                "name": "supplier_code",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content from certain suppliers"
+              },
+              {
+                "name": "date_start",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content generated on or after a specific date"
+              },
+              {
+                "name": "date_end",
+                "value": "",
+                "type": "query",
+                "description": "Show only editorial content generated on or before a specific date"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/search` instead to search for editorial images."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) List editorial categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/categories",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/categories` instead. This endpoint lists the categories that editorial images can belong to, which are separate from the categories that other types of assets can belong to."
+        },
+        {
+          "info": {
+            "name": "(Deprecated) List updated content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/editorial/updated",
+            "params": [
+              {
+                "name": "type",
+                "value": "edit",
+                "type": "query",
+                "description": "Specify `addition` to return only images that were added or `edit` to return only images that were edited or deleted"
+              },
+              {
+                "name": "date_updated_start",
+                "value": "2020-02-02T13:00-05:00",
+                "type": "query",
+                "description": "Show images images added, edited, or deleted after the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00."
+              },
+              {
+                "name": "date_updated_end",
+                "value": "2020-02-04T14:00-05:00",
+                "type": "query",
+                "description": "Show images images added, edited, or deleted before the specified date. Acceptable range is 1970-01-01T00:00:01 to 2038-01-19T00:00:00."
+              },
+              {
+                "name": "date_taken_start",
+                "value": "2020-02-04",
+                "type": "query",
+                "description": "Show images that were taken on or after the specified date; use this parameter if you want recently created images from the collection instead of updated older assets"
+              },
+              {
+                "name": "date_taken_end",
+                "value": "2020-02-05",
+                "type": "query",
+                "description": "Show images that were taken before the specified date"
+              },
+              {
+                "name": "cursor",
+                "value": "eyJ2IjoxLCJzIjoyfQ==",
+                "type": "query",
+                "description": "The cursor of the page with which to start fetching results; this cursor is returned from previous requests"
+              },
+              {
+                "name": "sort",
+                "value": "newest",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "supplier_code",
+                "value": "ABC",
+                "type": "query",
+                "description": "Show only editorial content from certain suppliers"
+              },
+              {
+                "name": "country",
+                "value": "USA",
+                "type": "query",
+                "description": "Show only editorial content that is available for distribution in a certain country"
+              },
+              {
+                "name": "per_page",
+                "value": "200",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "Deprecated; use `GET /v2/editorial/images/updated` instead to get recently updated items."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

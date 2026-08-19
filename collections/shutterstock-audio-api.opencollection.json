@@ -1,0 +1,633 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Shutterstock API Reference audio API",
+    "version": "1.0.30"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "audio",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/search",
+            "params": [
+              {
+                "name": "artists",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with one of the specified artist names or IDs"
+              },
+              {
+                "name": "bpm",
+                "value": "",
+                "type": "query",
+                "description": "(Deprecated; use bpm_from and bpm_to instead) Show tracks with the specified beats per minute"
+              },
+              {
+                "name": "bpm_from",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified beats per minute or faster"
+              },
+              {
+                "name": "bpm_to",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified beats per minute or slower"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified duration in seconds"
+              },
+              {
+                "name": "duration_from",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified duration or longer in seconds"
+              },
+              {
+                "name": "duration_to",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified duration or shorter in seconds"
+              },
+              {
+                "name": "genre",
+                "value": "Classical,Holiday",
+                "type": "query",
+                "description": "Show tracks with each of the specified genres; to get the list of genres, use `GET /v2/audio/genres`"
+              },
+              {
+                "name": "is_instrumental",
+                "value": "",
+                "type": "query",
+                "description": "Show instrumental music only"
+              },
+              {
+                "name": "instruments",
+                "value": "Trumpet,Percussion",
+                "type": "query",
+                "description": "Show tracks with each of the specified instruments; to get the list of instruments, use `GET /v2/audio/instruments`"
+              },
+              {
+                "name": "moods",
+                "value": "Confident,Playful",
+                "type": "query",
+                "description": "Show tracks with each of the specified moods; to get the list of moods, use `GET /v2/audio/moods`"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "1",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "query",
+                "value": "drum",
+                "type": "query",
+                "description": "One or more search terms separated by spaces"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort by"
+              },
+              {
+                "name": "sort_order",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              },
+              {
+                "name": "vocal_description",
+                "value": "",
+                "type": "query",
+                "description": "Show tracks with the specified vocal description (male, female)"
+              },
+              {
+                "name": "view",
+                "value": "full",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Fields to display in the response; see the documentation for the fields parameter in the overview section"
+              },
+              {
+                "name": "library",
+                "value": "",
+                "type": "query",
+                "description": "Which library to search"
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "Which language to search in"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint searches for tracks. If you specify more than one search parameter, the API uses an AND condition. Array parameters can be specified multiple times; in this case, the API uses an AND or an OR condition with those values, depending on the parameter."
+        },
+        {
+          "info": {
+            "name": "List audio genres",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/genres",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns a list of all audio genres."
+        },
+        {
+          "info": {
+            "name": "List audio instruments",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/instruments",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns a list of all audio instruments."
+        },
+        {
+          "info": {
+            "name": "List audio moods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/moods",
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint returns a list of all audio moods."
+        },
+        {
+          "info": {
+            "name": "List audio tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio",
+            "params": [
+              {
+                "name": "id",
+                "value": "442583,434750",
+                "type": "query",
+                "description": "One or more audio IDs"
+              },
+              {
+                "name": "view",
+                "value": "full",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint lists information about one or more audio tracks, including the description and publication date."
+        },
+        {
+          "info": {
+            "name": "Get details about audio tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "442583",
+                "type": "path",
+                "description": "Audio track ID"
+              },
+              {
+                "name": "view",
+                "value": "full",
+                "type": "query",
+                "description": "Amount of detail to render in the response"
+              }
+            ],
+            "auth": {
+              "type": "basic",
+              "username": "{{username}}",
+              "password": "{{password}}"
+            }
+          },
+          "docs": "This endpoint shows information about a track, including its genres, instruments, and other attributes."
+        },
+        {
+          "info": {
+            "name": "List audio licenses",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/licenses",
+            "params": [
+              {
+                "name": "audio_id",
+                "value": "1",
+                "type": "query",
+                "description": "Show licenses for the specified track ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists existing licenses. You can filter the results according to the track ID to see if you have an existing license for a specific track."
+        },
+        {
+          "info": {
+            "name": "License audio tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/licenses",
+            "params": [
+              {
+                "name": "license",
+                "value": "",
+                "type": "query",
+                "description": "License type"
+              },
+              {
+                "name": "search_id",
+                "value": "",
+                "type": "query",
+                "description": "The ID of the search that led to licensing this track"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets licenses for one or more tracks."
+        },
+        {
+          "info": {
+            "name": "Download audio tracks",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/licenses/:id/downloads",
+            "params": [
+              {
+                "name": "id",
+                "value": "e123",
+                "type": "path",
+                "description": "License ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint redownloads tracks that you have already received a license for."
+        },
+        {
+          "info": {
+            "name": "List audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/collections",
+            "params": [
+              {
+                "name": "page",
+                "value": "1",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "100",
+                "type": "query",
+                "description": "Number of results per page"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists your collections of audio tracks and their basic attributes."
+        },
+        {
+          "info": {
+            "name": "Create audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/collections",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint creates one or more collections (soundboxes). To add tracks, use `POST /v2/audio/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Get the details of audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433107",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint gets more detailed information about a collection, including the number of items in it and when it was last updated. To get the tracks in collections, use `GET /v2/audio/collections/{id}/items`."
+        },
+        {
+          "info": {
+            "name": "Rename audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433107",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint sets a new name for a collection."
+        },
+        {
+          "info": {
+            "name": "Delete audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433111",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint deletes a collection."
+        },
+        {
+          "info": {
+            "name": "Get the contents of audio collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433113",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort order"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint lists the IDs of tracks in a collection and the date that each was added."
+        },
+        {
+          "info": {
+            "name": "Add audio tracks to collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433115",
+                "type": "path",
+                "description": "Collection ID"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint adds one or more tracks to a collection by track IDs."
+        },
+        {
+          "info": {
+            "name": "Remove audio tracks from collections",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.shutterstock.com/v2/audio/collections/:id/items",
+            "params": [
+              {
+                "name": "id",
+                "value": "48433119",
+                "type": "path",
+                "description": "Collection ID"
+              },
+              {
+                "name": "item_id",
+                "value": "76688182,40005859",
+                "type": "query",
+                "description": "One or more item IDs to remove from the collection"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://accounts.shutterstock.com/oauth/authorize",
+              "accessTokenUrl": "https://api.shutterstock.com/v2/oauth/access_token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This endpoint removes one or more tracks from a collection."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
