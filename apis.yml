@@ -23,6 +23,15 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/shutterstock.png
 tags:
+  - Image
+  - Media
+  - Photos
+  - Stock Images
+  - Videos
+  - Audio
+  - Licensing
+  - Creative Content
+tags_raw:
   - Images
   - Media
   - Photos
@@ -55,6 +64,8 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
+  - Audio
+  tags_raw:
   - audio
   properties:
   - type: OpenAPI
@@ -93,6 +104,8 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
+  - Computer-Vision
+  tags_raw:
   - computer_vision
   properties:
   - type: OpenAPI
@@ -131,6 +144,8 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
+  - Contributors
+  tags_raw:
   - contributors
   properties:
   - type: OpenAPI
@@ -168,7 +183,8 @@ apis:
   description: The editorial_images API from Shutterstock — 15 operation(s) for editorial_images.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
-  tags:
+  tags: []
+  tags_raw:
   - editorial_images
   properties:
   - type: OpenAPI
@@ -206,7 +222,8 @@ apis:
   description: The editorial_video API from Shutterstock — 4 operation(s) for editorial_video.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
-  tags:
+  tags: []
+  tags_raw:
   - editorial_video
   properties:
   - type: OpenAPI
@@ -245,6 +262,8 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
+  - Image
+  tags_raw:
   - images
   properties:
   - type: OpenAPI
@@ -283,6 +302,8 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
+  - Authentication
+  tags_raw:
   - oauth
   properties:
   - type: OpenAPI
@@ -320,7 +341,8 @@ apis:
   description: The test API from Shutterstock — 2 operation(s) for test.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
-  tags:
+  tags: []
+  tags_raw:
   - test
   properties:
   - type: OpenAPI
@@ -359,6 +381,8 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -397,6 +421,8 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
+  - Videos
+  tags_raw:
   - videos
   properties:
   - type: OpenAPI
