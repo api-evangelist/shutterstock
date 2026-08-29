@@ -1,0 +1,67 @@
+slug: shutterstock
+provider: Shutterstock
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Media, Entertainment & Telecom Content
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 5
+edges:
+- tag: audio
+  spec_file: shutterstock-audio-api-openapi.yml
+  capability_id: BC-3720
+  capability_id_l1: BC-3720
+  capability_name: Content Rights & Licensing Management
+  confidence: 0.7
+  evidence: POST /v2/audio/licenses  licenseTrack  License audio tracks; GET /v2/audio/licenses  getAudioLicenseList  List
+    audio licenses
+  reason: The operations license music tracks and manage the resulting licence and download records, which
+    is content rights and licensing. Left at L1 because the surface can be read as outbound licensing
+    (vendor) or rights acquisition (caller).
+- tag: editorial_images
+  spec_file: shutterstock-editorial-images-api-openapi.yml
+  capability_id: BC-3720
+  capability_id_l1: BC-3720
+  capability_name: Content Rights & Licensing Management
+  confidence: 0.7
+  evidence: POST /v2/editorial/images/licenses  licenseEditorialImages  License editorial content; GET
+    /v2/editorial/images/licenses  getEditorialImageLicenseList
+  reason: Core operations license editorial imagery and track licence/download records, i.e. content rights
+    and licensing. Held at L1 as the direction (inbound acquisition vs outbound licensing) is ambiguous
+    from the API alone.
+- tag: editorial_video
+  spec_file: shutterstock-editorial-video-api-openapi.yml
+  capability_id: BC-3720
+  capability_id_l1: BC-3720
+  capability_name: Content Rights & Licensing Management
+  confidence: 0.7
+  evidence: POST /v2/editorial/videos/licenses  licenseEditorialVideo  License editorial video content
+  reason: Licensing of editorial video content with LicenseEditorialVideoContentRequest schemas is content
+    rights and licensing; sub-capability left unset due to ambiguous licensing direction.
+- tag: images
+  spec_file: shutterstock-images-api-openapi.yml
+  capability_id: BC-3720
+  capability_id_l1: BC-3720
+  capability_name: Content Rights & Licensing Management
+  confidence: 0.7
+  evidence: POST /v2/images/licenses  licenseImages  License images; POST /v2/images/licenses/{id}/downloads  downloadImage  Download
+    images
+  reason: Beyond search, the substantive operations grant and record image licences, which realises content
+    rights and licensing. Kept at L1 given search/collection operations are mixed in.
+- tag: videos
+  spec_file: shutterstock-videos-api-openapi.yml
+  capability_id: BC-3720
+  capability_id_l1: BC-3720
+  capability_name: Content Rights & Licensing Management
+  confidence: 0.7
+  evidence: POST /v2/videos/licenses  licenseVideos  License videos; GET /v2/videos/licenses  getVideoLicenseList  List
+    video licenses
+  reason: Operations issue and list content licences for stock video assets and deliver the licensed downloads,
+    which is content rights & licensing. Direction (outbound sale by Shutterstock vs inbound acquisition
+    by the API consumer) is ambiguous, so no L2 is asserted.
