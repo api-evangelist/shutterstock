@@ -8,6 +8,18 @@ description: >-
   assets, manage collections, access computer vision features, and handle OAuth 2.0 authentication. It also includes
   contributor profile management and user account operations.
 type: Index
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
