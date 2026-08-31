@@ -118,8 +118,7 @@ apis:
   description: The computer_vision API from Shutterstock — 5 operation(s) for computer_vision.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
-  tags:
-  - Computer-Vision
+  tags: []
   tags_raw:
   - computer_vision
   properties:
@@ -159,7 +158,7 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
-  - Contributors
+  - contributors
   tags_raw:
   - contributors
   properties:
