@@ -39,7 +39,7 @@ tags:
 - Media
 - Photos
 - Stock Images
-- Videos
+- Video
 - Audio
 - Licensing
 - Creative Content
@@ -398,7 +398,7 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
-  - Videos
+  - Video
   tags_raw:
   - videos
   properties:
@@ -438,6 +438,8 @@ apis:
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
+  - Authentication
+  tags_raw:
   - oauth
   properties:
   - type: OpenAPI
