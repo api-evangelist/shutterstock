@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Shutterstock API Reference audio API
+  title: Shutterstock API Reference Audio API
   description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
   version: 1.0.30
   contact:
@@ -13,7 +13,7 @@ servers:
 - url: https://api.shutterstock.com
   description: Shutterstock API
 tags:
-- name: audio
+- name: Audio
 paths:
   /v2/audio/search:
     get:
@@ -286,7 +286,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - audio
+      - Audio
       x-code-samples:
       - lang: shell
         source: 'curl -X GET "https://api.shutterstock.com/v2/audio/search" \
@@ -315,7 +315,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - audio
+      - Audio
       responses:
         '200':
           description: OK
@@ -337,7 +337,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - audio
+      - Audio
       responses:
         '200':
           description: OK
@@ -359,7 +359,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - audio
+      - Audio
       responses:
         '200':
           description: OK
@@ -491,7 +491,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - audio
+      - Audio
       operationId: getTrackList
       summary: List audio tracks
       description: This endpoint lists information about one or more audio tracks, including the description and publication date.
@@ -603,7 +603,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - audio
+      - Audio
       operationId: getTrack
       summary: Get details about audio tracks
       description: This endpoint shows information about a track, including its genres, instruments, and other attributes.
@@ -657,7 +657,7 @@ paths:
       - lang: php
         source: "$body = [\n  \"audio\" => [\n    [\n      \"audio_id\" => \"591623\",\n      \"license\" => \"audio_platform\",\n      \"metadata\" => [\n      \"customer_id\" => \"12345\"\n      ]\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
       tags:
-      - audio
+      - Audio
       operationId: licenseTrack
       summary: License audio tracks
       description: This endpoint gets licenses for one or more tracks.
@@ -702,7 +702,7 @@ paths:
       - customer_accessCode:
         - licenses.view
       tags:
-      - audio
+      - Audio
       operationId: getAudioLicenseList
       summary: List audio licenses
       description: This endpoint lists existing licenses. You can filter the results according to the track ID to see if you have an existing license for a specific track.
@@ -746,7 +746,7 @@ paths:
       - lang: php
         source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/licenses/e123/downloads\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);\n"
       tags:
-      - audio
+      - Audio
       operationId: downloadTracks
       summary: Download audio tracks
       description: This endpoint redownloads tracks that you have already received a license for.
@@ -784,7 +784,7 @@ paths:
       - lang: php
         source: "$body = [\n  \"name\" => \"Best rock music\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
       tags:
-      - audio
+      - Audio
       operationId: createSoundbox
       summary: Create audio collections
       description: This endpoint creates one or more collections (soundboxes). To add tracks, use `POST /v2/audio/collections/{id}/items`.
@@ -865,7 +865,7 @@ paths:
       - customer_accessCode:
         - collections.view
       tags:
-      - audio
+      - Audio
       operationId: getSoundboxList
       summary: List audio collections
       description: This endpoint lists your collections of audio tracks and their basic attributes.
@@ -905,7 +905,7 @@ paths:
       - customer_accessCode:
         - collections.view
       tags:
-      - audio
+      - Audio
       operationId: getSoundbox
       summary: Get the details of audio collections
       description: This endpoint gets more detailed information about a collection, including the number of items in it and when it was last updated. To get the tracks in collections, use `GET /v2/audio/collections/{id}/items`.
@@ -940,7 +940,7 @@ paths:
       - lang: php
         source: "$body = [\n  \"name\" => \"Best rock music\"\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections/48433107\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
       tags:
-      - audio
+      - Audio
       operationId: renameSoundbox
       summary: Rename audio collections
       description: This endpoint sets a new name for a collection.
@@ -991,7 +991,7 @@ paths:
       - lang: php
         source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections/48433111\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
       tags:
-      - audio
+      - Audio
       operationId: deleteSoundbox
       summary: Delete audio collections
       description: This endpoint deletes a collection.
@@ -1027,7 +1027,7 @@ paths:
       - lang: php
         source: "$body = [\n  \"items\" => [\n    [\n      \"id\" => \"442583\"\n    ],\n    [\n      \"id\" => \"7491192\"\n    ]\n  ]\n];\n$encodedBody = json_encode($body);\n\n$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections/48433115/items\",\n  CURLOPT_CUSTOMREQUEST => \"POST\",\n  CURLOPT_POSTFIELDS => $encodedBody,\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\",\n    \"Content-Type: application/json\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
       tags:
-      - audio
+      - Audio
       operationId: addSoundboxItems
       summary: Add audio tracks to collections
       description: This endpoint adds one or more tracks to a collection by track IDs.
@@ -1107,7 +1107,7 @@ paths:
       - customer_accessCode:
         - collections.view
       tags:
-      - audio
+      - Audio
       operationId: getSoundboxItems
       summary: Get the contents of audio collections
       description: This endpoint lists the IDs of tracks in a collection and the date that each was added.
@@ -1156,128 +1156,23 @@ paths:
       - lang: php
         source: "$options = [\n  CURLOPT_URL => \"https://api.shutterstock.com/v2/audio/collections/48433119/items?item_id=495863218\",\n  CURLOPT_USERAGENT => \"php/curl\",\n  CURLOPT_CUSTOMREQUEST => \"DELETE\",\n  CURLOPT_HTTPHEADER => [\n    \"Authorization: Bearer $SHUTTERSTOCK_API_TOKEN\"\n  ],\n  CURLOPT_RETURNTRANSFER => 1\n];\n\n$handle = curl_init();\ncurl_setopt_array($handle, $options);\n$response = curl_exec($handle);\ncurl_close($handle);\n\n$decodedResponse = json_decode($response);\nprint_r($decodedResponse);"
       tags:
-      - audio
+      - Audio
       operationId: deleteSoundboxItems
       summary: Remove audio tracks from collections
       description: This endpoint removes one or more tracks from a collection.
 components:
   schemas:
-    Artist:
-      description: Metadata about the artist that created the media
+    CollectionUpdateRequest:
+      description: Collection update request
+      example:
+        name: My collection with a new name
       properties:
         name:
+          description: The new name of the collection
           type: string
-          description: The artist's name
       required:
       - name
       type: object
-    Album:
-      description: Album metadata
-      properties:
-        id:
-          type: string
-          description: The album ID
-        title:
-          type: string
-          description: The album title
-      required:
-      - id
-      - title
-      type: object
-      additionalProperties: false
-    CollectionItem:
-      description: Metadata about an item that is part of a collection
-      properties:
-        added_time:
-          description: The date the item was added to the collection
-          format: date-time
-          type: string
-        id:
-          description: ID of the item
-          type: string
-        media_type:
-          description: The media type of the item, such as image, video, or audio
-          type: string
-      required:
-      - id
-      type: object
-    DownloadHistoryDataList:
-      description: List of download events
-      properties:
-        data:
-          description: Download events
-          items:
-            $ref: '#/components/schemas/DownloadHistory'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
-    CollectionDataList:
-      description: List of collections
-      example:
-        data:
-        - created_time: '2014-11-05T19:29:56-05:00'
-          id: '5747953'
-          name: Test Collection cdad
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:56-05:00'
-        - created_time: '2014-11-05T19:29:56-05:00'
-          id: '5747955'
-          name: Test Collection ff5f
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:56-05:00'
-        - created_time: '2014-11-05T19:29:58-05:00'
-          id: '5747957'
-          name: Updated Collection ebc4
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:58-05:00'
-        - created_time: '2014-11-05T19:32:13-05:00'
-          id: '5747971'
-          name: Test Collection 0072
-          total_item_count: 0
-          updated_time: '2014-11-05T19:32:13-05:00'
-        - created_time: '2014-11-05T19:32:13-05:00'
-          id: '5747973'
-          name: Test Collection d332
-          total_item_count: 0
-          updated_time: '2014-11-05T19:32:13-05:00'
-      properties:
-        data:
-          description: Collections
-          items:
-            $ref: '#/components/schemas/Collection'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
     Error:
       description: Error object
       properties:
@@ -1301,19 +1196,58 @@ components:
       required:
       - message
       type: object
-    LicenseAudioResult:
-      description: The response to a licensing request for an audio track
+    Contributor:
+      description: Information about a contributor
       properties:
-        audio_id:
-          description: ID of the track that was licensed
-          type: string
-        download:
-          $ref: '#/components/schemas/Url'
-        error:
-          description: Error information if applicable
+        id:
+          description: ID of the contributor
           type: string
       required:
-      - audio_id
+      - id
+      type: object
+    MoodList:
+      description: List of audio moods
+      example:
+        data:
+        - Aggressive
+      properties:
+        data:
+          description: List of audio moods
+          items:
+            type: string
+          type: array
+      required:
+      - data
+      type: object
+      additionalProperties: false
+    CollectionCreateResponse:
+      description: Collection creation response
+      example:
+        id: '48433105'
+      properties:
+        id:
+          description: ID of the new collection
+          type: string
+      required:
+      - id
+      type: object
+    ModelRelease:
+      description: Model and property release metadata
+      properties:
+        id:
+          description: ID of the model or property release
+          type: string
+      type: object
+    CollectionItemRequest:
+      description: Request to get a list of items in a collection
+      properties:
+        items:
+          description: List of items
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+      required:
+      - items
       type: object
     Collection:
       description: Metadata about a collection of assets
@@ -1352,17 +1286,125 @@ components:
       - name
       - total_item_count
       type: object
-    CollectionItemRequest:
-      description: Request to get a list of items in a collection
+    AudioSearchResults:
+      description: Audio search results
       properties:
-        items:
-          description: List of items
+        data:
+          description: List of tracks
+          items:
+            $ref: '#/components/schemas/Audio'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+        search_id:
+          description: ID of the search
+          type: string
+      required:
+      - data
+      - total_count
+      - search_id
+      type: object
+      additionalProperties: false
+    Album:
+      description: Album metadata
+      properties:
+        id:
+          type: string
+          description: The album ID
+        title:
+          type: string
+          description: The album title
+      required:
+      - id
+      - title
+      type: object
+      additionalProperties: false
+    DownloadHistoryMediaDetails:
+      description: Information about the downloaded media
+      properties:
+        format:
+          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
+        id:
+          description: ID of the download history media details
+          type: string
+      required:
+      - id
+      type: object
+    LicenseAudioResultDataList:
+      description: List of audio license results
+      example:
+        data:
+        - audio_id: '1'
+          download:
+            url: http://download2.dev.shutterstock.com/gatekeeper/abc/original.wav
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseAudioResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
+      properties:
+        data:
+          description: Assets in the collection
           items:
             $ref: '#/components/schemas/CollectionItem'
           type: array
-      required:
-      - items
-      type: object
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
     CollectionCreateRequest:
       description: Collection creation request
       example:
@@ -1374,31 +1416,6 @@ components:
       required:
       - name
       type: object
-    AudioAssets:
-      description: Files that are available as part of an audio asset
-      properties:
-        album_art:
-          $ref: '#/components/schemas/AudioAssetDetails'
-        clean_audio:
-          $ref: '#/components/schemas/AudioAssetDetails'
-        original_audio:
-          $ref: '#/components/schemas/AudioAssetDetails'
-        preview_mp3:
-          $ref: '#/components/schemas/AudioAssetDetails'
-        preview_ogg:
-          $ref: '#/components/schemas/AudioAssetDetails'
-        waveform:
-          $ref: '#/components/schemas/AudioAssetDetails'
-      type: object
-    Contributor:
-      description: Information about a contributor
-      properties:
-        id:
-          description: ID of the contributor
-          type: string
-      required:
-      - id
-      type: object
     Url:
       description: URL object
       properties:
@@ -1407,6 +1424,27 @@ components:
           type: string
       required:
       - url
+      type: object
+    LicenseAudio:
+      description: An audio track in a licensing request
+      properties:
+        audio_id:
+          description: ID of the track being licensed
+          type: string
+        license:
+          description: Type of license
+          enum:
+          - audio_platform
+          - premier_music_basic
+          - premier_music_extended
+          - premier_music_pro
+          - premier_music_comp
+          type: string
+        search_id:
+          description: ID of the search that led to this licensing event
+          type: string
+      required:
+      - audio_id
       type: object
     Audio:
       description: Audio metadata
@@ -1601,97 +1639,63 @@ components:
       - contributor
       type: object
       additionalProperties: false
-    DownloadHistoryMediaDetails:
-      description: Information about the downloaded media
-      properties:
-        format:
-          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
-        id:
-          description: ID of the download history media details
-          type: string
-      required:
-      - id
-      type: object
-    InstrumentList:
-      description: List of instruments
-      example:
-        data:
-        - Electric Guitar
-      properties:
-        data:
-          description: List of instruments
-          items:
-            type: string
-          type: array
-      required:
-      - data
-      type: object
-      additionalProperties: false
-    LicenseAudioResultDataList:
-      description: List of audio license results
-      example:
-        data:
-        - audio_id: '1'
-          download:
-            url: http://download2.dev.shutterstock.com/gatekeeper/abc/original.wav
-      properties:
-        data:
-          description: License results
-          items:
-            $ref: '#/components/schemas/LicenseAudioResult'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: Current page that is returned
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results across all pages
-          type: integer
-    MoodList:
-      description: List of audio moods
-      example:
-        data:
-        - Aggressive
-      properties:
-        data:
-          description: List of audio moods
-          items:
-            type: string
-          type: array
-      required:
-      - data
-      type: object
-      additionalProperties: false
-    LicenseAudio:
-      description: An audio track in a licensing request
+    LicenseAudioResult:
+      description: The response to a licensing request for an audio track
       properties:
         audio_id:
-          description: ID of the track being licensed
+          description: ID of the track that was licensed
           type: string
-        license:
-          description: Type of license
-          enum:
-          - audio_platform
-          - premier_music_basic
-          - premier_music_extended
-          - premier_music_pro
-          - premier_music_comp
-          type: string
-        search_id:
-          description: ID of the search that led to this licensing event
+        download:
+          $ref: '#/components/schemas/Url'
+        error:
+          description: Error information if applicable
           type: string
       required:
       - audio_id
+      type: object
+    DownloadHistoryUserDetails:
+      description: Information about a user
+      properties:
+        username:
+          description: The name of the user who downloaded the item
+          type: string
+      required:
+      - username
+      type: object
+    Artist:
+      description: Metadata about the artist that created the media
+      properties:
+        name:
+          type: string
+          description: The artist's name
+      required:
+      - name
+      type: object
+    AudioAssets:
+      description: Files that are available as part of an audio asset
+      properties:
+        album_art:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        clean_audio:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        original_audio:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        preview_mp3:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        preview_ogg:
+          $ref: '#/components/schemas/AudioAssetDetails'
+        waveform:
+          $ref: '#/components/schemas/AudioAssetDetails'
+      type: object
+    DownloadHistoryFormatDetails:
+      description: Information about the format of a download
+      properties:
+        format:
+          description: The format of the downloaded media
+          type: string
+        size:
+          description: The size of the downloaded media
+          type: string
       type: object
     LicenseAudioRequest:
       description: Audio license request data
@@ -1707,23 +1711,40 @@ components:
       required:
       - audio
       type: object
-    CollectionCreateResponse:
-      description: Collection creation response
-      example:
-        id: '48433105'
+    DownloadHistory:
+      description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
       properties:
-        id:
-          description: ID of the new collection
+        audio:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        download_time:
+          description: Date the media was downloaded the first time
+          format: date-time
           type: string
+        id:
+          description: ID of the download
+          type: string
+        image:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        is_downloadable:
+          description: Specifies if the media is downloadable via its respective downloads endpoint
+          type: boolean
+        license:
+          description: The name of the license of this download
+          type: string
+        metadata:
+          description: The metadata that was passed in the original licensing request
+          type: object
+        subscription_id:
+          description: ID of the subscription used to perform this download
+          type: string
+        user:
+          $ref: '#/components/schemas/DownloadHistoryUserDetails'
+        video:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
       required:
       - id
-      type: object
-    ModelRelease:
-      description: Model and property release metadata
-      properties:
-        id:
-          description: ID of the model or property release
-          type: string
+      - download_time
+      - license
       type: object
     AudioDataList:
       description: List of tracks
@@ -1821,100 +1842,6 @@ components:
         total_count:
           description: Total count of all results across all pages
           type: integer
-    DownloadHistoryUserDetails:
-      description: Information about a user
-      properties:
-        username:
-          description: The name of the user who downloaded the item
-          type: string
-      required:
-      - username
-      type: object
-    AudioAssetDetails:
-      description: Information about a file that is part of an audio asset
-      properties:
-        file_size:
-          description: File size of the track
-          type: integer
-        url:
-          description: URL the track is available at
-          type: string
-      type: object
-    CollectionUpdateRequest:
-      description: Collection update request
-      example:
-        name: My collection with a new name
-      properties:
-        name:
-          description: The new name of the collection
-          type: string
-      required:
-      - name
-      type: object
-    AudioSearchResults:
-      description: Audio search results
-      properties:
-        data:
-          description: List of tracks
-          items:
-            $ref: '#/components/schemas/Audio'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: Current page that is returned
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results across all pages
-          type: integer
-        search_id:
-          description: ID of the search
-          type: string
-      required:
-      - data
-      - total_count
-      - search_id
-      type: object
-      additionalProperties: false
-    DownloadHistory:
-      description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
-      properties:
-        audio:
-          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
-        download_time:
-          description: Date the media was downloaded the first time
-          format: date-time
-          type: string
-        id:
-          description: ID of the download
-          type: string
-        image:
-          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
-        is_downloadable:
-          description: Specifies if the media is downloadable via its respective downloads endpoint
-          type: boolean
-        license:
-          description: The name of the license of this download
-          type: string
-        metadata:
-          description: The metadata that was passed in the original licensing request
-          type: object
-        subscription_id:
-          description: ID of the subscription used to perform this download
-          type: string
-        user:
-          $ref: '#/components/schemas/DownloadHistoryUserDetails'
-        video:
-          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
-      required:
-      - id
-      - download_time
-      - license
-      type: object
     GenreList:
       description: List of audio genres
       example:
@@ -1930,23 +1857,40 @@ components:
       - data
       type: object
       additionalProperties: false
-    CollectionItemDataList:
-      description: List of items in a collection
+    CollectionDataList:
+      description: List of collections
       example:
         data:
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '76688182'
-          media_type: audio
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '40005859'
-          media_type: audio
-        page: 1
-        per_page: 100
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747953'
+          name: Test Collection cdad
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747955'
+          name: Test Collection ff5f
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:58-05:00'
+          id: '5747957'
+          name: Updated Collection ebc4
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:58-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747971'
+          name: Test Collection 0072
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747973'
+          name: Test Collection d332
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
       properties:
         data:
-          description: Assets in the collection
+          description: Collections
           items:
-            $ref: '#/components/schemas/CollectionItem'
+            $ref: '#/components/schemas/Collection'
           type: array
         errors:
           description: Error list; appears only if there was an error
@@ -1965,14 +1909,70 @@ components:
         total_count:
           description: The total number of results across all pages
           type: integer
-    DownloadHistoryFormatDetails:
-      description: Information about the format of a download
+    DownloadHistoryDataList:
+      description: List of download events
       properties:
-        format:
-          description: The format of the downloaded media
+        data:
+          description: Download events
+          items:
+            $ref: '#/components/schemas/DownloadHistory'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
           type: string
-        size:
-          description: The size of the downloaded media
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    CollectionItem:
+      description: Metadata about an item that is part of a collection
+      properties:
+        added_time:
+          description: The date the item was added to the collection
+          format: date-time
+          type: string
+        id:
+          description: ID of the item
+          type: string
+        media_type:
+          description: The media type of the item, such as image, video, or audio
+          type: string
+      required:
+      - id
+      type: object
+    InstrumentList:
+      description: List of instruments
+      example:
+        data:
+        - Electric Guitar
+      properties:
+        data:
+          description: List of instruments
+          items:
+            type: string
+          type: array
+      required:
+      - data
+      type: object
+      additionalProperties: false
+    AudioAssetDetails:
+      description: Information about a file that is part of an audio asset
+      properties:
+        file_size:
+          description: File size of the track
+          type: integer
+        url:
+          description: URL the track is available at
           type: string
       type: object
   securitySchemes:

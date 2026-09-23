@@ -1,16 +1,7 @@
 {
   "provider": "shutterstock",
   "sources": [
-    "shutterstock-audio-api-openapi.yml",
-    "shutterstock-computer-vision-api-openapi.yml",
-    "shutterstock-contributors-api-openapi.yml",
-    "shutterstock-editorial-images-api-openapi.yml",
-    "shutterstock-editorial-video-api-openapi.yml",
-    "shutterstock-images-api-openapi.yml",
-    "shutterstock-oauth-api-openapi.yml",
-    "shutterstock-test-api-openapi.yml",
-    "shutterstock-users-api-openapi.yml",
-    "shutterstock-videos-api-openapi.yml"
+    "_original/shutterstock-openapi.yml"
   ],
   "outputs": [
     "shutterstock-audio-api-openapi.yml",
@@ -24,12 +15,40 @@
     "shutterstock-users-api-openapi.yml",
     "shutterstock-videos-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [
-    "shutterstock-computer-vision-api-openapi.yml: dangling $ref: #/components/schemas/AssetId",
-    "shutterstock-computer-vision-api-openapi.yml: dangling $ref: #/components/schemas/AssetUploadId"
+    "shutterstock-openapi.yml: dangling $ref: #/components/schemas/AssetId",
+    "shutterstock-openapi.yml: dangling $ref: #/components/schemas/AssetUploadId"
   ],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "shutterstock-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "shutterstock-openapi.yml: declared missing tag: audio",
+    "shutterstock-openapi.yml: declared missing tag: computer_vision",
+    "shutterstock-openapi.yml: declared missing tag: contributors",
+    "shutterstock-openapi.yml: declared missing tag: editorial_images",
+    "shutterstock-openapi.yml: declared missing tag: editorial_video",
+    "shutterstock-openapi.yml: declared missing tag: images",
+    "shutterstock-openapi.yml: declared missing tag: oauth",
+    "shutterstock-openapi.yml: declared missing tag: test",
+    "shutterstock-openapi.yml: declared missing tag: users",
+    "shutterstock-openapi.yml: declared missing tag: videos",
+    "superseded outputs removed: shutterstock-o-auth-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 10 total)"
+  ],
+  "skipped": [
+    "shutterstock-audio-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-computer-vision-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-contributors-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-editorial-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-editorial-video-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-images-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-o-auth-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-test-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-users-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "shutterstock-videos-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

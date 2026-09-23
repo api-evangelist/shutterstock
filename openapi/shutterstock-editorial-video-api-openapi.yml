@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Shutterstock API Reference audio editorial_video API
+  title: Shutterstock API Reference Editorial Video API
   description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
   version: 1.0.30
   contact:
@@ -370,56 +370,17 @@ paths:
         required: true
 components:
   schemas:
-    LicenseEditorialVideoContent:
-      description: Individual editorial video content to license
+    EditorialVideoAssets:
+      description: Asset information, including size and thumbnail URLs
       properties:
-        editorial_id:
-          description: Editorial ID
-          type: string
-        license:
-          description: License agreement to use for licensing
-          type: string
-          enum:
-          - premier_editorial_video_digital_only
-          - premier_editorial_video_all_media
-          - premier_editorial_video_all_media_single_territory
-          - premier_editorial_video_comp
-        metadata:
-          $ref: '#/components/schemas/LicenseRequestMetadata'
-        size:
-          description: Asset size to download
-          default: original
-          enum:
-          - original
-          type: string
-      required:
-      - editorial_id
-      - license
-      type: object
-    EditorialCategory:
-      description: Name of an editorial category
-      properties:
-        name:
-          type: string
-      type: object
-    Url:
-      description: URL object
-      properties:
-        url:
-          description: URL that can be used to download the unwatermarked, licensed asset
-          type: string
-      required:
-      - url
-      type: object
-    LicenseRequestMetadata:
-      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
-      example:
-        customer_id: '12345'
-        geo_location: US
-        number_viewed: '15'
-        search_term: dog
-      maxProperties: 4
-      properties: {}
+        original:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        preview_mp4:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+        preview_webm:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+        thumb_jpg:
+          $ref: '#/components/schemas/VideoPreviewUrl'
       type: object
     EditorialVideoContent:
       description: Metadata about editorial content
@@ -453,22 +414,31 @@ components:
       required:
       - id
       type: object
-    LicenseEditorialContentResult:
-      description: The response to a licensing request for editorial content
+    LicenseEditorialVideoContent:
+      description: Individual editorial video content to license
       properties:
-        allotment_charge:
-          description: For pre-paid plans, how many credits were used for the item license
-          type: integer
-        download:
-          $ref: '#/components/schemas/Url'
-          description: Information that is needed to download the image
         editorial_id:
           description: Editorial ID
           type: string
-        error:
+        license:
+          description: License agreement to use for licensing
+          type: string
+          enum:
+          - premier_editorial_video_digital_only
+          - premier_editorial_video_all_media
+          - premier_editorial_video_all_media_single_territory
+          - premier_editorial_video_comp
+        metadata:
+          $ref: '#/components/schemas/LicenseRequestMetadata'
+        size:
+          description: Asset size to download
+          default: original
+          enum:
+          - original
           type: string
       required:
       - editorial_id
+      - license
       type: object
     LicenseEditorialVideoContentRequest:
       description: License editorial video content request
@@ -489,108 +459,6 @@ components:
       required:
       - country
       - editorial
-      type: object
-    VideoSizeDetails:
-      description: Video asset information
-      properties:
-        display_name:
-          description: Display name of this video size
-          type: string
-        file_size:
-          description: File size (in bytes) of this video size
-          type: integer
-        format:
-          description: Format of this video size
-          type: string
-        fps:
-          description: Frames per second of this video size
-          type: number
-        height:
-          description: Height of this video size
-          type: integer
-        is_licensable:
-          description: Whether or not videos can be licensed in this video size
-          type: boolean
-        width:
-          description: Width of this video size
-          type: integer
-      type: object
-    EditorialVideoAssets:
-      description: Asset information, including size and thumbnail URLs
-      properties:
-        original:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        preview_mp4:
-          $ref: '#/components/schemas/VideoPreviewUrl'
-        preview_webm:
-          $ref: '#/components/schemas/VideoPreviewUrl'
-        thumb_jpg:
-          $ref: '#/components/schemas/VideoPreviewUrl'
-      type: object
-    Error:
-      description: Error object
-      properties:
-        code:
-          description: The error code of this error
-          type: string
-        data:
-          description: Debugging information about the error
-          type: string
-        items:
-          description: A list of items that produced the error
-          items:
-            type: object
-          type: array
-        message:
-          description: Specific details about this error
-          type: string
-        path:
-          description: Internal code reference to the source of the error
-          type: string
-      required:
-      - message
-      type: object
-    EditorialVideoCategoryResults:
-      description: List of editorial video categories
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EditorialCategory'
-    LicenseEditorialContentResults:
-      description: List of editorial license results
-      properties:
-        data:
-          description: License results
-          items:
-            $ref: '#/components/schemas/LicenseEditorialContentResult'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Optional error message
-          type: string
-        page:
-          description: Current page of the response
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results
-          type: integer
-    VideoPreviewUrl:
-      description: Video preview information
-      properties:
-        url:
-          description: Direct URL to the image
-          type: string
-      required:
-      - url
       type: object
     EditorialVideoSearchResults:
       description: Editorial search results
@@ -624,6 +492,138 @@ components:
       required:
       - data
       - total_count
+      type: object
+    LicenseEditorialContentResults:
+      description: List of editorial license results
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseEditorialContentResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+    EditorialCategory:
+      description: Name of an editorial category
+      properties:
+        name:
+          type: string
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    EditorialVideoCategoryResults:
+      description: List of editorial video categories
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    VideoPreviewUrl:
+      description: Video preview information
+      properties:
+        url:
+          description: Direct URL to the image
+          type: string
+      required:
+      - url
+      type: object
+    LicenseEditorialContentResult:
+      description: The response to a licensing request for editorial content
+      properties:
+        allotment_charge:
+          description: For pre-paid plans, how many credits were used for the item license
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+          description: Information that is needed to download the image
+        editorial_id:
+          description: Editorial ID
+          type: string
+        error:
+          type: string
+      required:
+      - editorial_id
+      type: object
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    VideoSizeDetails:
+      description: Video asset information
+      properties:
+        display_name:
+          description: Display name of this video size
+          type: string
+        file_size:
+          description: File size (in bytes) of this video size
+          type: integer
+        format:
+          description: Format of this video size
+          type: string
+        fps:
+          description: Frames per second of this video size
+          type: number
+        height:
+          description: Height of this video size
+          type: integer
+        is_licensable:
+          description: Whether or not videos can be licensed in this video size
+          type: boolean
+        width:
+          description: Width of this video size
+          type: integer
       type: object
   securitySchemes:
     basic:

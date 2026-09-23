@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: Shutterstock API Reference audio computer_vision API
+  title: Shutterstock API Reference Computer Vision API
   description: The Shutterstock API provides access to Shutterstock's library of media, as well as information about customers' accounts and the contributors that provide the media. The API enables searching, browsing, licensing, and downloading images, videos, audio tracks, and sound effects. It also supports editorial content, computer vision features, collection management, and OAuth 2.0 authentication.
   version: 1.0.30
   contact:
@@ -13,7 +13,7 @@ servers:
 - url: https://api.shutterstock.com
   description: Shutterstock API
 tags:
-- name: computer_vision
+- name: Computer Vision
 paths:
   /v2/cv/images:
     post:
@@ -42,7 +42,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - computer_vision
+      - Computer Vision
       x-code-samples:
       - lang: shell
         source: 'curl -X POST ''https://api.shutterstock.com/v2/cv/images'' \
@@ -186,7 +186,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - computer_vision
+      - Computer Vision
       x-code-samples:
       - lang: shell
         source: 'RESPONSE=$(curl -X POST ''https://api.shutterstock.com/v2/cv/images'' \
@@ -326,7 +326,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - computer_vision
+      - Computer Vision
       x-code-samples:
       - lang: shell
         source: 'RESPONSE=$(curl -X POST ''https://api.shutterstock.com/v2/cv/images'' \
@@ -408,7 +408,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - computer_vision
+      - Computer Vision
       x-code-samples:
       - lang: shell
         source: 'RESPONSE=$(curl -X POST ''https://api.shutterstock.com/v2/cv/images'' \
@@ -467,7 +467,7 @@ paths:
       - basic: []
       - customer_accessCode: []
       tags:
-      - computer_vision
+      - Computer Vision
       x-code-samples:
       - lang: shell
         source: 'curl -X POST ''https://api.shutterstock.com/v2/images'' \
@@ -500,13 +500,128 @@ paths:
         required: true
 components:
   schemas:
-    ImageCreateResponse:
-      description: Image upload information
+    Video:
+      description: Information about a video
       properties:
+        added_date:
+          description: Date this video was added to the Shutterstock library
+          format: date
+          type: string
+        affiliate_url:
+          description: Affiliate referral link; appears only for registered affiliate partners
+          type: string
+          format: uri
+        aspect:
+          description: Aspect ratio of this video in decimal format
+          type: number
+        aspect_ratio:
+          description: Aspect ratio of the video
+          type: string
+        assets:
+          $ref: '#/components/schemas/VideoAssets'
+        categories:
+          description: List of categories
+          items:
+            $ref: '#/components/schemas/Category'
+          type: array
+        contributor:
+          $ref: '#/components/schemas/Contributor'
+        description:
+          description: Description of this video
+          type: string
+        duration:
+          description: Duration of this video, in seconds
+          type: number
+        has_model_release:
+          description: Whether or not this video has been released for use by the model appearing in it
+          type: boolean
+        has_property_release:
+          description: Whether or not this video has received a release to show the landmark or property appearing in it
+          type: boolean
         id:
+          description: ID of the video
+          type: string
+        is_adult:
+          description: Whether or not this video contains adult content
+          type: boolean
+        is_editorial:
+          description: Whether or not this video is editorial content
+          type: boolean
+        keywords:
+          description: Keywords associated with the content of this video
+          items:
+            type: string
+          type: array
+        media_type:
+          description: Media type of this video, should always be "video"
+          type: string
+        models:
+          description: List of models in this video
+          items:
+            $ref: '#/components/schemas/Model'
+          type: array
+        url:
+          description: Link to video information page; included only for certain accounts
           type: string
       required:
       - id
+      - media_type
+      - contributor
+      type: object
+    KeywordDataList:
+      description: List of keywords
+      properties:
+        data:
+          description: Keywords
+          items:
+            type: string
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    Contributor:
+      description: Information about a contributor
+      properties:
+        id:
+          description: ID of the contributor
+          type: string
+      required:
+      - id
+      type: object
+    ModelRelease:
+      description: Model and property release metadata
+      properties:
+        id:
+          description: ID of the model or property release
+          type: string
       type: object
     VideoSizeDetails:
       description: Video asset information
@@ -533,6 +648,75 @@ components:
           description: Width of this video size
           type: integer
       type: object
+    ImageAssets:
+      description: Information about the assets that are part of an image
+      properties:
+        huge_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        huge_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        large_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        medium_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        preview:
+          $ref: '#/components/schemas/Thumbnail'
+        preview_1000:
+          $ref: '#/components/schemas/Thumbnail'
+        preview_1500:
+          $ref: '#/components/schemas/Thumbnail'
+        small_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        small_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        supersize_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        vector_eps:
+          $ref: '#/components/schemas/ImageSizeDetails'
+      type: object
+    Model:
+      description: Information about a human model or property that appears in media; used to search for assets that this model is in
+      properties:
+        id:
+          description: ID of the model
+          type: string
+      required:
+      - id
+      type: object
+    ImageCreateResponse:
+      description: Image upload information
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    Language:
+      description: Language code
+      title: language
+      enum:
+      - cs
+      - da
+      - de
+      - en
+      - es
+      - fi
+      - fr
+      - hu
+      - it
+      - ja
+      - ko
+      - nb
+      - nl
+      - pl
+      - pt
+      - ru
+      - sv
+      - th
+      - tr
+      - zh
+      - zh-Hant
+      type: string
     Image:
       description: Information about an image
       properties:
@@ -612,145 +796,6 @@ components:
       - media_type
       - contributor
       type: object
-    Error:
-      description: Error object
-      properties:
-        code:
-          description: The error code of this error
-          type: string
-        data:
-          description: Debugging information about the error
-          type: string
-        items:
-          description: A list of items that produced the error
-          items:
-            type: object
-          type: array
-        message:
-          description: Specific details about this error
-          type: string
-        path:
-          description: Internal code reference to the source of the error
-          type: string
-      required:
-      - message
-      type: object
-    VideoSearchResults:
-      description: Video search results
-      properties:
-        data:
-          description: List of videos
-          items:
-            $ref: '#/components/schemas/Video'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: Current page that is returned
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results across all pages
-          type: integer
-        search_id:
-          description: Unique identifier for the search request
-          type: string
-      required:
-      - data
-      - total_count
-      - search_id
-      type: object
-    Urls:
-      description: List of URLs
-      properties:
-        urls:
-          description: URLs
-          items:
-            type: string
-          type: array
-      required:
-      - urls
-      type: object
-    Video:
-      description: Information about a video
-      properties:
-        added_date:
-          description: Date this video was added to the Shutterstock library
-          format: date
-          type: string
-        affiliate_url:
-          description: Affiliate referral link; appears only for registered affiliate partners
-          type: string
-          format: uri
-        aspect:
-          description: Aspect ratio of this video in decimal format
-          type: number
-        aspect_ratio:
-          description: Aspect ratio of the video
-          type: string
-        assets:
-          $ref: '#/components/schemas/VideoAssets'
-        categories:
-          description: List of categories
-          items:
-            $ref: '#/components/schemas/Category'
-          type: array
-        contributor:
-          $ref: '#/components/schemas/Contributor'
-        description:
-          description: Description of this video
-          type: string
-        duration:
-          description: Duration of this video, in seconds
-          type: number
-        has_model_release:
-          description: Whether or not this video has been released for use by the model appearing in it
-          type: boolean
-        has_property_release:
-          description: Whether or not this video has received a release to show the landmark or property appearing in it
-          type: boolean
-        id:
-          description: ID of the video
-          type: string
-        is_adult:
-          description: Whether or not this video contains adult content
-          type: boolean
-        is_editorial:
-          description: Whether or not this video is editorial content
-          type: boolean
-        keywords:
-          description: Keywords associated with the content of this video
-          items:
-            type: string
-          type: array
-        media_type:
-          description: Media type of this video, should always be "video"
-          type: string
-        models:
-          description: List of models in this video
-          items:
-            $ref: '#/components/schemas/Model'
-          type: array
-        url:
-          description: Link to video information page; included only for certain accounts
-          type: string
-      required:
-      - id
-      - media_type
-      - contributor
-      type: object
-    Contributor:
-      description: Information about a contributor
-      properties:
-        id:
-          description: ID of the contributor
-          type: string
-      required:
-      - id
-      type: object
     ImageSizeDetails:
       description: Image size information
       properties:
@@ -775,40 +820,6 @@ components:
           description: Width of this image size
           type: integer
       type: object
-    Url:
-      description: URL object
-      properties:
-        url:
-          description: URL that can be used to download the unwatermarked, licensed asset
-          type: string
-      required:
-      - url
-      type: object
-    ImageCreateRequest:
-      description: Request to upload an image
-      properties:
-        base64_image:
-          description: A Base 64 encoded jpeg or png; images can be no larger than 10mb and can be no larger than 10,000 pixels in width or height
-          type: string
-      required:
-      - base64_image
-      type: object
-    KeywordDataList:
-      description: List of keywords
-      properties:
-        data:
-          description: Keywords
-          items:
-            type: string
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
     Thumbnail:
       description: Image thumbnail information
       properties:
@@ -826,13 +837,51 @@ components:
       - height
       - width
       type: object
-    ComputerVisionImageCreateResponse:
-      description: Asset upload information
+    VideoAssets:
+      description: Video asset information
       properties:
-        upload_id:
+        4k:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        hd:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        preview_jpg:
+          $ref: '#/components/schemas/Url'
+        preview_mp4:
+          $ref: '#/components/schemas/Url'
+        preview_webm:
+          $ref: '#/components/schemas/Url'
+        sd:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        thumb_jpg:
+          $ref: '#/components/schemas/Url'
+        thumb_jpgs:
+          $ref: '#/components/schemas/Urls'
+        thumb_mp4:
+          $ref: '#/components/schemas/Url'
+        thumb_webm:
+          $ref: '#/components/schemas/Url'
+        web:
+          $ref: '#/components/schemas/VideoSizeDetails'
+      type: object
+    Urls:
+      description: List of URLs
+      properties:
+        urls:
+          description: URLs
+          items:
+            type: string
+          type: array
+      required:
+      - urls
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
           type: string
       required:
-      - upload_id
+      - url
       type: object
     Category:
       description: Category information
@@ -842,48 +891,6 @@ components:
           type: string
         name:
           description: Category name
-          type: string
-      type: object
-    Language:
-      description: Language code
-      title: language
-      enum:
-      - cs
-      - da
-      - de
-      - en
-      - es
-      - fi
-      - fr
-      - hu
-      - it
-      - ja
-      - ko
-      - nb
-      - nl
-      - pl
-      - pt
-      - ru
-      - sv
-      - th
-      - tr
-      - zh
-      - zh-Hant
-      type: string
-    Model:
-      description: Information about a human model or property that appears in media; used to search for assets that this model is in
-      properties:
-        id:
-          description: ID of the model
-          type: string
-      required:
-      - id
-      type: object
-    ModelRelease:
-      description: Model and property release metadata
-      properties:
-        id:
-          description: ID of the model or property release
           type: string
       type: object
     ImageSearchResults:
@@ -917,57 +924,50 @@ components:
       - total_count
       - search_id
       type: object
-    VideoAssets:
-      description: Video asset information
+    ComputerVisionImageCreateResponse:
+      description: Asset upload information
       properties:
-        4k:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        hd:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        preview_jpg:
-          $ref: '#/components/schemas/Url'
-        preview_mp4:
-          $ref: '#/components/schemas/Url'
-        preview_webm:
-          $ref: '#/components/schemas/Url'
-        sd:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        thumb_jpg:
-          $ref: '#/components/schemas/Url'
-        thumb_jpgs:
-          $ref: '#/components/schemas/Urls'
-        thumb_mp4:
-          $ref: '#/components/schemas/Url'
-        thumb_webm:
-          $ref: '#/components/schemas/Url'
-        web:
-          $ref: '#/components/schemas/VideoSizeDetails'
+        upload_id:
+          type: string
+      required:
+      - upload_id
       type: object
-    ImageAssets:
-      description: Information about the assets that are part of an image
+    ImageCreateRequest:
+      description: Request to upload an image
       properties:
-        huge_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        huge_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        large_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        medium_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        preview:
-          $ref: '#/components/schemas/Thumbnail'
-        preview_1000:
-          $ref: '#/components/schemas/Thumbnail'
-        preview_1500:
-          $ref: '#/components/schemas/Thumbnail'
-        small_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        small_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        supersize_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        vector_eps:
-          $ref: '#/components/schemas/ImageSizeDetails'
+        base64_image:
+          description: A Base 64 encoded jpeg or png; images can be no larger than 10mb and can be no larger than 10,000 pixels in width or height
+          type: string
+      required:
+      - base64_image
+      type: object
+    VideoSearchResults:
+      description: Video search results
+      properties:
+        data:
+          description: List of videos
+          items:
+            $ref: '#/components/schemas/Video'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+      required:
+      - data
+      - total_count
+      - search_id
       type: object
   securitySchemes:
     basic:
