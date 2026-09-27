@@ -568,22 +568,6 @@ components:
       - media_type
       - contributor
       type: object
-    KeywordDataList:
-      description: List of keywords
-      properties:
-        data:
-          description: Keywords
-          items:
-            type: string
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
     Error:
       description: Error object
       properties:
@@ -606,90 +590,6 @@ components:
           type: string
       required:
       - message
-      type: object
-    Contributor:
-      description: Information about a contributor
-      properties:
-        id:
-          description: ID of the contributor
-          type: string
-      required:
-      - id
-      type: object
-    ModelRelease:
-      description: Model and property release metadata
-      properties:
-        id:
-          description: ID of the model or property release
-          type: string
-      type: object
-    VideoSizeDetails:
-      description: Video asset information
-      properties:
-        display_name:
-          description: Display name of this video size
-          type: string
-        file_size:
-          description: File size (in bytes) of this video size
-          type: integer
-        format:
-          description: Format of this video size
-          type: string
-        fps:
-          description: Frames per second of this video size
-          type: number
-        height:
-          description: Height of this video size
-          type: integer
-        is_licensable:
-          description: Whether or not videos can be licensed in this video size
-          type: boolean
-        width:
-          description: Width of this video size
-          type: integer
-      type: object
-    ImageAssets:
-      description: Information about the assets that are part of an image
-      properties:
-        huge_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        huge_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        large_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        medium_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        preview:
-          $ref: '#/components/schemas/Thumbnail'
-        preview_1000:
-          $ref: '#/components/schemas/Thumbnail'
-        preview_1500:
-          $ref: '#/components/schemas/Thumbnail'
-        small_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        small_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        supersize_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        vector_eps:
-          $ref: '#/components/schemas/ImageSizeDetails'
-      type: object
-    Model:
-      description: Information about a human model or property that appears in media; used to search for assets that this model is in
-      properties:
-        id:
-          description: ID of the model
-          type: string
-      required:
-      - id
-      type: object
-    ImageCreateResponse:
-      description: Image upload information
-      properties:
-        id:
-          type: string
-      required:
-      - id
       type: object
     Language:
       description: Language code
@@ -717,6 +617,158 @@ components:
       - zh
       - zh-Hant
       type: string
+    Model:
+      description: Information about a human model or property that appears in media; used to search for assets that this model is in
+      properties:
+        id:
+          description: ID of the model
+          type: string
+      required:
+      - id
+      type: object
+    Urls:
+      description: List of URLs
+      properties:
+        urls:
+          description: URLs
+          items:
+            type: string
+          type: array
+      required:
+      - urls
+      type: object
+    ImageSearchResults:
+      description: Image search results
+      properties:
+        data:
+          description: List of images
+          items:
+            $ref: '#/components/schemas/Image'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+        spellcheck_info:
+          description: Returns information if search phrase has potentially been mistyped or another query would lead to better search results
+          type: object
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+      required:
+      - data
+      - total_count
+      - search_id
+      type: object
+    Category:
+      description: Category information
+      properties:
+        id:
+          description: Category ID
+          type: string
+        name:
+          description: Category name
+          type: string
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    Contributor:
+      description: Information about a contributor
+      properties:
+        id:
+          description: ID of the contributor
+          type: string
+      required:
+      - id
+      type: object
+    KeywordDataList:
+      description: List of keywords
+      properties:
+        data:
+          description: Keywords
+          items:
+            type: string
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+    ComputerVisionImageCreateResponse:
+      description: Asset upload information
+      properties:
+        upload_id:
+          type: string
+      required:
+      - upload_id
+      type: object
+    ImageSizeDetails:
+      description: Image size information
+      properties:
+        display_name:
+          description: Display name of this image size
+          type: string
+        dpi:
+          type: integer
+        file_size:
+          description: File size (in bytes) of this image size
+          type: integer
+        format:
+          description: Format of this image size
+          type: string
+        height:
+          description: Height of this image size
+          type: integer
+        is_licensable:
+          description: Whether or not this image can be licensed in this image size
+          type: boolean
+        width:
+          description: Width of this image size
+          type: integer
+      type: object
+    VideoSizeDetails:
+      description: Video asset information
+      properties:
+        display_name:
+          description: Display name of this video size
+          type: string
+        file_size:
+          description: File size (in bytes) of this video size
+          type: integer
+        format:
+          description: Format of this video size
+          type: string
+        fps:
+          description: Frames per second of this video size
+          type: number
+        height:
+          description: Height of this video size
+          type: integer
+        is_licensable:
+          description: Whether or not videos can be licensed in this video size
+          type: boolean
+        width:
+          description: Width of this video size
+          type: integer
+      type: object
     Image:
       description: Information about an image
       properties:
@@ -796,151 +848,6 @@ components:
       - media_type
       - contributor
       type: object
-    ImageSizeDetails:
-      description: Image size information
-      properties:
-        display_name:
-          description: Display name of this image size
-          type: string
-        dpi:
-          type: integer
-        file_size:
-          description: File size (in bytes) of this image size
-          type: integer
-        format:
-          description: Format of this image size
-          type: string
-        height:
-          description: Height of this image size
-          type: integer
-        is_licensable:
-          description: Whether or not this image can be licensed in this image size
-          type: boolean
-        width:
-          description: Width of this image size
-          type: integer
-      type: object
-    Thumbnail:
-      description: Image thumbnail information
-      properties:
-        height:
-          description: Height in pixels of the image thumbnail
-          type: integer
-        url:
-          description: Direct URL to the image
-          type: string
-        width:
-          description: Width in pixels of the image thumbnail
-          type: integer
-      required:
-      - url
-      - height
-      - width
-      type: object
-    VideoAssets:
-      description: Video asset information
-      properties:
-        4k:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        hd:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        preview_jpg:
-          $ref: '#/components/schemas/Url'
-        preview_mp4:
-          $ref: '#/components/schemas/Url'
-        preview_webm:
-          $ref: '#/components/schemas/Url'
-        sd:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        thumb_jpg:
-          $ref: '#/components/schemas/Url'
-        thumb_jpgs:
-          $ref: '#/components/schemas/Urls'
-        thumb_mp4:
-          $ref: '#/components/schemas/Url'
-        thumb_webm:
-          $ref: '#/components/schemas/Url'
-        web:
-          $ref: '#/components/schemas/VideoSizeDetails'
-      type: object
-    Urls:
-      description: List of URLs
-      properties:
-        urls:
-          description: URLs
-          items:
-            type: string
-          type: array
-      required:
-      - urls
-      type: object
-    Url:
-      description: URL object
-      properties:
-        url:
-          description: URL that can be used to download the unwatermarked, licensed asset
-          type: string
-      required:
-      - url
-      type: object
-    Category:
-      description: Category information
-      properties:
-        id:
-          description: Category ID
-          type: string
-        name:
-          description: Category name
-          type: string
-      type: object
-    ImageSearchResults:
-      description: Image search results
-      properties:
-        data:
-          description: List of images
-          items:
-            $ref: '#/components/schemas/Image'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: Current page that is returned
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        search_id:
-          description: Unique identifier for the search request
-          type: string
-        spellcheck_info:
-          description: Returns information if search phrase has potentially been mistyped or another query would lead to better search results
-          type: object
-        total_count:
-          description: Total count of all results across all pages
-          type: integer
-      required:
-      - data
-      - total_count
-      - search_id
-      type: object
-    ComputerVisionImageCreateResponse:
-      description: Asset upload information
-      properties:
-        upload_id:
-          type: string
-      required:
-      - upload_id
-      type: object
-    ImageCreateRequest:
-      description: Request to upload an image
-      properties:
-        base64_image:
-          description: A Base 64 encoded jpeg or png; images can be no larger than 10mb and can be no larger than 10,000 pixels in width or height
-          type: string
-      required:
-      - base64_image
-      type: object
     VideoSearchResults:
       description: Video search results
       properties:
@@ -968,6 +875,99 @@ components:
       - data
       - total_count
       - search_id
+      type: object
+    Thumbnail:
+      description: Image thumbnail information
+      properties:
+        height:
+          description: Height in pixels of the image thumbnail
+          type: integer
+        url:
+          description: Direct URL to the image
+          type: string
+        width:
+          description: Width in pixels of the image thumbnail
+          type: integer
+      required:
+      - url
+      - height
+      - width
+      type: object
+    ImageCreateResponse:
+      description: Image upload information
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    ImageAssets:
+      description: Information about the assets that are part of an image
+      properties:
+        huge_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        huge_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        large_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        medium_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        preview:
+          $ref: '#/components/schemas/Thumbnail'
+        preview_1000:
+          $ref: '#/components/schemas/Thumbnail'
+        preview_1500:
+          $ref: '#/components/schemas/Thumbnail'
+        small_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        small_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        supersize_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        vector_eps:
+          $ref: '#/components/schemas/ImageSizeDetails'
+      type: object
+    ImageCreateRequest:
+      description: Request to upload an image
+      properties:
+        base64_image:
+          description: A Base 64 encoded jpeg or png; images can be no larger than 10mb and can be no larger than 10,000 pixels in width or height
+          type: string
+      required:
+      - base64_image
+      type: object
+    VideoAssets:
+      description: Video asset information
+      properties:
+        4k:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        hd:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        preview_jpg:
+          $ref: '#/components/schemas/Url'
+        preview_mp4:
+          $ref: '#/components/schemas/Url'
+        preview_webm:
+          $ref: '#/components/schemas/Url'
+        sd:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        thumb_jpg:
+          $ref: '#/components/schemas/Url'
+        thumb_jpgs:
+          $ref: '#/components/schemas/Urls'
+        thumb_mp4:
+          $ref: '#/components/schemas/Url'
+        thumb_webm:
+          $ref: '#/components/schemas/Url'
+        web:
+          $ref: '#/components/schemas/VideoSizeDetails'
+      type: object
+    ModelRelease:
+      description: Model and property release metadata
+      properties:
+        id:
+          description: ID of the model or property release
+          type: string
       type: object
   securitySchemes:
     basic:

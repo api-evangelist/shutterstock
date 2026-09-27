@@ -322,42 +322,28 @@ paths:
       description: This endpoint lists the IDs of items in a contributor's collection and the date that each was added.
 components:
   schemas:
-    Collection:
-      description: Metadata about a collection of assets
+    Error:
+      description: Error object
       properties:
-        cover_item:
-          $ref: '#/components/schemas/CollectionItem'
-        created_time:
-          description: When the collection was created
-          format: date-time
+        code:
+          description: The error code of this error
           type: string
-        id:
-          description: The collection ID
+        data:
+          description: Debugging information about the error
           type: string
-        items_updated_time:
-          description: The last time this collection's items were updated
-          format: date-time
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
           type: string
-        name:
-          description: The name of the collection
-          type: string
-        share_code:
-          description: A code that can be used to share the collection (optional)
-          type: string
-        share_url:
-          description: The browser URL that can be used to share the collection (optional)
-          type: string
-        total_item_count:
-          description: The number of items in the collection
-          type: integer
-        updated_time:
-          description: The last time the collection was update (other than changes to the items in it)
-          format: date-time
+        path:
+          description: Internal code reference to the source of the error
           type: string
       required:
-      - id
-      - name
-      - total_item_count
+      - message
       type: object
     CollectionDataList:
       description: List of collections
@@ -411,28 +397,68 @@ components:
         total_count:
           description: The total number of results across all pages
           type: integer
-    ContributorProfileSocialMedia:
-      description: Contributor profile social media links
+    Collection:
+      description: Metadata about a collection of assets
       properties:
-        facebook:
-          description: Facebook link for contributor
+        cover_item:
+          $ref: '#/components/schemas/CollectionItem'
+        created_time:
+          description: When the collection was created
+          format: date-time
           type: string
-        google_plus:
-          description: Google+ link for contributor
+        id:
+          description: The collection ID
           type: string
-        linkedin:
-          description: LinkedIn link for contributor
+        items_updated_time:
+          description: The last time this collection's items were updated
+          format: date-time
           type: string
-        pinterest:
-          description: Pinterest page for contributor
+        name:
+          description: The name of the collection
           type: string
-        tumblr:
-          description: Tumblr link for contributor
+        share_code:
+          description: A code that can be used to share the collection (optional)
           type: string
-        twitter:
-          description: Twitter link for contributor
+        share_url:
+          description: The browser URL that can be used to share the collection (optional)
           type: string
+        total_item_count:
+          description: The number of items in the collection
+          type: integer
+        updated_time:
+          description: The last time the collection was update (other than changes to the items in it)
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
       type: object
+    ContributorProfileDataList:
+      description: List of contributor profiles
+      properties:
+        data:
+          description: Conributor profiles
+          items:
+            $ref: '#/components/schemas/ContributorProfile'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Error message
+          type: string
+        page:
+          description: Page of response
+          type: integer
+        per_page:
+          description: Number of contributors per page
+          type: integer
+        total_count:
+          description: Total count of contributors for this request
+          type: integer
     CollectionItem:
       description: Metadata about an item that is part of a collection
       properties:
@@ -484,28 +510,27 @@ components:
         total_count:
           description: The total number of results across all pages
           type: integer
-    Error:
-      description: Error object
+    ContributorProfileSocialMedia:
+      description: Contributor profile social media links
       properties:
-        code:
-          description: The error code of this error
+        facebook:
+          description: Facebook link for contributor
           type: string
-        data:
-          description: Debugging information about the error
+        google_plus:
+          description: Google+ link for contributor
           type: string
-        items:
-          description: A list of items that produced the error
-          items:
-            type: object
-          type: array
-        message:
-          description: Specific details about this error
+        linkedin:
+          description: LinkedIn link for contributor
           type: string
-        path:
-          description: Internal code reference to the source of the error
+        pinterest:
+          description: Pinterest page for contributor
           type: string
-      required:
-      - message
+        tumblr:
+          description: Tumblr link for contributor
+          type: string
+        twitter:
+          description: Twitter link for contributor
+          type: string
       type: object
     ContributorProfile:
       description: Contributor profile data
@@ -554,31 +579,6 @@ components:
       required:
       - id
       type: object
-    ContributorProfileDataList:
-      description: List of contributor profiles
-      properties:
-        data:
-          description: Conributor profiles
-          items:
-            $ref: '#/components/schemas/ContributorProfile'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Error message
-          type: string
-        page:
-          description: Page of response
-          type: integer
-        per_page:
-          description: Number of contributors per page
-          type: integer
-        total_count:
-          description: Total count of contributors for this request
-          type: integer
   securitySchemes:
     basic:
       type: http

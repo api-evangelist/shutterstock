@@ -93,12 +93,6 @@ paths:
       summary: Validate input
 components:
   schemas:
-    TestEcho:
-      description: Text to echo in the response
-      properties:
-        text:
-          type: string
-      type: object
     TestValidate:
       description: Validation results
       properties:
@@ -129,6 +123,12 @@ components:
           type: array
       required:
       - id
+      type: object
+    TestEcho:
+      description: Text to echo in the response
+      properties:
+        text:
+          type: string
       type: object
   securitySchemes:
     basic:

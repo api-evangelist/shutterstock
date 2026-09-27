@@ -76,7 +76,7 @@ common:
   url: https://www.linkedin.com/company/shutterstock
 apis:
 - aid: shutterstock:shutterstock-audio-api
-  name: Shutterstock audio API
+  name: Shutterstock Audio API
   description: The audio API from Shutterstock — 11 operation(s) for audio.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
@@ -116,14 +116,15 @@ apis:
   - type: Vocabulary
     url: vocabulary/shutterstock-vocabulary.yml
 - aid: shutterstock:shutterstock-computer-vision-api
-  name: Shutterstock computer_vision API
+  name: Shutterstock Computer Vision API
   description: The computer_vision API from Shutterstock — 5 operation(s) for computer_vision.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
   tags:
-  - Computer-Vision
+  - Computer Vision
   tags_raw:
   - computer_vision
+  - Computer-Vision
   properties:
   - type: OpenAPI
     url: openapi/shutterstock-computer-vision-api-openapi.yml
@@ -156,7 +157,7 @@ apis:
   - type: Vocabulary
     url: vocabulary/shutterstock-vocabulary.yml
 - aid: shutterstock:shutterstock-contributors-api
-  name: Shutterstock contributors API
+  name: Shutterstock Contributors API
   description: The contributors API from Shutterstock — 5 operation(s) for contributors.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
@@ -196,7 +197,7 @@ apis:
   - type: Vocabulary
     url: vocabulary/shutterstock-vocabulary.yml
 - aid: shutterstock:shutterstock-editorial-images-api
-  name: Shutterstock editorial_images API
+  name: Shutterstock Editorial Images API
   description: The editorial_images API from Shutterstock — 15 operation(s) for editorial_images.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
@@ -235,7 +236,7 @@ apis:
   - type: Vocabulary
     url: vocabulary/shutterstock-vocabulary.yml
 - aid: shutterstock:shutterstock-editorial-video-api
-  name: Shutterstock editorial_video API
+  name: Shutterstock Editorial Video API
   description: The editorial_video API from Shutterstock — 4 operation(s) for editorial_video.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
@@ -274,7 +275,7 @@ apis:
   - type: Vocabulary
     url: vocabulary/shutterstock-vocabulary.yml
 - aid: shutterstock:shutterstock-images-api
-  name: Shutterstock images API
+  name: Shutterstock Images API
   description: The images API from Shutterstock — 16 operation(s) for images.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
@@ -314,7 +315,7 @@ apis:
   - type: Vocabulary
     url: vocabulary/shutterstock-vocabulary.yml
 - aid: shutterstock:shutterstock-test-api
-  name: Shutterstock test API
+  name: Shutterstock Test API
   description: The test API from Shutterstock — 2 operation(s) for test.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
@@ -353,7 +354,7 @@ apis:
   - type: Vocabulary
     url: vocabulary/shutterstock-vocabulary.yml
 - aid: shutterstock:shutterstock-users-api
-  name: Shutterstock users API
+  name: Shutterstock Users API
   description: The users API from Shutterstock — 3 operation(s) for users.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com
@@ -393,7 +394,7 @@ apis:
   - type: Vocabulary
     url: vocabulary/shutterstock-vocabulary.yml
 - aid: shutterstock:shutterstock-videos-api
-  name: Shutterstock videos API
+  name: Shutterstock Videos API
   description: The videos API from Shutterstock — 12 operation(s) for videos.
   humanURL: https://www.shutterstock.com/developers
   baseURL: https://api.shutterstock.com

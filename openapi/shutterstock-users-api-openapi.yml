@@ -140,42 +140,6 @@ paths:
       summary: List user subscriptions
 components:
   schemas:
-    Subscription:
-      description: Subscription information
-      properties:
-        allotment:
-          $ref: '#/components/schemas/Allotment'
-        description:
-          description: Description of the subscription
-          type: string
-        expiration_time:
-          description: Date the subscription ends
-          format: date-time
-          type: string
-        formats:
-          description: List of formats that are licensable for the subscription
-          items:
-            $ref: '#/components/schemas/LicenseFormat'
-          type: array
-        id:
-          description: Unique internal identifier for the subscription
-          type: string
-        license:
-          description: Internal identifier for the type of subscription
-          type: string
-        asset_type:
-          description: Identifier for the type of assets associated with this subscription (images, videos, audio, editorial)
-          type: string
-        metadata:
-          $ref: '#/components/schemas/SubscriptionMetadata'
-        price_per_download:
-          $ref: '#/components/schemas/Price'
-      required:
-      - id
-      type: object
-    SubscriptionMetadata:
-      description: Subscription metadata
-      type: object
     Price:
       description: Price
       properties:
@@ -186,31 +150,6 @@ components:
           description: Currency of the rev-share price that was calculated
           type: string
       type: object
-    SubscriptionDataList:
-      description: List of subscriptions
-      properties:
-        data:
-          description: Subscriptions retrieved from this user
-          items:
-            $ref: '#/components/schemas/Subscription'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Optional error message
-          type: string
-        page:
-          description: Current page that is being queried
-          type: integer
-        per_page:
-          description: Amount of subscriptions to show per page
-          type: integer
-        total_count:
-          description: Total number of subscriptions for this user
-          type: integer
     Error:
       description: Error object
       properties:
@@ -234,41 +173,8 @@ components:
       required:
       - message
       type: object
-    AccessTokenDetails:
-      description: Access token details that are currently associated with this user
-      properties:
-        client_id:
-          description: Client ID that is associated with the user
-          type: string
-        contributor_id:
-          description: Contributor ID that is associated with the user
-          type: string
-        customer_id:
-          description: Customer ID that is associated with the user
-          type: string
-        expires_in:
-          description: Number of seconds until the access token expires; no expiration if this value is null
-          type: integer
-        organization_id:
-          description: Organization ID that is associated with the user
-          type: string
-        realm:
-          description: Type of access token
-          enum:
-          - customer
-          - contributor
-          type: string
-        scopes:
-          description: Scopes that this access token provides when used as authentication
-          items:
-            type: string
-          type: array
-        user_id:
-          description: User ID that is associated with the user
-          type: string
-        username:
-          description: User name that is associated with the user
-          type: string
+    SubscriptionMetadata:
+      description: Subscription metadata
       type: object
     LicenseFormat:
       description: Description of a license
@@ -312,6 +218,31 @@ components:
           format: date-time
           type: string
       type: object
+    SubscriptionDataList:
+      description: List of subscriptions
+      properties:
+        data:
+          description: Subscriptions retrieved from this user
+          items:
+            $ref: '#/components/schemas/Subscription'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page that is being queried
+          type: integer
+        per_page:
+          description: Amount of subscriptions to show per page
+          type: integer
+        total_count:
+          description: Total number of subscriptions for this user
+          type: integer
     UserDetails:
       description: User details
       properties:
@@ -361,6 +292,75 @@ components:
           type: array
         username:
           description: User name associated to the user
+          type: string
+      type: object
+    Subscription:
+      description: Subscription information
+      properties:
+        allotment:
+          $ref: '#/components/schemas/Allotment'
+        description:
+          description: Description of the subscription
+          type: string
+        expiration_time:
+          description: Date the subscription ends
+          format: date-time
+          type: string
+        formats:
+          description: List of formats that are licensable for the subscription
+          items:
+            $ref: '#/components/schemas/LicenseFormat'
+          type: array
+        id:
+          description: Unique internal identifier for the subscription
+          type: string
+        license:
+          description: Internal identifier for the type of subscription
+          type: string
+        asset_type:
+          description: Identifier for the type of assets associated with this subscription (images, videos, audio, editorial)
+          type: string
+        metadata:
+          $ref: '#/components/schemas/SubscriptionMetadata'
+        price_per_download:
+          $ref: '#/components/schemas/Price'
+      required:
+      - id
+      type: object
+    AccessTokenDetails:
+      description: Access token details that are currently associated with this user
+      properties:
+        client_id:
+          description: Client ID that is associated with the user
+          type: string
+        contributor_id:
+          description: Contributor ID that is associated with the user
+          type: string
+        customer_id:
+          description: Customer ID that is associated with the user
+          type: string
+        expires_in:
+          description: Number of seconds until the access token expires; no expiration if this value is null
+          type: integer
+        organization_id:
+          description: Organization ID that is associated with the user
+          type: string
+        realm:
+          description: Type of access token
+          enum:
+          - customer
+          - contributor
+          type: string
+        scopes:
+          description: Scopes that this access token provides when used as authentication
+          items:
+            type: string
+          type: array
+        user_id:
+          description: User ID that is associated with the user
+          type: string
+        username:
+          description: User name that is associated with the user
           type: string
       type: object
   securitySchemes:

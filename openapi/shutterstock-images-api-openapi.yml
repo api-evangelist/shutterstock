@@ -1855,6 +1855,243 @@ paths:
       description: This endpoint lists information about one or more images, including the available sizes.
 components:
   schemas:
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    FeaturedCollectionDataList:
+      description: List of featured collections
+      properties:
+        data:
+          description: Featured collections
+          items:
+            $ref: '#/components/schemas/FeaturedCollection'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    FeaturedCollection:
+      description: Metadata about a featured collection
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/FeaturedCollectionCoverItem'
+        created_time:
+          description: Date that the collection was created
+          format: date-time
+          type: string
+        hero_item:
+          $ref: '#/components/schemas/FeaturedCollectionCoverItem'
+          description: Top-level item that is meant as a cover image, as the first image seen to represent the collection
+        id:
+          description: Collection ID
+          type: string
+        items_updated_time:
+          description: Date that an item in the collection was last added or removed
+          format: date-time
+          type: string
+        name:
+          description: Name of the collection
+          type: string
+        share_url:
+          description: Unique share url for the collection
+          type: string
+        total_item_count:
+          description: Total number of items in the collection
+          type: integer
+        updated_time:
+          description: Date that the collection was last modified
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    Language:
+      description: Language code
+      title: language
+      enum:
+      - cs
+      - da
+      - de
+      - en
+      - es
+      - fi
+      - fr
+      - hu
+      - it
+      - ja
+      - ko
+      - nb
+      - nl
+      - pl
+      - pt
+      - ru
+      - sv
+      - th
+      - tr
+      - zh
+      - zh-Hant
+      type: string
+    Model:
+      description: Information about a human model or property that appears in media; used to search for assets that this model is in
+      properties:
+        id:
+          description: ID of the model
+          type: string
+      required:
+      - id
+      type: object
+    DownloadHistoryMediaDetails:
+      description: Information about the downloaded media
+      properties:
+        format:
+          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
+        id:
+          description: ID of the download history media details
+          type: string
+      required:
+      - id
+      type: object
+    Collection:
+      description: Metadata about a collection of assets
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/CollectionItem'
+        created_time:
+          description: When the collection was created
+          format: date-time
+          type: string
+        id:
+          description: The collection ID
+          type: string
+        items_updated_time:
+          description: The last time this collection's items were updated
+          format: date-time
+          type: string
+        name:
+          description: The name of the collection
+          type: string
+        share_code:
+          description: A code that can be used to share the collection (optional)
+          type: string
+        share_url:
+          description: The browser URL that can be used to share the collection (optional)
+          type: string
+        total_item_count:
+          description: The number of items in the collection
+          type: integer
+        updated_time:
+          description: The last time the collection was update (other than changes to the items in it)
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    LicenseImageResultDataList:
+      description: List of information about licensed images
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseImageResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    RedownloadImage:
+      description: Data required to redownload an image
+      properties:
+        auth_cookie:
+          description: (Deprecated)
+          deprecated: true
+          $ref: '#/components/schemas/Cookie'
+        show_modal:
+          description: (Deprecated)
+          deprecated: true
+          type: boolean
+        size:
+          description: Size of the image
+          enum:
+          - small
+          - medium
+          - huge
+          - supersize
+          - vector
+          type: string
+        verification_code:
+          description: (Deprecated)
+          deprecated: true
+          type: string
+      type: object
+    DownloadHistoryUserDetails:
+      description: Information about a user
+      properties:
+        username:
+          description: The name of the user who downloaded the item
+          type: string
+      required:
+      - username
+      type: object
+    Category:
+      description: Category information
+      properties:
+        id:
+          description: Category ID
+          type: string
+        name:
+          description: Category name
+          type: string
+      type: object
     LicenseImage:
       description: Data required to license an image
       properties:
@@ -1904,39 +2141,151 @@ components:
       required:
       - image_id
       type: object
-    RedownloadImage:
-      description: Data required to redownload an image
+    Url:
+      description: URL object
       properties:
-        auth_cookie:
-          description: (Deprecated)
-          deprecated: true
-          $ref: '#/components/schemas/Cookie'
-        show_modal:
-          description: (Deprecated)
-          deprecated: true
-          type: boolean
-        size:
-          description: Size of the image
-          enum:
-          - small
-          - medium
-          - huge
-          - supersize
-          - vector
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
           type: string
-        verification_code:
-          description: (Deprecated)
-          deprecated: true
-          type: string
+      required:
+      - url
       type: object
-    Suggestions:
-      description: List of search suggestions
+    ImageSearchResults:
+      description: Image search results
       properties:
         data:
-          description: Search suggestions
-          type: array
+          description: List of images
           items:
-            type: string
+            $ref: '#/components/schemas/Image'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+        spellcheck_info:
+          description: Returns information if search phrase has potentially been mistyped or another query would lead to better search results
+          type: object
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+      required:
+      - data
+      - total_count
+      - search_id
+      type: object
+    Contributor:
+      description: Information about a contributor
+      properties:
+        id:
+          description: ID of the contributor
+          type: string
+      required:
+      - id
+      type: object
+    LicenseImageRequest:
+      description: Image license request data
+      properties:
+        images:
+          description: Images to create licenses for
+          items:
+            $ref: '#/components/schemas/LicenseImage'
+          type: array
+      required:
+      - images
+      type: object
+    ImageDataList:
+      description: List of images
+      properties:
+        data:
+          description: Images
+          items:
+            $ref: '#/components/schemas/Image'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    UpdatedMediaDataList:
+      description: List of updated media
+      properties:
+        data:
+          description: Updated media items
+          items:
+            $ref: '#/components/schemas/UpdatedMedia'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
+    DownloadHistoryDataList:
+      description: List of download events
+      properties:
+        data:
+          description: Download events
+          items:
+            $ref: '#/components/schemas/DownloadHistory'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    CollectionCreateRequest:
+      description: Collection creation request
+      example:
+        name: Test Collection 19cf
+      properties:
+        name:
+          description: The name of the collection
+          type: string
+      required:
+      - name
       type: object
     CollectionUpdateRequest:
       description: Collection update request
@@ -1949,48 +2298,40 @@ components:
       required:
       - name
       type: object
-    CustomSizeDimensions:
-      description: A custom height or a custom width to resize the image to, but not both (experimental)
-      properties:
-        height:
-          description: Custom height to resize the image to
-          type: integer
-          minimum: 100
-        width:
-          description: Custom width to resize the image to
-          type: integer
-          minimum: 100
-      type: object
-    Error:
-      description: Error object
-      properties:
-        code:
-          description: The error code of this error
-          type: string
+    CollectionDataList:
+      description: List of collections
+      example:
         data:
-          description: Debugging information about the error
-          type: string
-        items:
-          description: A list of items that produced the error
-          items:
-            type: object
-          type: array
-        message:
-          description: Specific details about this error
-          type: string
-        path:
-          description: Internal code reference to the source of the error
-          type: string
-      required:
-      - message
-      type: object
-    LicenseImageResultDataList:
-      description: List of information about licensed images
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747953'
+          name: Test Collection cdad
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747955'
+          name: Test Collection ff5f
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:58-05:00'
+          id: '5747957'
+          name: Updated Collection ebc4
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:58-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747971'
+          name: Test Collection 0072
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747973'
+          name: Test Collection d332
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
       properties:
         data:
-          description: License results
+          description: Collections
           items:
-            $ref: '#/components/schemas/LicenseImageResult'
+            $ref: '#/components/schemas/Collection'
           type: array
         errors:
           description: Error list; appears only if there was an error
@@ -2001,48 +2342,28 @@ components:
           description: Server-generated message, if any
           type: string
         page:
-          description: Current page that is returned
+          description: The current page of results
           type: integer
         per_page:
-          description: Number of results per page
+          description: The number of results per page
           type: integer
         total_count:
-          description: Total count of all results across all pages
+          description: The total number of results across all pages
           type: integer
-    RecommendationDataList:
-      description: List of recommended images
+    SearchEntitiesResponse:
+      description: The response to a request for keyword analysis
+      example:
+        keywords:
+        - beach
+        - place
+        - sand
+        - ocean
       properties:
-        data:
-          description: Recommended images
-          items:
-            $ref: '#/components/schemas/Recommendation'
+        keywords:
+          description: The top keywords from the submitted text
           type: array
-        errors:
-          description: Error list; appears only if there was an error
           items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: Current page that is returned
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results across all pages
-          type: integer
-    Contributor:
-      description: Information about a contributor
-      properties:
-        id:
-          description: ID of the contributor
-          type: string
-      required:
-      - id
-      type: object
+            type: string
     CollectionCreateResponse:
       description: Collection creation response
       example:
@@ -2054,12 +2375,48 @@ components:
       required:
       - id
       type: object
-    ModelRelease:
-      description: Model and property release metadata
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    ImageSizeDetails:
+      description: Image size information
       properties:
-        id:
-          description: ID of the model or property release
+        display_name:
+          description: Display name of this image size
           type: string
+        dpi:
+          type: integer
+        file_size:
+          description: File size (in bytes) of this image size
+          type: integer
+        format:
+          description: Format of this image size
+          type: string
+        height:
+          description: Height of this image size
+          type: integer
+        is_licensable:
+          description: Whether or not this image can be licensed in this image size
+          type: boolean
+        width:
+          description: Width of this image size
+          type: integer
+      type: object
+    Suggestions:
+      description: List of search suggestions
+      properties:
+        data:
+          description: Search suggestions
+          type: array
+          items:
+            type: string
       type: object
     SearchEntitiesRequest:
       description: Search entity request data
@@ -2072,13 +2429,39 @@ components:
       required:
       - text
       type: object
-    FeaturedCollectionDataList:
-      description: List of featured collections
+    CollectionItem:
+      description: Metadata about an item that is part of a collection
+      properties:
+        added_time:
+          description: The date the item was added to the collection
+          format: date-time
+          type: string
+        id:
+          description: ID of the item
+          type: string
+        media_type:
+          description: The media type of the item, such as image, video, or audio
+          type: string
+      required:
+      - id
+      type: object
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
       properties:
         data:
-          description: Featured collections
+          description: Assets in the collection
           items:
-            $ref: '#/components/schemas/FeaturedCollection'
+            $ref: '#/components/schemas/CollectionItem'
           type: array
         errors:
           description: Error list; appears only if there was an error
@@ -2089,85 +2472,60 @@ components:
           description: Server-generated message, if any
           type: string
         page:
-          description: Current page that is returned
+          description: The current page of results
           type: integer
         per_page:
-          description: Number of results per page
+          description: The number of results per page
           type: integer
         total_count:
-          description: Total count of all results across all pages
+          description: The total number of results across all pages
           type: integer
-    ImageAssets:
-      description: Information about the assets that are part of an image
+    CategoryDataList:
+      description: List of categories that images can belong to
       properties:
-        huge_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        huge_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        large_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        medium_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        preview:
-          $ref: '#/components/schemas/Thumbnail'
-        preview_1000:
-          $ref: '#/components/schemas/Thumbnail'
-        preview_1500:
-          $ref: '#/components/schemas/Thumbnail'
-        small_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        small_thumb:
-          $ref: '#/components/schemas/Thumbnail'
-        supersize_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        vector_eps:
-          $ref: '#/components/schemas/ImageSizeDetails'
-      type: object
-    Model:
-      description: Information about a human model or property that appears in media; used to search for assets that this model is in
-      properties:
-        id:
-          description: ID of the model
+        data:
+          description: Categories
+          items:
+            $ref: '#/components/schemas/Category'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
           type: string
-      required:
-      - id
-      type: object
-    Collection:
-      description: Metadata about a collection of assets
-      properties:
-        cover_item:
-          $ref: '#/components/schemas/CollectionItem'
-        created_time:
-          description: When the collection was created
-          format: date-time
-          type: string
-        id:
-          description: The collection ID
-          type: string
-        items_updated_time:
-          description: The last time this collection's items were updated
-          format: date-time
-          type: string
-        name:
-          description: The name of the collection
-          type: string
-        share_code:
-          description: A code that can be used to share the collection (optional)
-          type: string
-        share_url:
-          description: The browser URL that can be used to share the collection (optional)
-          type: string
-        total_item_count:
-          description: The number of items in the collection
+        page:
+          description: The current page of results
           type: integer
-        updated_time:
-          description: The last time the collection was update (other than changes to the items in it)
-          format: date-time
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    CustomSizeDimensions:
+      description: A custom height or a custom width to resize the image to, but not both (experimental)
+      properties:
+        height:
+          description: Custom height to resize the image to
+          type: integer
+          minimum: 100
+        width:
+          description: Custom width to resize the image to
+          type: integer
+          minimum: 100
+      type: object
+    Price:
+      description: Price
+      properties:
+        local_amount:
+          description: Dollar amount of the calculated rev-share price in the currency local_currency
+          type: number
+        local_currency:
+          description: Currency of the rev-share price that was calculated
           type: string
-      required:
-      - id
-      - name
-      - total_item_count
       type: object
     Image:
       description: Information about an image
@@ -2248,271 +2606,6 @@ components:
       - media_type
       - contributor
       type: object
-    DownloadHistoryMediaDetails:
-      description: Information about the downloaded media
-      properties:
-        format:
-          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
-        id:
-          description: ID of the download history media details
-          type: string
-      required:
-      - id
-      type: object
-    ImageSizeDetails:
-      description: Image size information
-      properties:
-        display_name:
-          description: Display name of this image size
-          type: string
-        dpi:
-          type: integer
-        file_size:
-          description: File size (in bytes) of this image size
-          type: integer
-        format:
-          description: Format of this image size
-          type: string
-        height:
-          description: Height of this image size
-          type: integer
-        is_licensable:
-          description: Whether or not this image can be licensed in this image size
-          type: boolean
-        width:
-          description: Width of this image size
-          type: integer
-      type: object
-    Thumbnail:
-      description: Image thumbnail information
-      properties:
-        height:
-          description: Height in pixels of the image thumbnail
-          type: integer
-        url:
-          description: Direct URL to the image
-          type: string
-        width:
-          description: Width in pixels of the image thumbnail
-          type: integer
-      required:
-      - url
-      - height
-      - width
-      type: object
-    FeaturedCollection:
-      description: Metadata about a featured collection
-      properties:
-        cover_item:
-          $ref: '#/components/schemas/FeaturedCollectionCoverItem'
-        created_time:
-          description: Date that the collection was created
-          format: date-time
-          type: string
-        hero_item:
-          $ref: '#/components/schemas/FeaturedCollectionCoverItem'
-          description: Top-level item that is meant as a cover image, as the first image seen to represent the collection
-        id:
-          description: Collection ID
-          type: string
-        items_updated_time:
-          description: Date that an item in the collection was last added or removed
-          format: date-time
-          type: string
-        name:
-          description: Name of the collection
-          type: string
-        share_url:
-          description: Unique share url for the collection
-          type: string
-        total_item_count:
-          description: Total number of items in the collection
-          type: integer
-        updated_time:
-          description: Date that the collection was last modified
-          format: date-time
-          type: string
-      required:
-      - id
-      - name
-      - total_item_count
-      type: object
-    CollectionItemRequest:
-      description: Request to get a list of items in a collection
-      properties:
-        items:
-          description: List of items
-          items:
-            $ref: '#/components/schemas/CollectionItem'
-          type: array
-      required:
-      - items
-      type: object
-    Language:
-      description: Language code
-      title: language
-      enum:
-      - cs
-      - da
-      - de
-      - en
-      - es
-      - fi
-      - fr
-      - hu
-      - it
-      - ja
-      - ko
-      - nb
-      - nl
-      - pl
-      - pt
-      - ru
-      - sv
-      - th
-      - tr
-      - zh
-      - zh-Hant
-      type: string
-    CollectionItemDataList:
-      description: List of items in a collection
-      example:
-        data:
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '76688182'
-          media_type: audio
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '40005859'
-          media_type: audio
-        page: 1
-        per_page: 100
-      properties:
-        data:
-          description: Assets in the collection
-          items:
-            $ref: '#/components/schemas/CollectionItem'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
-    FeaturedCollectionCoverItem:
-      description: Featured collection cover item metadata
-      properties:
-        url:
-          description: URL of the collection cover item
-          type: string
-      required:
-      - url
-      type: object
-    Price:
-      description: Price
-      properties:
-        local_amount:
-          description: Dollar amount of the calculated rev-share price in the currency local_currency
-          type: number
-        local_currency:
-          description: Currency of the rev-share price that was calculated
-          type: string
-      type: object
-    CollectionCreateRequest:
-      description: Collection creation request
-      example:
-        name: Test Collection 19cf
-      properties:
-        name:
-          description: The name of the collection
-          type: string
-      required:
-      - name
-      type: object
-    Url:
-      description: URL object
-      properties:
-        url:
-          description: URL that can be used to download the unwatermarked, licensed asset
-          type: string
-      required:
-      - url
-      type: object
-    LicenseImageRequest:
-      description: Image license request data
-      properties:
-        images:
-          description: Images to create licenses for
-          items:
-            $ref: '#/components/schemas/LicenseImage'
-          type: array
-      required:
-      - images
-      type: object
-    CategoryDataList:
-      description: List of categories that images can belong to
-      properties:
-        data:
-          description: Categories
-          items:
-            $ref: '#/components/schemas/Category'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
-    LicenseRequestMetadata:
-      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
-      example:
-        customer_id: '12345'
-        geo_location: US
-        number_viewed: '15'
-        search_term: dog
-      maxProperties: 4
-      properties: {}
-      type: object
-    DownloadHistoryUserDetails:
-      description: Information about a user
-      properties:
-        username:
-          description: The name of the user who downloaded the item
-          type: string
-      required:
-      - username
-      type: object
-    Category:
-      description: Category information
-      properties:
-        id:
-          description: Category ID
-          type: string
-        name:
-          description: Category name
-          type: string
-      type: object
     DownloadHistoryFormatDetails:
       description: Information about the format of a download
       properties:
@@ -2522,37 +2615,6 @@ components:
         size:
           description: The size of the downloaded media
           type: string
-      type: object
-    ImageSearchResults:
-      description: Image search results
-      properties:
-        data:
-          description: List of images
-          items:
-            $ref: '#/components/schemas/Image'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: Current page that is returned
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        search_id:
-          description: Unique identifier for the search request
-          type: string
-        spellcheck_info:
-          description: Returns information if search phrase has potentially been mistyped or another query would lead to better search results
-          type: object
-        total_count:
-          description: Total count of all results across all pages
-          type: integer
-      required:
-      - data
-      - total_count
-      - search_id
       type: object
     LicenseImageResult:
       description: The response to a licensing request for an image
@@ -2575,6 +2637,103 @@ components:
       required:
       - image_id
       type: object
+    Thumbnail:
+      description: Image thumbnail information
+      properties:
+        height:
+          description: Height in pixels of the image thumbnail
+          type: integer
+        url:
+          description: Direct URL to the image
+          type: string
+        width:
+          description: Width in pixels of the image thumbnail
+          type: integer
+      required:
+      - url
+      - height
+      - width
+      type: object
+    ImageAssets:
+      description: Information about the assets that are part of an image
+      properties:
+        huge_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        huge_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        large_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        medium_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        preview:
+          $ref: '#/components/schemas/Thumbnail'
+        preview_1000:
+          $ref: '#/components/schemas/Thumbnail'
+        preview_1500:
+          $ref: '#/components/schemas/Thumbnail'
+        small_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        small_thumb:
+          $ref: '#/components/schemas/Thumbnail'
+        supersize_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        vector_eps:
+          $ref: '#/components/schemas/ImageSizeDetails'
+      type: object
+    Recommendation:
+      description: Media Recommendation
+      properties:
+        id:
+          description: Media ID
+          type: string
+      required:
+      - id
+      type: object
+    FeaturedCollectionCoverItem:
+      description: Featured collection cover item metadata
+      properties:
+        url:
+          description: URL of the collection cover item
+          type: string
+      required:
+      - url
+      type: object
+    CollectionItemRequest:
+      description: Request to get a list of items in a collection
+      properties:
+        items:
+          description: List of items
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+      required:
+      - items
+      type: object
+    RecommendationDataList:
+      description: List of recommended images
+      properties:
+        data:
+          description: Recommended images
+          items:
+            $ref: '#/components/schemas/Recommendation'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: Current page that is returned
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results across all pages
+          type: integer
     DownloadHistory:
       description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
       properties:
@@ -2610,144 +2769,6 @@ components:
       - download_time
       - license
       type: object
-    Recommendation:
-      description: Media Recommendation
-      properties:
-        id:
-          description: Media ID
-          type: string
-      required:
-      - id
-      type: object
-    Cookie:
-      description: Cookie object
-      properties:
-        name:
-          description: The name of the cookie
-          type: string
-        value:
-          description: The value of the cookie
-          type: string
-      required:
-      - name
-      - value
-      type: object
-    ImageDataList:
-      description: List of images
-      properties:
-        data:
-          description: Images
-          items:
-            $ref: '#/components/schemas/Image'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: Current page that is returned
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results across all pages
-          type: integer
-    UpdatedMediaDataList:
-      description: List of updated media
-      properties:
-        data:
-          description: Updated media items
-          items:
-            $ref: '#/components/schemas/UpdatedMedia'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: Current page that is returned
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results across all pages
-          type: integer
-    SearchEntitiesResponse:
-      description: The response to a request for keyword analysis
-      example:
-        keywords:
-        - beach
-        - place
-        - sand
-        - ocean
-      properties:
-        keywords:
-          description: The top keywords from the submitted text
-          type: array
-          items:
-            type: string
-    CollectionDataList:
-      description: List of collections
-      example:
-        data:
-        - created_time: '2014-11-05T19:29:56-05:00'
-          id: '5747953'
-          name: Test Collection cdad
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:56-05:00'
-        - created_time: '2014-11-05T19:29:56-05:00'
-          id: '5747955'
-          name: Test Collection ff5f
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:56-05:00'
-        - created_time: '2014-11-05T19:29:58-05:00'
-          id: '5747957'
-          name: Updated Collection ebc4
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:58-05:00'
-        - created_time: '2014-11-05T19:32:13-05:00'
-          id: '5747971'
-          name: Test Collection 0072
-          total_item_count: 0
-          updated_time: '2014-11-05T19:32:13-05:00'
-        - created_time: '2014-11-05T19:32:13-05:00'
-          id: '5747973'
-          name: Test Collection d332
-          total_item_count: 0
-          updated_time: '2014-11-05T19:32:13-05:00'
-      properties:
-        data:
-          description: Collections
-          items:
-            $ref: '#/components/schemas/Collection'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
     UpdatedMedia:
       description: Information about a piece of updated media
       properties:
@@ -2768,46 +2789,25 @@ components:
       - updated_time
       - updates
       type: object
-    DownloadHistoryDataList:
-      description: List of download events
+    Cookie:
+      description: Cookie object
       properties:
-        data:
-          description: Download events
-          items:
-            $ref: '#/components/schemas/DownloadHistory'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
+        name:
+          description: The name of the cookie
           type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
-    CollectionItem:
-      description: Metadata about an item that is part of a collection
-      properties:
-        added_time:
-          description: The date the item was added to the collection
-          format: date-time
-          type: string
-        id:
-          description: ID of the item
-          type: string
-        media_type:
-          description: The media type of the item, such as image, video, or audio
+        value:
+          description: The value of the cookie
           type: string
       required:
-      - id
+      - name
+      - value
+      type: object
+    ModelRelease:
+      description: Model and property release metadata
+      properties:
+        id:
+          description: ID of the model or property release
+          type: string
       type: object
   securitySchemes:
     basic:
