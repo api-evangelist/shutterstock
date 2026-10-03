@@ -345,171 +345,6 @@ components:
       required:
       - message
       type: object
-    CollectionDataList:
-      description: List of collections
-      example:
-        data:
-        - created_time: '2014-11-05T19:29:56-05:00'
-          id: '5747953'
-          name: Test Collection cdad
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:56-05:00'
-        - created_time: '2014-11-05T19:29:56-05:00'
-          id: '5747955'
-          name: Test Collection ff5f
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:56-05:00'
-        - created_time: '2014-11-05T19:29:58-05:00'
-          id: '5747957'
-          name: Updated Collection ebc4
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:58-05:00'
-        - created_time: '2014-11-05T19:32:13-05:00'
-          id: '5747971'
-          name: Test Collection 0072
-          total_item_count: 0
-          updated_time: '2014-11-05T19:32:13-05:00'
-        - created_time: '2014-11-05T19:32:13-05:00'
-          id: '5747973'
-          name: Test Collection d332
-          total_item_count: 0
-          updated_time: '2014-11-05T19:32:13-05:00'
-      properties:
-        data:
-          description: Collections
-          items:
-            $ref: '#/components/schemas/Collection'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
-    Collection:
-      description: Metadata about a collection of assets
-      properties:
-        cover_item:
-          $ref: '#/components/schemas/CollectionItem'
-        created_time:
-          description: When the collection was created
-          format: date-time
-          type: string
-        id:
-          description: The collection ID
-          type: string
-        items_updated_time:
-          description: The last time this collection's items were updated
-          format: date-time
-          type: string
-        name:
-          description: The name of the collection
-          type: string
-        share_code:
-          description: A code that can be used to share the collection (optional)
-          type: string
-        share_url:
-          description: The browser URL that can be used to share the collection (optional)
-          type: string
-        total_item_count:
-          description: The number of items in the collection
-          type: integer
-        updated_time:
-          description: The last time the collection was update (other than changes to the items in it)
-          format: date-time
-          type: string
-      required:
-      - id
-      - name
-      - total_item_count
-      type: object
-    ContributorProfileDataList:
-      description: List of contributor profiles
-      properties:
-        data:
-          description: Conributor profiles
-          items:
-            $ref: '#/components/schemas/ContributorProfile'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Error message
-          type: string
-        page:
-          description: Page of response
-          type: integer
-        per_page:
-          description: Number of contributors per page
-          type: integer
-        total_count:
-          description: Total count of contributors for this request
-          type: integer
-    CollectionItem:
-      description: Metadata about an item that is part of a collection
-      properties:
-        added_time:
-          description: The date the item was added to the collection
-          format: date-time
-          type: string
-        id:
-          description: ID of the item
-          type: string
-        media_type:
-          description: The media type of the item, such as image, video, or audio
-          type: string
-      required:
-      - id
-      type: object
-    CollectionItemDataList:
-      description: List of items in a collection
-      example:
-        data:
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '76688182'
-          media_type: audio
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '40005859'
-          media_type: audio
-        page: 1
-        per_page: 100
-      properties:
-        data:
-          description: Assets in the collection
-          items:
-            $ref: '#/components/schemas/CollectionItem'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
     ContributorProfileSocialMedia:
       description: Contributor profile social media links
       properties:
@@ -579,6 +414,171 @@ components:
       required:
       - id
       type: object
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
+      properties:
+        data:
+          description: Assets in the collection
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    Collection:
+      description: Metadata about a collection of assets
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/CollectionItem'
+        created_time:
+          description: When the collection was created
+          format: date-time
+          type: string
+        id:
+          description: The collection ID
+          type: string
+        items_updated_time:
+          description: The last time this collection's items were updated
+          format: date-time
+          type: string
+        name:
+          description: The name of the collection
+          type: string
+        share_code:
+          description: A code that can be used to share the collection (optional)
+          type: string
+        share_url:
+          description: The browser URL that can be used to share the collection (optional)
+          type: string
+        total_item_count:
+          description: The number of items in the collection
+          type: integer
+        updated_time:
+          description: The last time the collection was update (other than changes to the items in it)
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    CollectionItem:
+      description: Metadata about an item that is part of a collection
+      properties:
+        added_time:
+          description: The date the item was added to the collection
+          format: date-time
+          type: string
+        id:
+          description: ID of the item
+          type: string
+        media_type:
+          description: The media type of the item, such as image, video, or audio
+          type: string
+      required:
+      - id
+      type: object
+    CollectionDataList:
+      description: List of collections
+      example:
+        data:
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747953'
+          name: Test Collection cdad
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747955'
+          name: Test Collection ff5f
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:58-05:00'
+          id: '5747957'
+          name: Updated Collection ebc4
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:58-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747971'
+          name: Test Collection 0072
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747973'
+          name: Test Collection d332
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+      properties:
+        data:
+          description: Collections
+          items:
+            $ref: '#/components/schemas/Collection'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    ContributorProfileDataList:
+      description: List of contributor profiles
+      properties:
+        data:
+          description: Conributor profiles
+          items:
+            $ref: '#/components/schemas/ContributorProfile'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Error message
+          type: string
+        page:
+          description: Page of response
+          type: integer
+        per_page:
+          description: Number of contributors per page
+          type: integer
+        total_count:
+          description: Total count of contributors for this request
+          type: integer
   securitySchemes:
     basic:
       type: http

@@ -140,42 +140,6 @@ paths:
       summary: List user subscriptions
 components:
   schemas:
-    Price:
-      description: Price
-      properties:
-        local_amount:
-          description: Dollar amount of the calculated rev-share price in the currency local_currency
-          type: number
-        local_currency:
-          description: Currency of the rev-share price that was calculated
-          type: string
-      type: object
-    Error:
-      description: Error object
-      properties:
-        code:
-          description: The error code of this error
-          type: string
-        data:
-          description: Debugging information about the error
-          type: string
-        items:
-          description: A list of items that produced the error
-          items:
-            type: object
-          type: array
-        message:
-          description: Specific details about this error
-          type: string
-        path:
-          description: Internal code reference to the source of the error
-          type: string
-      required:
-      - message
-      type: object
-    SubscriptionMetadata:
-      description: Subscription metadata
-      type: object
     LicenseFormat:
       description: Description of a license
       properties:
@@ -200,23 +164,28 @@ components:
           description: Keyword that details the size of the media, such as hd or sd for video, huge or vector for images
           type: string
       type: object
-    Allotment:
-      description: An allotment of credits as part of a subscription
+    Error:
+      description: Error object
       properties:
-        downloads_left:
-          description: Number of credits remaining in the subscription
-          type: integer
-        downloads_limit:
-          description: Total number of credits available to this subscription
-          type: integer
-        end_time:
-          description: Date the subscription ends
-          format: date-time
+        code:
+          description: The error code of this error
           type: string
-        start_time:
-          description: Date the subscription started
-          format: date-time
+        data:
+          description: Debugging information about the error
           type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
       type: object
     SubscriptionDataList:
       description: List of subscriptions
@@ -243,6 +212,70 @@ components:
         total_count:
           description: Total number of subscriptions for this user
           type: integer
+    Allotment:
+      description: An allotment of credits as part of a subscription
+      properties:
+        downloads_left:
+          description: Number of credits remaining in the subscription
+          type: integer
+        downloads_limit:
+          description: Total number of credits available to this subscription
+          type: integer
+        end_time:
+          description: Date the subscription ends
+          format: date-time
+          type: string
+        start_time:
+          description: Date the subscription started
+          format: date-time
+          type: string
+      type: object
+    AccessTokenDetails:
+      description: Access token details that are currently associated with this user
+      properties:
+        client_id:
+          description: Client ID that is associated with the user
+          type: string
+        contributor_id:
+          description: Contributor ID that is associated with the user
+          type: string
+        customer_id:
+          description: Customer ID that is associated with the user
+          type: string
+        expires_in:
+          description: Number of seconds until the access token expires; no expiration if this value is null
+          type: integer
+        organization_id:
+          description: Organization ID that is associated with the user
+          type: string
+        realm:
+          description: Type of access token
+          enum:
+          - customer
+          - contributor
+          type: string
+        scopes:
+          description: Scopes that this access token provides when used as authentication
+          items:
+            type: string
+          type: array
+        user_id:
+          description: User ID that is associated with the user
+          type: string
+        username:
+          description: User name that is associated with the user
+          type: string
+      type: object
+    Price:
+      description: Price
+      properties:
+        local_amount:
+          description: Dollar amount of the calculated rev-share price in the currency local_currency
+          type: number
+        local_currency:
+          description: Currency of the rev-share price that was calculated
+          type: string
+      type: object
     UserDetails:
       description: User details
       properties:
@@ -327,41 +360,8 @@ components:
       required:
       - id
       type: object
-    AccessTokenDetails:
-      description: Access token details that are currently associated with this user
-      properties:
-        client_id:
-          description: Client ID that is associated with the user
-          type: string
-        contributor_id:
-          description: Contributor ID that is associated with the user
-          type: string
-        customer_id:
-          description: Customer ID that is associated with the user
-          type: string
-        expires_in:
-          description: Number of seconds until the access token expires; no expiration if this value is null
-          type: integer
-        organization_id:
-          description: Organization ID that is associated with the user
-          type: string
-        realm:
-          description: Type of access token
-          enum:
-          - customer
-          - contributor
-          type: string
-        scopes:
-          description: Scopes that this access token provides when used as authentication
-          items:
-            type: string
-          type: array
-        user_id:
-          description: User ID that is associated with the user
-          type: string
-        username:
-          description: User name that is associated with the user
-          type: string
+    SubscriptionMetadata:
+      description: Subscription metadata
       type: object
   securitySchemes:
     basic:

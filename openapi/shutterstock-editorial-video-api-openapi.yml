@@ -370,23 +370,6 @@ paths:
         required: true
 components:
   schemas:
-    LicenseEditorialContentResult:
-      description: The response to a licensing request for editorial content
-      properties:
-        allotment_charge:
-          description: For pre-paid plans, how many credits were used for the item license
-          type: integer
-        download:
-          $ref: '#/components/schemas/Url'
-          description: Information that is needed to download the image
-        editorial_id:
-          description: Editorial ID
-          type: string
-        error:
-          type: string
-      required:
-      - editorial_id
-      type: object
     Error:
       description: Error object
       properties:
@@ -409,6 +392,104 @@ components:
           type: string
       required:
       - message
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    LicenseEditorialVideoContentRequest:
+      description: License editorial video content request
+      properties:
+        country:
+          description: Mandatory country code for where the editorial content will be distributed; this value is used for rights checks
+          anyOf:
+          - type: string
+            format: country-code-3
+          - type: string
+            format: country-code-2
+          example: USA
+        editorial:
+          description: Editorial content to license
+          items:
+            $ref: '#/components/schemas/LicenseEditorialVideoContent'
+          type: array
+      required:
+      - country
+      - editorial
+      type: object
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    EditorialVideoAssets:
+      description: Asset information, including size and thumbnail URLs
+      properties:
+        original:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        preview_mp4:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+        preview_webm:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+        thumb_jpg:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+      type: object
+    EditorialCategory:
+      description: Name of an editorial category
+      properties:
+        name:
+          type: string
+      type: object
+    EditorialVideoCategoryResults:
+      description: List of editorial video categories
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
+    EditorialVideoSearchResults:
+      description: Editorial search results
+      properties:
+        data:
+          description: Editorial items
+          items:
+            $ref: '#/components/schemas/EditorialVideoContent'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        next:
+          description: Cursor value that represents the next page of results
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        prev:
+          description: Cursor value that represents the previous page of results
+          type: string
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+        total_count:
+          description: Total count of all results
+          type: integer
+      required:
+      - data
+      - total_count
       type: object
     VideoPreviewUrl:
       description: Video preview information
@@ -450,43 +531,6 @@ components:
           type: string
       required:
       - id
-      type: object
-    LicenseRequestMetadata:
-      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
-      example:
-        customer_id: '12345'
-        geo_location: US
-        number_viewed: '15'
-        search_term: dog
-      maxProperties: 4
-      properties: {}
-      type: object
-    EditorialCategory:
-      description: Name of an editorial category
-      properties:
-        name:
-          type: string
-      type: object
-    Url:
-      description: URL object
-      properties:
-        url:
-          description: URL that can be used to download the unwatermarked, licensed asset
-          type: string
-      required:
-      - url
-      type: object
-    EditorialVideoAssets:
-      description: Asset information, including size and thumbnail URLs
-      properties:
-        original:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        preview_mp4:
-          $ref: '#/components/schemas/VideoPreviewUrl'
-        preview_webm:
-          $ref: '#/components/schemas/VideoPreviewUrl'
-        thumb_jpg:
-          $ref: '#/components/schemas/VideoPreviewUrl'
       type: object
     LicenseEditorialContentResults:
       description: List of editorial license results
@@ -539,59 +583,6 @@ components:
       - editorial_id
       - license
       type: object
-    EditorialVideoSearchResults:
-      description: Editorial search results
-      properties:
-        data:
-          description: Editorial items
-          items:
-            $ref: '#/components/schemas/EditorialVideoContent'
-          type: array
-        message:
-          description: Optional error message
-          type: string
-        next:
-          description: Cursor value that represents the next page of results
-          type: string
-        page:
-          description: Current page of the response
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        prev:
-          description: Cursor value that represents the previous page of results
-          type: string
-        search_id:
-          description: Unique identifier for the search request
-          type: string
-        total_count:
-          description: Total count of all results
-          type: integer
-      required:
-      - data
-      - total_count
-      type: object
-    LicenseEditorialVideoContentRequest:
-      description: License editorial video content request
-      properties:
-        country:
-          description: Mandatory country code for where the editorial content will be distributed; this value is used for rights checks
-          anyOf:
-          - type: string
-            format: country-code-3
-          - type: string
-            format: country-code-2
-          example: USA
-        editorial:
-          description: Editorial content to license
-          items:
-            $ref: '#/components/schemas/LicenseEditorialVideoContent'
-          type: array
-      required:
-      - country
-      - editorial
-      type: object
     VideoSizeDetails:
       description: Video asset information
       properties:
@@ -617,14 +608,23 @@ components:
           description: Width of this video size
           type: integer
       type: object
-    EditorialVideoCategoryResults:
-      description: List of editorial video categories
-      type: object
+    LicenseEditorialContentResult:
+      description: The response to a licensing request for editorial content
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EditorialCategory'
+        allotment_charge:
+          description: For pre-paid plans, how many credits were used for the item license
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+          description: Information that is needed to download the image
+        editorial_id:
+          description: Editorial ID
+          type: string
+        error:
+          type: string
+      required:
+      - editorial_id
+      type: object
   securitySchemes:
     basic:
       type: http

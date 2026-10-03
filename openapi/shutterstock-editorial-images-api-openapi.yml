@@ -1390,70 +1390,55 @@ paths:
       deprecated: true
 components:
   schemas:
-    LicenseEditorialContentResult:
-      description: The response to a licensing request for editorial content
+    LicenseEditorialContent:
+      description: Individual editorial content to license
       properties:
-        allotment_charge:
-          description: For pre-paid plans, how many credits were used for the item license
-          type: integer
-        download:
-          $ref: '#/components/schemas/Url'
-          description: Information that is needed to download the image
         editorial_id:
           description: Editorial ID
           type: string
-        error:
+        license:
+          description: License agreement to use for licensing
+          type: string
+        metadata:
+          $ref: '#/components/schemas/LicenseRequestMetadata'
+        size:
+          description: Asset size to download
+          default: original
+          enum:
+          - small
+          - medium
+          - original
           type: string
       required:
       - editorial_id
+      - license
       type: object
-    Error:
-      description: Error object
+    EditorialImageContentDataList:
+      description: List of editorial items
       properties:
-        code:
-          description: The error code of this error
-          type: string
         data:
-          description: Debugging information about the error
-          type: string
-        items:
-          description: A list of items that produced the error
+          description: Editorial items
           items:
-            type: object
+            $ref: '#/components/schemas/EditorialContent'
           type: array
-        message:
-          description: Specific details about this error
-          type: string
-        path:
-          description: Internal code reference to the source of the error
-          type: string
-      required:
-      - message
-      type: object
-    EditorialUpdatedResults:
-      description: Editorial updated results
-      properties:
-        data:
-          description: Editorial updated items
+        errors:
+          description: Error list; appears only if there was an error
           items:
-            $ref: '#/components/schemas/EditorialUpdatedContent'
+            $ref: '#/components/schemas/Error'
           type: array
         message:
           description: Optional error message
           type: string
-        next:
-          description: Cursor value that represents the next page of results
-          type: string
+        page:
+          description: Current page of the response
+          type: integer
         per_page:
           description: Number of results per page
           type: integer
-        prev:
-          description: Cursor value that represents the previous page of results
-          type: string
-      required:
-      - data
-      type: object
-    EditorialImageLivefeed:
+        total_count:
+          description: Total count of all results
+          type: integer
+    EditorialLivefeed:
       description: Metadata about editorial livefeed
       properties:
         cover_item:
@@ -1476,30 +1461,125 @@ components:
       - name
       - total_item_count
       type: object
-    EditorialCategoryResults:
-      description: List of editorial categories
-      type: object
+    DownloadHistory:
+      description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
       properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EditorialCategory'
-    EditorialCategory:
-      description: Name of an editorial category
-      properties:
-        name:
+        audio:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        download_time:
+          description: Date the media was downloaded the first time
+          format: date-time
           type: string
-      type: object
-    DownloadHistoryMediaDetails:
-      description: Information about the downloaded media
-      properties:
-        format:
-          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
         id:
-          description: ID of the download history media details
+          description: ID of the download
           type: string
+        image:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
+        is_downloadable:
+          description: Specifies if the media is downloadable via its respective downloads endpoint
+          type: boolean
+        license:
+          description: The name of the license of this download
+          type: string
+        metadata:
+          description: The metadata that was passed in the original licensing request
+          type: object
+        subscription_id:
+          description: ID of the subscription used to perform this download
+          type: string
+        user:
+          $ref: '#/components/schemas/DownloadHistoryUserDetails'
+        video:
+          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
       required:
       - id
+      - download_time
+      - license
+      type: object
+    DownloadHistoryFormatDetails:
+      description: Information about the format of a download
+      properties:
+        format:
+          description: The format of the downloaded media
+          type: string
+        size:
+          description: The size of the downloaded media
+          type: string
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
+          type: string
+      required:
+      - url
+      type: object
+    EditorialLivefeedList:
+      description: List of editorial livefeeds
+      properties:
+        data:
+          description: Editorial livefeeds
+          items:
+            $ref: '#/components/schemas/EditorialLivefeed'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+      required:
+      - data
+      - total_count
+      type: object
+    EditorialAssets:
+      description: Asset information, including size and thumbnail URLs
+      properties:
+        original:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        thumb_170:
+          $ref: '#/components/schemas/Thumbnail'
+        thumb_220:
+          $ref: '#/components/schemas/Thumbnail'
+        watermark_450:
+          $ref: '#/components/schemas/Thumbnail'
+        watermark_1500:
+          $ref: '#/components/schemas/Thumbnail'
+        small_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+        medium_jpg:
+          $ref: '#/components/schemas/ImageSizeDetails'
+      type: object
+    ImageSizeDetails:
+      description: Image size information
+      properties:
+        display_name:
+          description: Display name of this image size
+          type: string
+        dpi:
+          type: integer
+        file_size:
+          description: File size (in bytes) of this image size
+          type: integer
+        format:
+          description: Format of this image size
+          type: string
+        height:
+          description: Height of this image size
+          type: integer
+        is_licensable:
+          description: Whether or not this image can be licensed in this image size
+          type: boolean
+        width:
+          description: Width of this image size
+          type: integer
       type: object
     EditorialContent:
       description: Metadata about editorial content
@@ -1533,107 +1613,6 @@ components:
       required:
       - id
       type: object
-    DownloadHistoryUserDetails:
-      description: Information about a user
-      properties:
-        username:
-          description: The name of the user who downloaded the item
-          type: string
-      required:
-      - username
-      type: object
-    Url:
-      description: URL object
-      properties:
-        url:
-          description: URL that can be used to download the unwatermarked, licensed asset
-          type: string
-      required:
-      - url
-      type: object
-    EditorialContentDataList:
-      description: List of editorial items
-      properties:
-        data:
-          description: Editorial items
-          items:
-            $ref: '#/components/schemas/EditorialContent'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Optional error message
-          type: string
-        page:
-          description: Current page of the response
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results
-          type: integer
-    EditorialCoverItem:
-      description: Cover image for editorial livefeed
-      properties:
-        height:
-          type: integer
-        id:
-          type: string
-        url:
-          type: string
-        width:
-          type: integer
-      required:
-      - id
-      - url
-      type: object
-    EditorialAssets:
-      description: Asset information, including size and thumbnail URLs
-      properties:
-        original:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        thumb_170:
-          $ref: '#/components/schemas/Thumbnail'
-        thumb_220:
-          $ref: '#/components/schemas/Thumbnail'
-        watermark_450:
-          $ref: '#/components/schemas/Thumbnail'
-        watermark_1500:
-          $ref: '#/components/schemas/Thumbnail'
-        small_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-        medium_jpg:
-          $ref: '#/components/schemas/ImageSizeDetails'
-      type: object
-    DownloadHistoryDataList:
-      description: List of download events
-      properties:
-        data:
-          description: Download events
-          items:
-            $ref: '#/components/schemas/DownloadHistory'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
     EditorialImageCategoryResults:
       description: List of editorial categories
       type: object
@@ -1642,142 +1621,6 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/EditorialCategory'
-    LicenseRequestMetadata:
-      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
-      example:
-        customer_id: '12345'
-        geo_location: US
-        number_viewed: '15'
-        search_term: dog
-      maxProperties: 4
-      properties: {}
-      type: object
-    EditorialLivefeedList:
-      description: List of editorial livefeeds
-      properties:
-        data:
-          description: Editorial livefeeds
-          items:
-            $ref: '#/components/schemas/EditorialLivefeed'
-          type: array
-        message:
-          description: Optional error message
-          type: string
-        page:
-          description: Current page of the response
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results
-          type: integer
-      required:
-      - data
-      - total_count
-      type: object
-    ImageSizeDetails:
-      description: Image size information
-      properties:
-        display_name:
-          description: Display name of this image size
-          type: string
-        dpi:
-          type: integer
-        file_size:
-          description: File size (in bytes) of this image size
-          type: integer
-        format:
-          description: Format of this image size
-          type: string
-        height:
-          description: Height of this image size
-          type: integer
-        is_licensable:
-          description: Whether or not this image can be licensed in this image size
-          type: boolean
-        width:
-          description: Width of this image size
-          type: integer
-      type: object
-    LicenseEditorialContentResults:
-      description: List of editorial license results
-      properties:
-        data:
-          description: License results
-          items:
-            $ref: '#/components/schemas/LicenseEditorialContentResult'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Optional error message
-          type: string
-        page:
-          description: Current page of the response
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results
-          type: integer
-    EditorialSearchResults:
-      description: Editorial search results
-      properties:
-        data:
-          description: Editorial items
-          items:
-            $ref: '#/components/schemas/EditorialContent'
-          type: array
-        message:
-          description: Optional error message
-          type: string
-        next:
-          description: Cursor value that represents the next page of results
-          type: string
-        page:
-          description: Current page of the response
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        prev:
-          description: Cursor value that represents the previous page of results
-          type: string
-        search_id:
-          description: Unique identifier for the search request
-          type: string
-        total_count:
-          description: Total count of all results
-          type: integer
-      required:
-      - data
-      - total_count
-      type: object
-    LicenseEditorialContentRequest:
-      description: License editorial content request
-      properties:
-        country:
-          description: Mandatory country code for where the editorial content will be distributed; this value is used for rights checks
-          anyOf:
-          - type: string
-            format: country-code-3
-          - type: string
-            format: country-code-2
-          example: USA
-        editorial:
-          description: Editorial content to license
-          items:
-            $ref: '#/components/schemas/LicenseEditorialContent'
-          type: array
-      required:
-      - country
-      - editorial
-      type: object
     EditorialUpdatedContent:
       description: Metadata about updated editorial content
       properties:
@@ -1833,138 +1676,42 @@ components:
       required:
       - id
       type: object
-    EditorialLivefeed:
-      description: Metadata about editorial livefeed
+    LicenseEditorialContentRequest:
+      description: License editorial content request
       properties:
-        cover_item:
-          $ref: '#/components/schemas/EditorialCoverItem'
-        created_time:
-          description: When the livefeed was initially created
-          format: date-time
-          type: string
-        id:
-          description: Livefeed ID
-          type: string
-        name:
-          description: Name of the livefeed
-          type: string
-        total_item_count:
-          description: Total count of items in the livefeed
-          type: integer
+        country:
+          description: Mandatory country code for where the editorial content will be distributed; this value is used for rights checks
+          anyOf:
+          - type: string
+            format: country-code-3
+          - type: string
+            format: country-code-2
+          example: USA
+        editorial:
+          description: Editorial content to license
+          items:
+            $ref: '#/components/schemas/LicenseEditorialContent'
+          type: array
       required:
-      - id
-      - name
-      - total_item_count
+      - country
+      - editorial
       type: object
-    DownloadHistoryFormatDetails:
-      description: Information about the format of a download
+    LicenseEditorialContentResult:
+      description: The response to a licensing request for editorial content
       properties:
-        format:
-          description: The format of the downloaded media
-          type: string
-        size:
-          description: The size of the downloaded media
-          type: string
-      type: object
-    LicenseEditorialContent:
-      description: Individual editorial content to license
-      properties:
+        allotment_charge:
+          description: For pre-paid plans, how many credits were used for the item license
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+          description: Information that is needed to download the image
         editorial_id:
           description: Editorial ID
           type: string
-        license:
-          description: License agreement to use for licensing
-          type: string
-        metadata:
-          $ref: '#/components/schemas/LicenseRequestMetadata'
-        size:
-          description: Asset size to download
-          default: original
-          enum:
-          - small
-          - medium
-          - original
+        error:
           type: string
       required:
       - editorial_id
-      - license
-      type: object
-    Thumbnail:
-      description: Image thumbnail information
-      properties:
-        height:
-          description: Height in pixels of the image thumbnail
-          type: integer
-        url:
-          description: Direct URL to the image
-          type: string
-        width:
-          description: Width in pixels of the image thumbnail
-          type: integer
-      required:
-      - url
-      - height
-      - width
-      type: object
-    EditorialImageContentDataList:
-      description: List of editorial items
-      properties:
-        data:
-          description: Editorial items
-          items:
-            $ref: '#/components/schemas/EditorialContent'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Optional error message
-          type: string
-        page:
-          description: Current page of the response
-          type: integer
-        per_page:
-          description: Number of results per page
-          type: integer
-        total_count:
-          description: Total count of all results
-          type: integer
-    DownloadHistory:
-      description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
-      properties:
-        audio:
-          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
-        download_time:
-          description: Date the media was downloaded the first time
-          format: date-time
-          type: string
-        id:
-          description: ID of the download
-          type: string
-        image:
-          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
-        is_downloadable:
-          description: Specifies if the media is downloadable via its respective downloads endpoint
-          type: boolean
-        license:
-          description: The name of the license of this download
-          type: string
-        metadata:
-          description: The metadata that was passed in the original licensing request
-          type: object
-        subscription_id:
-          description: ID of the subscription used to perform this download
-          type: string
-        user:
-          $ref: '#/components/schemas/DownloadHistoryUserDetails'
-        video:
-          $ref: '#/components/schemas/DownloadHistoryMediaDetails'
-      required:
-      - id
-      - download_time
-      - license
       type: object
     EditorialImageLivefeedList:
       description: List of editorial livefeeds
@@ -1990,6 +1737,259 @@ components:
       - data
       - total_count
       type: object
+    DownloadHistoryMediaDetails:
+      description: Information about the downloaded media
+      properties:
+        format:
+          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
+        id:
+          description: ID of the download history media details
+          type: string
+      required:
+      - id
+      type: object
+    DownloadHistoryDataList:
+      description: List of download events
+      properties:
+        data:
+          description: Download events
+          items:
+            $ref: '#/components/schemas/DownloadHistory'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    EditorialSearchResults:
+      description: Editorial search results
+      properties:
+        data:
+          description: Editorial items
+          items:
+            $ref: '#/components/schemas/EditorialContent'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        next:
+          description: Cursor value that represents the next page of results
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        prev:
+          description: Cursor value that represents the previous page of results
+          type: string
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+        total_count:
+          description: Total count of all results
+          type: integer
+      required:
+      - data
+      - total_count
+      type: object
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    EditorialCategory:
+      description: Name of an editorial category
+      properties:
+        name:
+          type: string
+      type: object
+    LicenseEditorialContentResults:
+      description: List of editorial license results
+      properties:
+        data:
+          description: License results
+          items:
+            $ref: '#/components/schemas/LicenseEditorialContentResult'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+    EditorialContentDataList:
+      description: List of editorial items
+      properties:
+        data:
+          description: Editorial items
+          items:
+            $ref: '#/components/schemas/EditorialContent'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        page:
+          description: Current page of the response
+          type: integer
+        per_page:
+          description: Number of results per page
+          type: integer
+        total_count:
+          description: Total count of all results
+          type: integer
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
+    DownloadHistoryUserDetails:
+      description: Information about a user
+      properties:
+        username:
+          description: The name of the user who downloaded the item
+          type: string
+      required:
+      - username
+      type: object
+    EditorialCoverItem:
+      description: Cover image for editorial livefeed
+      properties:
+        height:
+          type: integer
+        id:
+          type: string
+        url:
+          type: string
+        width:
+          type: integer
+      required:
+      - id
+      - url
+      type: object
+    EditorialUpdatedResults:
+      description: Editorial updated results
+      properties:
+        data:
+          description: Editorial updated items
+          items:
+            $ref: '#/components/schemas/EditorialUpdatedContent'
+          type: array
+        message:
+          description: Optional error message
+          type: string
+        next:
+          description: Cursor value that represents the next page of results
+          type: string
+        per_page:
+          description: Number of results per page
+          type: integer
+        prev:
+          description: Cursor value that represents the previous page of results
+          type: string
+      required:
+      - data
+      type: object
+    Thumbnail:
+      description: Image thumbnail information
+      properties:
+        height:
+          description: Height in pixels of the image thumbnail
+          type: integer
+        url:
+          description: Direct URL to the image
+          type: string
+        width:
+          description: Width in pixels of the image thumbnail
+          type: integer
+      required:
+      - url
+      - height
+      - width
+      type: object
+    EditorialImageLivefeed:
+      description: Metadata about editorial livefeed
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/EditorialCoverItem'
+        created_time:
+          description: When the livefeed was initially created
+          format: date-time
+          type: string
+        id:
+          description: Livefeed ID
+          type: string
+        name:
+          description: Name of the livefeed
+          type: string
+        total_item_count:
+          description: Total count of items in the livefeed
+          type: integer
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    EditorialCategoryResults:
+      description: List of editorial categories
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
   securitySchemes:
     basic:
       type: http
