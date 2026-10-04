@@ -370,28 +370,82 @@ paths:
         required: true
 components:
   schemas:
-    Error:
-      description: Error object
+    EditorialVideoContent:
+      description: Metadata about editorial content
       properties:
-        code:
-          description: The error code of this error
+        aspect:
+          type: number
+        assets:
+          $ref: '#/components/schemas/EditorialVideoAssets'
+        byline:
           type: string
-        data:
-          description: Debugging information about the error
+        caption:
           type: string
-        items:
-          description: A list of items that produced the error
+        categories:
+          description: List of categories
           items:
-            type: object
+            $ref: '#/components/schemas/EditorialCategory'
           type: array
-        message:
-          description: Specific details about this error
+        date_taken:
+          format: date
           type: string
-        path:
-          description: Internal code reference to the source of the error
+        description:
+          type: string
+        id:
+          type: string
+        keywords:
+          items:
+            type: string
+          type: array
+        title:
           type: string
       required:
-      - message
+      - id
+      type: object
+    VideoPreviewUrl:
+      description: Video preview information
+      properties:
+        url:
+          description: Direct URL to the image
+          type: string
+      required:
+      - url
+      type: object
+    LicenseEditorialVideoContent:
+      description: Individual editorial video content to license
+      properties:
+        editorial_id:
+          description: Editorial ID
+          type: string
+        license:
+          description: License agreement to use for licensing
+          type: string
+          enum:
+          - premier_editorial_video_digital_only
+          - premier_editorial_video_all_media
+          - premier_editorial_video_all_media_single_territory
+          - premier_editorial_video_comp
+        metadata:
+          $ref: '#/components/schemas/LicenseRequestMetadata'
+        size:
+          description: Asset size to download
+          default: original
+          enum:
+          - original
+          type: string
+      required:
+      - editorial_id
+      - license
+      type: object
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
       type: object
     Url:
       description: URL object
@@ -422,42 +476,6 @@ components:
       - country
       - editorial
       type: object
-    LicenseRequestMetadata:
-      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
-      example:
-        customer_id: '12345'
-        geo_location: US
-        number_viewed: '15'
-        search_term: dog
-      maxProperties: 4
-      properties: {}
-      type: object
-    EditorialVideoAssets:
-      description: Asset information, including size and thumbnail URLs
-      properties:
-        original:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        preview_mp4:
-          $ref: '#/components/schemas/VideoPreviewUrl'
-        preview_webm:
-          $ref: '#/components/schemas/VideoPreviewUrl'
-        thumb_jpg:
-          $ref: '#/components/schemas/VideoPreviewUrl'
-      type: object
-    EditorialCategory:
-      description: Name of an editorial category
-      properties:
-        name:
-          type: string
-      type: object
-    EditorialVideoCategoryResults:
-      description: List of editorial video categories
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/EditorialCategory'
     EditorialVideoSearchResults:
       description: Editorial search results
       properties:
@@ -491,46 +509,11 @@ components:
       - data
       - total_count
       type: object
-    VideoPreviewUrl:
-      description: Video preview information
+    EditorialCategory:
+      description: Name of an editorial category
       properties:
-        url:
-          description: Direct URL to the image
+        name:
           type: string
-      required:
-      - url
-      type: object
-    EditorialVideoContent:
-      description: Metadata about editorial content
-      properties:
-        aspect:
-          type: number
-        assets:
-          $ref: '#/components/schemas/EditorialVideoAssets'
-        byline:
-          type: string
-        caption:
-          type: string
-        categories:
-          description: List of categories
-          items:
-            $ref: '#/components/schemas/EditorialCategory'
-          type: array
-        date_taken:
-          format: date
-          type: string
-        description:
-          type: string
-        id:
-          type: string
-        keywords:
-          items:
-            type: string
-          type: array
-        title:
-          type: string
-      required:
-      - id
       type: object
     LicenseEditorialContentResults:
       description: List of editorial license results
@@ -557,31 +540,22 @@ components:
         total_count:
           description: Total count of all results
           type: integer
-    LicenseEditorialVideoContent:
-      description: Individual editorial video content to license
+    LicenseEditorialContentResult:
+      description: The response to a licensing request for editorial content
       properties:
+        allotment_charge:
+          description: For pre-paid plans, how many credits were used for the item license
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+          description: Information that is needed to download the image
         editorial_id:
           description: Editorial ID
           type: string
-        license:
-          description: License agreement to use for licensing
-          type: string
-          enum:
-          - premier_editorial_video_digital_only
-          - premier_editorial_video_all_media
-          - premier_editorial_video_all_media_single_territory
-          - premier_editorial_video_comp
-        metadata:
-          $ref: '#/components/schemas/LicenseRequestMetadata'
-        size:
-          description: Asset size to download
-          default: original
-          enum:
-          - original
+        error:
           type: string
       required:
       - editorial_id
-      - license
       type: object
     VideoSizeDetails:
       description: Video asset information
@@ -608,23 +582,49 @@ components:
           description: Width of this video size
           type: integer
       type: object
-    LicenseEditorialContentResult:
-      description: The response to a licensing request for editorial content
+    EditorialVideoAssets:
+      description: Asset information, including size and thumbnail URLs
       properties:
-        allotment_charge:
-          description: For pre-paid plans, how many credits were used for the item license
-          type: integer
-        download:
-          $ref: '#/components/schemas/Url'
-          description: Information that is needed to download the image
-        editorial_id:
-          description: Editorial ID
+        original:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        preview_mp4:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+        preview_webm:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+        thumb_jpg:
+          $ref: '#/components/schemas/VideoPreviewUrl'
+      type: object
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
           type: string
-        error:
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
           type: string
       required:
-      - editorial_id
+      - message
       type: object
+    EditorialVideoCategoryResults:
+      description: List of editorial video categories
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/EditorialCategory'
   securitySchemes:
     basic:
       type: http

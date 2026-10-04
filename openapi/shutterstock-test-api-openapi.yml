@@ -93,10 +93,11 @@ paths:
       summary: Validate input
 components:
   schemas:
-    TestEcho:
-      description: Text to echo in the response
+    TestValidateHeader:
+      description: Validation results
       properties:
-        text:
+        user-agent:
+          description: User agent to expect in the response
           type: string
       type: object
     TestValidateQuery:
@@ -113,13 +114,6 @@ components:
       required:
       - id
       type: object
-    TestValidateHeader:
-      description: Validation results
-      properties:
-        user-agent:
-          description: User agent to expect in the response
-          type: string
-      type: object
     TestValidate:
       description: Validation results
       properties:
@@ -129,6 +123,12 @@ components:
         query:
           $ref: '#/components/schemas/TestValidateQuery'
           description: Query as included in the request
+      type: object
+    TestEcho:
+      description: Text to echo in the response
+      properties:
+        text:
+          type: string
       type: object
   securitySchemes:
     basic:

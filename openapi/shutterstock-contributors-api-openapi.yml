@@ -322,133 +322,6 @@ paths:
       description: This endpoint lists the IDs of items in a contributor's collection and the date that each was added.
 components:
   schemas:
-    Error:
-      description: Error object
-      properties:
-        code:
-          description: The error code of this error
-          type: string
-        data:
-          description: Debugging information about the error
-          type: string
-        items:
-          description: A list of items that produced the error
-          items:
-            type: object
-          type: array
-        message:
-          description: Specific details about this error
-          type: string
-        path:
-          description: Internal code reference to the source of the error
-          type: string
-      required:
-      - message
-      type: object
-    ContributorProfileSocialMedia:
-      description: Contributor profile social media links
-      properties:
-        facebook:
-          description: Facebook link for contributor
-          type: string
-        google_plus:
-          description: Google+ link for contributor
-          type: string
-        linkedin:
-          description: LinkedIn link for contributor
-          type: string
-        pinterest:
-          description: Pinterest page for contributor
-          type: string
-        tumblr:
-          description: Tumblr link for contributor
-          type: string
-        twitter:
-          description: Twitter link for contributor
-          type: string
-      type: object
-    ContributorProfile:
-      description: Contributor profile data
-      properties:
-        about:
-          description: Short description of the contributors' library
-          type: string
-        contributor_type:
-          description: Type of content that the contributor specializes in (photographer, illustrator, etc)
-          items:
-            type: string
-          type: array
-        display_name:
-          description: Preferred name to be displayed for the contributor
-          type: string
-        equipment:
-          description: List of equipment used by the contributor (Canon EOS 5D Mark II, etc)
-          items:
-            type: string
-          type: array
-        id:
-          description: Contributor ID
-          type: string
-        location:
-          description: Country code representing the contributor's locale
-          type: string
-          format: country-code-2
-        portfolio_url:
-          description: Web URL for the contributors' profile
-          type: string
-        social_media:
-          $ref: '#/components/schemas/ContributorProfileSocialMedia'
-        styles:
-          description: List of styles that the contributor specializes in (lifestyle, mixed media, etc)
-          items:
-            type: string
-          type: array
-        subjects:
-          description: Generic list of subjects for contributors' work (food_and_drink, holiday, people, etc)
-          items:
-            type: string
-          type: array
-        website:
-          description: Personal website for the contributor
-          type: string
-      required:
-      - id
-      type: object
-    CollectionItemDataList:
-      description: List of items in a collection
-      example:
-        data:
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '76688182'
-          media_type: audio
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '40005859'
-          media_type: audio
-        page: 1
-        per_page: 100
-      properties:
-        data:
-          description: Assets in the collection
-          items:
-            $ref: '#/components/schemas/CollectionItem'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
     Collection:
       description: Metadata about a collection of assets
       properties:
@@ -486,22 +359,41 @@ components:
       - name
       - total_item_count
       type: object
-    CollectionItem:
-      description: Metadata about an item that is part of a collection
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
       properties:
-        added_time:
-          description: The date the item was added to the collection
-          format: date-time
+        data:
+          description: Assets in the collection
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
           type: string
-        id:
-          description: ID of the item
-          type: string
-        media_type:
-          description: The media type of the item, such as image, video, or audio
-          type: string
-      required:
-      - id
-      type: object
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
     CollectionDataList:
       description: List of collections
       example:
@@ -579,6 +471,114 @@ components:
         total_count:
           description: Total count of contributors for this request
           type: integer
+    ContributorProfileSocialMedia:
+      description: Contributor profile social media links
+      properties:
+        facebook:
+          description: Facebook link for contributor
+          type: string
+        google_plus:
+          description: Google+ link for contributor
+          type: string
+        linkedin:
+          description: LinkedIn link for contributor
+          type: string
+        pinterest:
+          description: Pinterest page for contributor
+          type: string
+        tumblr:
+          description: Tumblr link for contributor
+          type: string
+        twitter:
+          description: Twitter link for contributor
+          type: string
+      type: object
+    CollectionItem:
+      description: Metadata about an item that is part of a collection
+      properties:
+        added_time:
+          description: The date the item was added to the collection
+          format: date-time
+          type: string
+        id:
+          description: ID of the item
+          type: string
+        media_type:
+          description: The media type of the item, such as image, video, or audio
+          type: string
+      required:
+      - id
+      type: object
+    ContributorProfile:
+      description: Contributor profile data
+      properties:
+        about:
+          description: Short description of the contributors' library
+          type: string
+        contributor_type:
+          description: Type of content that the contributor specializes in (photographer, illustrator, etc)
+          items:
+            type: string
+          type: array
+        display_name:
+          description: Preferred name to be displayed for the contributor
+          type: string
+        equipment:
+          description: List of equipment used by the contributor (Canon EOS 5D Mark II, etc)
+          items:
+            type: string
+          type: array
+        id:
+          description: Contributor ID
+          type: string
+        location:
+          description: Country code representing the contributor's locale
+          type: string
+          format: country-code-2
+        portfolio_url:
+          description: Web URL for the contributors' profile
+          type: string
+        social_media:
+          $ref: '#/components/schemas/ContributorProfileSocialMedia'
+        styles:
+          description: List of styles that the contributor specializes in (lifestyle, mixed media, etc)
+          items:
+            type: string
+          type: array
+        subjects:
+          description: Generic list of subjects for contributors' work (food_and_drink, holiday, people, etc)
+          items:
+            type: string
+          type: array
+        website:
+          description: Personal website for the contributor
+          type: string
+      required:
+      - id
+      type: object
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
+      type: object
   securitySchemes:
     basic:
       type: http
