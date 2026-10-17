@@ -1565,484 +1565,6 @@ paths:
       description: This endpoint lists videos that have been updated in the specified time period to update content management systems (CMS) or digital asset management (DAM) systems. In most cases, use the `interval` parameter to show videos that were updated recently, but you can also use the `start_date` and `end_date` parameters to specify a range of no more than three days. Do not use the `interval` parameter with either `start_date` or `end_date`.
 components:
   schemas:
-    DownloadHistoryMediaDetails:
-      description: Information about the downloaded media
-      properties:
-        format:
-          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
-        id:
-          description: ID of the download history media details
-          type: string
-      required:
-      - id
-      type: object
-    Contributor:
-      description: Information about a contributor
-      properties:
-        id:
-          description: ID of the contributor
-          type: string
-      required:
-      - id
-      type: object
-    Collection:
-      description: Metadata about a collection of assets
-      properties:
-        cover_item:
-          $ref: '#/components/schemas/CollectionItem'
-        created_time:
-          description: When the collection was created
-          format: date-time
-          type: string
-        id:
-          description: The collection ID
-          type: string
-        items_updated_time:
-          description: The last time this collection's items were updated
-          format: date-time
-          type: string
-        name:
-          description: The name of the collection
-          type: string
-        share_code:
-          description: A code that can be used to share the collection (optional)
-          type: string
-        share_url:
-          description: The browser URL that can be used to share the collection (optional)
-          type: string
-        total_item_count:
-          description: The number of items in the collection
-          type: integer
-        updated_time:
-          description: The last time the collection was update (other than changes to the items in it)
-          format: date-time
-          type: string
-      required:
-      - id
-      - name
-      - total_item_count
-      type: object
-    Urls:
-      description: List of URLs
-      properties:
-        urls:
-          description: URLs
-          items:
-            type: string
-          type: array
-      required:
-      - urls
-      type: object
-    CollectionCreateRequest:
-      description: Collection creation request
-      example:
-        name: Test Collection 19cf
-      properties:
-        name:
-          description: The name of the collection
-          type: string
-      required:
-      - name
-      type: object
-    LicenseRequestMetadata:
-      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
-      example:
-        customer_id: '12345'
-        geo_location: US
-        number_viewed: '15'
-        search_term: dog
-      maxProperties: 4
-      properties: {}
-      type: object
-    Category:
-      description: Category information
-      properties:
-        id:
-          description: Category ID
-          type: string
-        name:
-          description: Category name
-          type: string
-      type: object
-    LicenseVideoResult:
-      description: The response to a licensing request for a video
-      properties:
-        allotment_charge:
-          description: Number of credits that this licensing event used
-          type: integer
-        download:
-          $ref: '#/components/schemas/Url'
-        error:
-          description: Potential error that occurred during licensing
-          type: string
-        price:
-          $ref: '#/components/schemas/Price'
-          description: Wholesale price information; only for rev-share partners only
-        video_id:
-          description: ID of the video that was licensed
-          type: string
-      required:
-      - video_id
-      type: object
-    VideoAssets:
-      description: Video asset information
-      properties:
-        4k:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        hd:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        preview_jpg:
-          $ref: '#/components/schemas/Url'
-        preview_mp4:
-          $ref: '#/components/schemas/Url'
-        preview_webm:
-          $ref: '#/components/schemas/Url'
-        sd:
-          $ref: '#/components/schemas/VideoSizeDetails'
-        thumb_jpg:
-          $ref: '#/components/schemas/Url'
-        thumb_jpgs:
-          $ref: '#/components/schemas/Urls'
-        thumb_mp4:
-          $ref: '#/components/schemas/Url'
-        thumb_webm:
-          $ref: '#/components/schemas/Url'
-        web:
-          $ref: '#/components/schemas/VideoSizeDetails'
-      type: object
-    LicenseVideo:
-      description: Data required to license a video
-      example:
-        size: hd
-        subscription_id: s8241143
-        video_id: '2140697'
-      properties:
-        auth_cookie:
-          $ref: '#/components/schemas/Cookie'
-        editorial_acknowledgement:
-          description: Whether or not this item is editorial content
-          type: boolean
-        metadata:
-          $ref: '#/components/schemas/LicenseRequestMetadata'
-        price:
-          description: Retail price amount; only for rev-share partners
-          type: number
-        search_id:
-          description: ID of the search that led to this licensing event
-          type: string
-        show_modal:
-          description: (Deprecated)
-          type: boolean
-        size:
-          description: Size of the video being licensed
-          enum:
-          - web
-          - sd
-          - hd
-          - 4k
-          type: string
-        subscription_id:
-          description: ID of the subscription used for this license
-          type: string
-        video_id:
-          description: ID of the video being licensed
-          type: string
-      required:
-      - video_id
-      type: object
-    VideoSizeDetails:
-      description: Video asset information
-      properties:
-        display_name:
-          description: Display name of this video size
-          type: string
-        file_size:
-          description: File size (in bytes) of this video size
-          type: integer
-        format:
-          description: Format of this video size
-          type: string
-        fps:
-          description: Frames per second of this video size
-          type: number
-        height:
-          description: Height of this video size
-          type: integer
-        is_licensable:
-          description: Whether or not videos can be licensed in this video size
-          type: boolean
-        width:
-          description: Width of this video size
-          type: integer
-      type: object
-    Suggestions:
-      description: List of search suggestions
-      properties:
-        data:
-          description: Search suggestions
-          type: array
-          items:
-            type: string
-      type: object
-    CollectionItemDataList:
-      description: List of items in a collection
-      example:
-        data:
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '76688182'
-          media_type: audio
-        - added_time: '2016-08-18T18:52:59-04:00'
-          id: '40005859'
-          media_type: audio
-        page: 1
-        per_page: 100
-      properties:
-        data:
-          description: Assets in the collection
-          items:
-            $ref: '#/components/schemas/CollectionItem'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
-    CollectionItemRequest:
-      description: Request to get a list of items in a collection
-      properties:
-        items:
-          description: List of items
-          items:
-            $ref: '#/components/schemas/CollectionItem'
-          type: array
-      required:
-      - items
-      type: object
-    LicenseVideoRequest:
-      description: List of videos to license
-      properties:
-        videos:
-          description: Videos to license
-          items:
-            $ref: '#/components/schemas/LicenseVideo'
-          type: array
-      required:
-      - videos
-      type: object
-    RedownloadVideo:
-      description: Data required to redownload a video
-      properties:
-        auth_cookie:
-          description: (Deprecated)
-          deprecated: true
-          $ref: '#/components/schemas/Cookie'
-        show_modal:
-          description: (Deprecated)
-          deprecated: true
-          type: boolean
-        size:
-          description: Size of the video
-          enum:
-          - web
-          - sd
-          - hd
-          - 4k
-          type: string
-        verification_code:
-          description: (Deprecated)
-          deprecated: true
-          type: string
-      type: object
-    CategoryDataList:
-      description: List of categories that images can belong to
-      properties:
-        data:
-          description: Categories
-          items:
-            $ref: '#/components/schemas/Category'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
-    Error:
-      description: Error object
-      properties:
-        code:
-          description: The error code of this error
-          type: string
-        data:
-          description: Debugging information about the error
-          type: string
-        items:
-          description: A list of items that produced the error
-          items:
-            type: object
-          type: array
-        message:
-          description: Specific details about this error
-          type: string
-        path:
-          description: Internal code reference to the source of the error
-          type: string
-      required:
-      - message
-      type: object
-    DownloadHistoryFormatDetails:
-      description: Information about the format of a download
-      properties:
-        format:
-          description: The format of the downloaded media
-          type: string
-        size:
-          description: The size of the downloaded media
-          type: string
-      type: object
-    Cookie:
-      description: Cookie object
-      properties:
-        name:
-          description: The name of the cookie
-          type: string
-        value:
-          description: The value of the cookie
-          type: string
-      required:
-      - name
-      - value
-      type: object
-    CollectionDataList:
-      description: List of collections
-      example:
-        data:
-        - created_time: '2014-11-05T19:29:56-05:00'
-          id: '5747953'
-          name: Test Collection cdad
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:56-05:00'
-        - created_time: '2014-11-05T19:29:56-05:00'
-          id: '5747955'
-          name: Test Collection ff5f
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:56-05:00'
-        - created_time: '2014-11-05T19:29:58-05:00'
-          id: '5747957'
-          name: Updated Collection ebc4
-          total_item_count: 0
-          updated_time: '2014-11-05T19:29:58-05:00'
-        - created_time: '2014-11-05T19:32:13-05:00'
-          id: '5747971'
-          name: Test Collection 0072
-          total_item_count: 0
-          updated_time: '2014-11-05T19:32:13-05:00'
-        - created_time: '2014-11-05T19:32:13-05:00'
-          id: '5747973'
-          name: Test Collection d332
-          total_item_count: 0
-          updated_time: '2014-11-05T19:32:13-05:00'
-      properties:
-        data:
-          description: Collections
-          items:
-            $ref: '#/components/schemas/Collection'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
-          type: array
-        message:
-          description: Server-generated message, if any
-          type: string
-        page:
-          description: The current page of results
-          type: integer
-        per_page:
-          description: The number of results per page
-          type: integer
-        total_count:
-          description: The total number of results across all pages
-          type: integer
-    Url:
-      description: URL object
-      properties:
-        url:
-          description: URL that can be used to download the unwatermarked, licensed asset
-          type: string
-      required:
-      - url
-      type: object
-    UpdatedMedia:
-      description: Information about a piece of updated media
-      properties:
-        id:
-          description: ID of the media
-          type: string
-        updated_time:
-          description: Date that the media was updated
-          format: date-time
-          type: string
-        updates:
-          description: Types of updates that were made to the piece of media
-          items:
-            type: string
-          type: array
-      required:
-      - id
-      - updated_time
-      - updates
-      type: object
-    Language:
-      description: Language code
-      title: language
-      enum:
-      - cs
-      - da
-      - de
-      - en
-      - es
-      - fi
-      - fr
-      - hu
-      - it
-      - ja
-      - ko
-      - nb
-      - nl
-      - pl
-      - pt
-      - ru
-      - sv
-      - th
-      - tr
-      - zh
-      - zh-Hant
-      type: string
     CollectionItem:
       description: Metadata about an item that is part of a collection
       properties:
@@ -2127,13 +1649,13 @@ components:
       - media_type
       - contributor
       type: object
-    VideoDataList:
-      description: List of videos
+    LicenseVideoResultDataList:
+      description: List of video license results
       properties:
         data:
-          description: Videos
+          description: License results
           items:
-            $ref: '#/components/schemas/Video'
+            $ref: '#/components/schemas/LicenseVideoResult'
           type: array
         errors:
           description: Error list; appears only if there was an error
@@ -2152,38 +1674,6 @@ components:
         total_count:
           description: Total count of all results across all pages
           type: integer
-    CollectionUpdateRequest:
-      description: Collection update request
-      example:
-        name: My collection with a new name
-      properties:
-        name:
-          description: The new name of the collection
-          type: string
-      required:
-      - name
-      type: object
-    Price:
-      description: Price
-      properties:
-        local_amount:
-          description: Dollar amount of the calculated rev-share price in the currency local_currency
-          type: number
-        local_currency:
-          description: Currency of the rev-share price that was calculated
-          type: string
-      type: object
-    CollectionCreateResponse:
-      description: Collection creation response
-      example:
-        id: '48433105'
-      properties:
-        id:
-          description: ID of the new collection
-          type: string
-      required:
-      - id
-      type: object
     UpdatedMediaDataList:
       description: List of updated media
       properties:
@@ -2209,22 +1699,158 @@ components:
         total_count:
           description: Total count of all results across all pages
           type: integer
-    Model:
-      description: Information about a human model or property that appears in media; used to search for assets that this model is in
+    DownloadHistoryUserDetails:
+      description: Information about a user
       properties:
-        id:
-          description: ID of the model
+        username:
+          description: The name of the user who downloaded the item
           type: string
       required:
-      - id
+      - username
       type: object
-    VideoSearchResults:
-      description: Video search results
+    Language:
+      description: Language code
+      title: language
+      enum:
+      - cs
+      - da
+      - de
+      - en
+      - es
+      - fi
+      - fr
+      - hu
+      - it
+      - ja
+      - ko
+      - nb
+      - nl
+      - pl
+      - pt
+      - ru
+      - sv
+      - th
+      - tr
+      - zh
+      - zh-Hant
+      type: string
+    DownloadHistoryFormatDetails:
+      description: Information about the format of a download
+      properties:
+        format:
+          description: The format of the downloaded media
+          type: string
+        size:
+          description: The size of the downloaded media
+          type: string
+      type: object
+    Suggestions:
+      description: List of search suggestions
       properties:
         data:
-          description: List of videos
+          description: Search suggestions
+          type: array
+          items:
+            type: string
+      type: object
+    Urls:
+      description: List of URLs
+      properties:
+        urls:
+          description: URLs
+          items:
+            type: string
+          type: array
+      required:
+      - urls
+      type: object
+    CategoryDataList:
+      description: List of categories that images can belong to
+      properties:
+        data:
+          description: Categories
+          items:
+            $ref: '#/components/schemas/Category'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    DownloadHistoryDataList:
+      description: List of download events
+      properties:
+        data:
+          description: Download events
+          items:
+            $ref: '#/components/schemas/DownloadHistory'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    VideoSizeDetails:
+      description: Video asset information
+      properties:
+        display_name:
+          description: Display name of this video size
+          type: string
+        file_size:
+          description: File size (in bytes) of this video size
+          type: integer
+        format:
+          description: Format of this video size
+          type: string
+        fps:
+          description: Frames per second of this video size
+          type: number
+        height:
+          description: Height of this video size
+          type: integer
+        is_licensable:
+          description: Whether or not videos can be licensed in this video size
+          type: boolean
+        width:
+          description: Width of this video size
+          type: integer
+      type: object
+    VideoDataList:
+      description: List of videos
+      properties:
+        data:
+          description: Videos
           items:
             $ref: '#/components/schemas/Video'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
           type: array
         message:
           description: Server-generated message, if any
@@ -2238,13 +1864,74 @@ components:
         total_count:
           description: Total count of all results across all pages
           type: integer
-        search_id:
-          description: Unique identifier for the search request
+    LicenseVideoRequest:
+      description: List of videos to license
+      properties:
+        videos:
+          description: Videos to license
+          items:
+            $ref: '#/components/schemas/LicenseVideo'
+          type: array
+      required:
+      - videos
+      type: object
+    Url:
+      description: URL object
+      properties:
+        url:
+          description: URL that can be used to download the unwatermarked, licensed asset
           type: string
       required:
-      - data
-      - total_count
-      - search_id
+      - url
+      type: object
+    VideoAssets:
+      description: Video asset information
+      properties:
+        4k:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        hd:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        preview_jpg:
+          $ref: '#/components/schemas/Url'
+        preview_mp4:
+          $ref: '#/components/schemas/Url'
+        preview_webm:
+          $ref: '#/components/schemas/Url'
+        sd:
+          $ref: '#/components/schemas/VideoSizeDetails'
+        thumb_jpg:
+          $ref: '#/components/schemas/Url'
+        thumb_jpgs:
+          $ref: '#/components/schemas/Urls'
+        thumb_mp4:
+          $ref: '#/components/schemas/Url'
+        thumb_webm:
+          $ref: '#/components/schemas/Url'
+        web:
+          $ref: '#/components/schemas/VideoSizeDetails'
+      type: object
+    Error:
+      description: Error object
+      properties:
+        code:
+          description: The error code of this error
+          type: string
+        data:
+          description: Debugging information about the error
+          type: string
+        items:
+          description: A list of items that produced the error
+          items:
+            type: object
+          type: array
+        message:
+          description: Specific details about this error
+          type: string
+        path:
+          description: Internal code reference to the source of the error
+          type: string
+      required:
+      - message
       type: object
     DownloadHistory:
       description: Information about a downloaded media item. Applicable for all media types, only one of 'audio', 'image' or 'video' will be in a single DownloadHistory object
@@ -2281,22 +1968,152 @@ components:
       - download_time
       - license
       type: object
-    DownloadHistoryUserDetails:
-      description: Information about a user
+    CollectionItemRequest:
+      description: Request to get a list of items in a collection
       properties:
-        username:
-          description: The name of the user who downloaded the item
+        items:
+          description: List of items
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+      required:
+      - items
+      type: object
+    Model:
+      description: Information about a human model or property that appears in media; used to search for assets that this model is in
+      properties:
+        id:
+          description: ID of the model
           type: string
       required:
-      - username
+      - id
       type: object
-    DownloadHistoryDataList:
-      description: List of download events
+    LicenseVideo:
+      description: Data required to license a video
+      example:
+        size: hd
+        subscription_id: s8241143
+        video_id: '2140697'
+      properties:
+        auth_cookie:
+          $ref: '#/components/schemas/Cookie'
+        editorial_acknowledgement:
+          description: Whether or not this item is editorial content
+          type: boolean
+        metadata:
+          $ref: '#/components/schemas/LicenseRequestMetadata'
+        price:
+          description: Retail price amount; only for rev-share partners
+          type: number
+        search_id:
+          description: ID of the search that led to this licensing event
+          type: string
+        show_modal:
+          description: (Deprecated)
+          type: boolean
+        size:
+          description: Size of the video being licensed
+          enum:
+          - web
+          - sd
+          - hd
+          - 4k
+          type: string
+        subscription_id:
+          description: ID of the subscription used for this license
+          type: string
+        video_id:
+          description: ID of the video being licensed
+          type: string
+      required:
+      - video_id
+      type: object
+    UpdatedMedia:
+      description: Information about a piece of updated media
+      properties:
+        id:
+          description: ID of the media
+          type: string
+        updated_time:
+          description: Date that the media was updated
+          format: date-time
+          type: string
+        updates:
+          description: Types of updates that were made to the piece of media
+          items:
+            type: string
+          type: array
+      required:
+      - id
+      - updated_time
+      - updates
+      type: object
+    LicenseRequestMetadata:
+      description: Additional information for license requests for enterprise accounts and API subscriptions, 4 fields maximum; which fields are required is set by the account holder
+      example:
+        customer_id: '12345'
+        geo_location: US
+        number_viewed: '15'
+        search_term: dog
+      maxProperties: 4
+      properties: {}
+      type: object
+    DownloadHistoryMediaDetails:
+      description: Information about the downloaded media
+      properties:
+        format:
+          $ref: '#/components/schemas/DownloadHistoryFormatDetails'
+        id:
+          description: ID of the download history media details
+          type: string
+      required:
+      - id
+      type: object
+    CollectionCreateRequest:
+      description: Collection creation request
+      example:
+        name: Test Collection 19cf
+      properties:
+        name:
+          description: The name of the collection
+          type: string
+      required:
+      - name
+      type: object
+    CollectionDataList:
+      description: List of collections
+      example:
+        data:
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747953'
+          name: Test Collection cdad
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:56-05:00'
+          id: '5747955'
+          name: Test Collection ff5f
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:56-05:00'
+        - created_time: '2014-11-05T19:29:58-05:00'
+          id: '5747957'
+          name: Updated Collection ebc4
+          total_item_count: 0
+          updated_time: '2014-11-05T19:29:58-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747971'
+          name: Test Collection 0072
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
+        - created_time: '2014-11-05T19:32:13-05:00'
+          id: '5747973'
+          name: Test Collection d332
+          total_item_count: 0
+          updated_time: '2014-11-05T19:32:13-05:00'
       properties:
         data:
-          description: Download events
+          description: Collections
           items:
-            $ref: '#/components/schemas/DownloadHistory'
+            $ref: '#/components/schemas/Collection'
           type: array
         errors:
           description: Error list; appears only if there was an error
@@ -2315,18 +2132,69 @@ components:
         total_count:
           description: The total number of results across all pages
           type: integer
-    LicenseVideoResultDataList:
-      description: List of video license results
+    CollectionCreateResponse:
+      description: Collection creation response
+      example:
+        id: '48433105'
+      properties:
+        id:
+          description: ID of the new collection
+          type: string
+      required:
+      - id
+      type: object
+    CollectionUpdateRequest:
+      description: Collection update request
+      example:
+        name: My collection with a new name
+      properties:
+        name:
+          description: The new name of the collection
+          type: string
+      required:
+      - name
+      type: object
+    Price:
+      description: Price
+      properties:
+        local_amount:
+          description: Dollar amount of the calculated rev-share price in the currency local_currency
+          type: number
+        local_currency:
+          description: Currency of the rev-share price that was calculated
+          type: string
+      type: object
+    RedownloadVideo:
+      description: Data required to redownload a video
+      properties:
+        auth_cookie:
+          description: (Deprecated)
+          deprecated: true
+          $ref: '#/components/schemas/Cookie'
+        show_modal:
+          description: (Deprecated)
+          deprecated: true
+          type: boolean
+        size:
+          description: Size of the video
+          enum:
+          - web
+          - sd
+          - hd
+          - 4k
+          type: string
+        verification_code:
+          description: (Deprecated)
+          deprecated: true
+          type: string
+      type: object
+    VideoSearchResults:
+      description: Video search results
       properties:
         data:
-          description: License results
+          description: List of videos
           items:
-            $ref: '#/components/schemas/LicenseVideoResult'
-          type: array
-        errors:
-          description: Error list; appears only if there was an error
-          items:
-            $ref: '#/components/schemas/Error'
+            $ref: '#/components/schemas/Video'
           type: array
         message:
           description: Server-generated message, if any
@@ -2340,6 +2208,138 @@ components:
         total_count:
           description: Total count of all results across all pages
           type: integer
+        search_id:
+          description: Unique identifier for the search request
+          type: string
+      required:
+      - data
+      - total_count
+      - search_id
+      type: object
+    Collection:
+      description: Metadata about a collection of assets
+      properties:
+        cover_item:
+          $ref: '#/components/schemas/CollectionItem'
+        created_time:
+          description: When the collection was created
+          format: date-time
+          type: string
+        id:
+          description: The collection ID
+          type: string
+        items_updated_time:
+          description: The last time this collection's items were updated
+          format: date-time
+          type: string
+        name:
+          description: The name of the collection
+          type: string
+        share_code:
+          description: A code that can be used to share the collection (optional)
+          type: string
+        share_url:
+          description: The browser URL that can be used to share the collection (optional)
+          type: string
+        total_item_count:
+          description: The number of items in the collection
+          type: integer
+        updated_time:
+          description: The last time the collection was update (other than changes to the items in it)
+          format: date-time
+          type: string
+      required:
+      - id
+      - name
+      - total_item_count
+      type: object
+    Cookie:
+      description: Cookie object
+      properties:
+        name:
+          description: The name of the cookie
+          type: string
+        value:
+          description: The value of the cookie
+          type: string
+      required:
+      - name
+      - value
+      type: object
+    Contributor:
+      description: Information about a contributor
+      properties:
+        id:
+          description: ID of the contributor
+          type: string
+      required:
+      - id
+      type: object
+    LicenseVideoResult:
+      description: The response to a licensing request for a video
+      properties:
+        allotment_charge:
+          description: Number of credits that this licensing event used
+          type: integer
+        download:
+          $ref: '#/components/schemas/Url'
+        error:
+          description: Potential error that occurred during licensing
+          type: string
+        price:
+          $ref: '#/components/schemas/Price'
+          description: Wholesale price information; only for rev-share partners only
+        video_id:
+          description: ID of the video that was licensed
+          type: string
+      required:
+      - video_id
+      type: object
+    CollectionItemDataList:
+      description: List of items in a collection
+      example:
+        data:
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '76688182'
+          media_type: audio
+        - added_time: '2016-08-18T18:52:59-04:00'
+          id: '40005859'
+          media_type: audio
+        page: 1
+        per_page: 100
+      properties:
+        data:
+          description: Assets in the collection
+          items:
+            $ref: '#/components/schemas/CollectionItem'
+          type: array
+        errors:
+          description: Error list; appears only if there was an error
+          items:
+            $ref: '#/components/schemas/Error'
+          type: array
+        message:
+          description: Server-generated message, if any
+          type: string
+        page:
+          description: The current page of results
+          type: integer
+        per_page:
+          description: The number of results per page
+          type: integer
+        total_count:
+          description: The total number of results across all pages
+          type: integer
+    Category:
+      description: Category information
+      properties:
+        id:
+          description: Category ID
+          type: string
+        name:
+          description: Category name
+          type: string
+      type: object
   securitySchemes:
     basic:
       type: http
