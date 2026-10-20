@@ -5,6 +5,9 @@ checked:
 - https://connectors.airbyte.com/files/registries/v0/oss_registry.json
 - https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - okta/integrations/okta-integration-edges.yml
+- https://app.snowflake.com/marketplace/providers
+- https://aws.amazon.com/marketplace/search/results?FULFILLMENT_OPTION_TYPE=DATA_EXCHANGE
+- https://marketplace.databricks.com/
 marketplace_apps: []
 edges:
 - partner_name: Google Ad Tech Providers
@@ -82,5 +85,94 @@ edges:
     builder: unknown (community connector; contributor not in the record)
   detected_by: sweep-data-integration.py
   first_seen: '2026-10-18'
+- partner_name: Databricks Marketplace
+  partner: databricks
+  partner_match: aggregator
+  type: marketplace
+  marketplace: databricks-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://marketplace.databricks.com/provider/f1e2468b-186b-4ad3-8dbe-91954aa9cbab
+  category: data product listing
+  contract_reference:
+    register: Databricks Marketplace (marketplace.databricks.com/api/2.0/public-marketplace-providers + public-marketplace-listings)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Shutterstock
+    matched_domain: shutterstock.com
+    matched_by: domain
+    listings: 5
+    sample_listings:
+    - ' Free Sample Dataset - Object Detection (200 High-Res Images & Metadata)'
+    - Free Sample Dataset - 1000 High Resolution Images & Metadata
+    - Free Sample Dataset - 50 High Resolution Videos & Metadata
+    - Free Sample Dataset - Facial Detection (100 High-Res Images & Metadata)
+    - Free Sample Dataset - People Detection (200 High-Res Images & Metadata)
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+  detected_by: sweep-data-marketplaces.py
+  detected: '2026-10-20'
+- partner_name: AWS Data Exchange
+  partner: amazon-data-exchange
+  partner_match: aggregator
+  type: marketplace
+  marketplace: amazon-data-exchange-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=fb34254c-c7cf-47b8-806c-24045a0a2807
+  category: data product listing
+  contract_reference:
+    register: AWS Data Exchange (AWS Marketplace discovery search, FULFILLMENT_OPTION_TYPE=DATA_EXCHANGE + seller-profile
+      sellerWebsiteUrl)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Shutterstock
+    matched_domain: shutterstock.com
+    matched_by: domain
+    listings: 5
+    sample_listings:
+    - Free Sample Dataset - 1000 High Resolution Images & Metadata
+    - Free Sample Dataset - 50 High Resolution Videos & Metadata
+    - Free Sample Dataset - Facial Detection (100 High-Res Images & Metadata)
+    - Free Sample Dataset - Object Detection (200 High-Res Images & Metadata)
+    - Free Sample Dataset - People Detection (200 High-Res Images & Metadata)
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+  detected_by: sweep-data-marketplaces.py
+  detected: '2026-10-20'
+  publisher_verified:
+  - Deployed on AWS
+  - Standard Data Agreement
+- partner_name: Snowflake Marketplace
+  partner: snowflake
+  partner_match: aggregator
+  type: marketplace
+  marketplace: snowflake-marketplace
+  channel: distribution
+  relationship: distribution-channel
+  direction: third-party
+  evidence: https://app.snowflake.com/marketplace/providers/GZSOZ8FIUB
+  category: data product listing
+  contract_reference:
+    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
+      P856 identity step)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Shutterstock
+    matched_domain: shutterstock.com
+    matched_by: domain
+    listings: 5
+    sample_listings: []
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+    identity_source: wikidata
+    identity_note: wikidata P856 shutterstock.com for 'Shutterstock' (labelled identity step)
+  detected_by: sweep-data-marketplaces.py
+  detected: '2026-10-20'
 source:
 - okta/integrations/okta-integration-edges.yml

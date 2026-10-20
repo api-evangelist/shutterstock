@@ -69,3 +69,92 @@
     builder: unknown (community connector; contributor not in the record)
   status: not-a-workflow
   arazzo: null
+- slug: shutterstock-databricks-marketplace
+  label: Databricks Marketplace
+  partner: databricks
+  partner_name: Databricks Marketplace
+  category: data product listing
+  type: marketplace
+  marketplace: databricks-marketplace
+  channel: distribution
+  evidence: https://marketplace.databricks.com/provider/f1e2468b-186b-4ad3-8dbe-91954aa9cbab
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Databricks Marketplace (marketplace.databricks.com/api/2.0/public-marketplace-providers + public-marketplace-listings)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Shutterstock
+    matched_domain: shutterstock.com
+    matched_by: domain
+    listings: 5
+    sample_listings:
+    - ' Free Sample Dataset - Object Detection (200 High-Res Images & Metadata)'
+    - Free Sample Dataset - 1000 High Resolution Images & Metadata
+    - Free Sample Dataset - 50 High Resolution Videos & Metadata
+    - Free Sample Dataset - Facial Detection (100 High-Res Images & Metadata)
+    - Free Sample Dataset - People Detection (200 High-Res Images & Metadata)
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: shutterstock-aws-data-exchange
+  label: AWS Data Exchange
+  partner: amazon-data-exchange
+  partner_name: AWS Data Exchange
+  category: data product listing
+  type: marketplace
+  marketplace: amazon-data-exchange-marketplace
+  channel: distribution
+  evidence: https://aws.amazon.com/marketplace/seller-profile?id=fb34254c-c7cf-47b8-806c-24045a0a2807
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: AWS Data Exchange (AWS Marketplace discovery search, FULFILLMENT_OPTION_TYPE=DATA_EXCHANGE + seller-profile
+      sellerWebsiteUrl)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Shutterstock
+    matched_domain: shutterstock.com
+    matched_by: domain
+    listings: 5
+    sample_listings:
+    - Free Sample Dataset - 1000 High Resolution Images & Metadata
+    - Free Sample Dataset - 50 High Resolution Videos & Metadata
+    - Free Sample Dataset - Facial Detection (100 High-Res Images & Metadata)
+    - Free Sample Dataset - Object Detection (200 High-Res Images & Metadata)
+    - Free Sample Dataset - People Detection (200 High-Res Images & Metadata)
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
+- slug: shutterstock-snowflake-marketplace
+  label: Snowflake Marketplace
+  partner: snowflake
+  partner_name: Snowflake Marketplace
+  category: data product listing
+  type: marketplace
+  marketplace: snowflake-marketplace
+  channel: distribution
+  evidence: https://app.snowflake.com/marketplace/providers/GZSOZ8FIUB
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: Snowflake Marketplace providers (app.snowflake.com/marketplace/providers, rendered; names only, Wikidata
+      P856 identity step)
+    spec_file: null
+    role: data-marketplace-seller
+    registered_name: Shutterstock
+    matched_domain: shutterstock.com
+    matched_by: domain
+    listings: 5
+    sample_listings: []
+    signal_note: 'participation: the provider lists data products on this marketplace; counts are context'
+    detected_by: sweep-data-marketplaces.py
+    detected: '2026-10-20'
+    identity_source: wikidata
+    identity_note: wikidata P856 shutterstock.com for 'Shutterstock' (labelled identity step)
+  status: not-a-workflow
+  arazzo: null
