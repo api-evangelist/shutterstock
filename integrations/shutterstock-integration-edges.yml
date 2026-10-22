@@ -8,6 +8,8 @@ checked:
 - https://app.snowflake.com/marketplace/providers
 - https://aws.amazon.com/marketplace/search/results?FULFILLMENT_OPTION_TYPE=DATA_EXCHANGE
 - https://marketplace.databricks.com/
+- https://api.apis.guru/v2/list.json
+- https://api.apis.guru/v2/providers.json
 marketplace_apps: []
 edges:
 - partner_name: Google Ad Tech Providers
@@ -174,5 +176,46 @@ edges:
     identity_note: wikidata P856 shutterstock.com for 'Shutterstock' (labelled identity step)
   detected_by: sweep-data-marketplaces.py
   detected: '2026-10-20'
+- partner_name: APIs.guru OpenAPI Directory
+  partner: apis-guru
+  partner_match: register
+  type: register
+  channel: standard-directory
+  relationship: standard-participant
+  direction: third-party
+  evidence: https://apis.guru/
+  category: API definition directory listing (OpenAPI)
+  contract_reference:
+    register: APIs.guru OpenAPI Directory
+    spec_file: null
+    standard: APIs.guru OpenAPI Directory
+    role: listed-in-directory
+    directory_provider: shutterstock.com
+    matched_domain: shutterstock.com
+    matched_by: domain
+    apis_listed: 1
+    version_count: 1
+    first_added: '2019-09-27'
+    last_updated: '2023-03-06'
+    origin_publisher_hosted: true
+    origin_hosts:
+    - api-explorer.shutterstock.com
+    categories:
+    - media
+    own_openapi_files: 10
+    listings:
+    - key: shutterstock.com
+      title: Shutterstock API Explorer
+      preferred: 1.1.32
+      versions: 1
+      swagger_url: https://api.apis.guru/v2/specs/shutterstock.com/1.1.32/openapi.json
+      origin_url: https://api-explorer.shutterstock.com/openapi.json
+      openapi_version: 3.0.0
+    signal_note: 'participation only: a community directory listing (APIs.guru collects definitions; the provider
+      did not file them). Signals: version_count, apis_listed, origin_publisher_hosted.'
+    detected_by: sweep-openapi-directory-apis-guru.py
+    detected: '2026-10-22'
+  detected_by: sweep-openapi-directory-apis-guru.py
+  first_seen: '2026-10-22'
 source:
 - okta/integrations/okta-integration-edges.yml
